@@ -16,7 +16,7 @@ const Formulario = () => {
 
   const onSubmit = () => {
     if (email === "tobiassebastianstegmayer@gmail.com") {
-      navigate("/Administracion/Compras");
+      navigate("/Administracion/Ventas");
     }
   };
 
