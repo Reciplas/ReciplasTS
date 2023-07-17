@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Route, Routes } from "react-router-dom";
+import AdmCompras from "./Administracion/Compras";
+import AdmVentas from "./Administracion/Ventas";
+import AdmMP from "./Administracion/MateriaPrima";
+import AdmProductos from "./Administracion/Productos";
+import AdmUsuarios from "./Administracion/Usuarios";
+import AdmClientes from "./Administracion/Clientes";
+import AdmProveedores from "./Administracion/Proveedores";
+import AdmPerfil from "./Administracion/Perfil";
+import Login from "./Login";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/Administracion/Compras" element={<AdmCompras />} />
+          <Route path="/Administracion/Ventas" element={<AdmVentas />} />
+          <Route path="/Administracion/MateriaPrima" element={<AdmMP />} />
+          <Route path="/Administracion/Productos" element={<AdmProductos />} />
+          <Route path="/Administracion/Usuarios" element={<AdmUsuarios />} />
+          <Route path="/Administracion/Clientes" element={<AdmClientes />} />
+          <Route
+            path="/Administracion/Proveedores"
+            element={<AdmProveedores />}
+          />
+          <Route path="/Administracion/Perfil" element={<AdmPerfil />} />
+        </Routes>
     </div>
   );
 }
-
 export default App;

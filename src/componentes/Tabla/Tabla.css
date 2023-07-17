@@ -1,0 +1,89 @@
+
+table{
+  font-size: 15px;
+  table-layout: fixed;
+  border-collapse: collapse;
+  width: 100%; 
+  min-width: 1200px;
+  padding: 20px;
+  text-align: left;
+}
+
+thead{
+  background-image: var(--c2);
+  
+}
+
+td{
+  padding: 12px 15px ;
+}
+
+th{
+  font-weight: 900;
+  padding: 12px 15px;
+  text-transform: uppercase;
+}
+
+tbody tr{
+  max-height: 80px;
+  height: 50px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--c6);
+
+}
+
+tbody tr:nth-child(even){
+ background-color: var(--c7);
+
+}
+
+tbody tr:hover{
+  background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
+}
+
+.id, .nro, .accion{
+  width: 30px;
+}
+
+
+.cuotas{
+  width: 80px;
+}
+
+.plastico, .precio, .cantidad, .total{
+  width: 100px;
+}
+
+.fecha, .producto{
+  width: 120px;
+}
+
+.descripcion{
+  width: 350px;
+
+}
+
+.direccion{
+  width: 270px;
+}
+
+.correo,.email{
+  width: 250px;
+}
+
+.cliente, .nombre, .fechaIngreso{
+  width: 200px;
+}
+
+.area, .telefono{
+  width: 140px;
+}
+
+
+
+
+
+
+
+
+

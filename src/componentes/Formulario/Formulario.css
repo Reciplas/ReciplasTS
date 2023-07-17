@@ -1,0 +1,112 @@
+.login-background{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background-image: url(../../img/fondo.login.jpg);
+	background-size: cover;
+	background-repeat: none;
+}
+
+.contenedor-login{
+  height: 540px;
+	width: 410px;
+	background-color: var(--c11);
+	border-radius: 7px;
+	display: flex;
+	flex-direction: column;
+	padding: 40px 30px;
+	position: relative;
+  justify-content: space-between;
+}
+
+.formato_logo{
+  display: flex;
+  justify-content: center;
+}
+
+.formato_logo img{
+  width: 250px;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.usuario-contraseña{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input-style{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.input-style label{
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--c10);
+}
+
+.input-style input{
+  background-color: white;
+  border: 1px solid var(--c12);
+  border-radius: 5px;
+  height: 40px;
+  padding: 10px;
+}
+
+
+.input-style input:focus{
+  border: 1px solid var(--c4);
+}
+
+.campo-obligatorio{
+  display: flex;
+  justify-content: space-between;
+}
+
+.campo-obligatorio p{
+  font-size: 20px;
+}
+
+.error-msg{
+  color: red;
+}
+
+.btn-login{
+  color: var(--c11);
+  background-color: var(--c5);
+  border-radius: 5px;
+  height: 60px;
+  font-size: 18px;
+  transition: all 0.4s;
+  margin-bottom: 10px;
+}
+
+.btn-login:hover{
+	background: var(--c13);
+	cursor:pointer;
+	transition: all 0.4s;
+}
+
+.btn-login:active{
+  transform: translateY(-3px);
+ 
+}
+
+.recuperar-pswr{
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--c13);
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  margin-bottom: 20px;
+}

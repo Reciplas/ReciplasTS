@@ -1,0 +1,76 @@
+.contenedor-menu{
+  width: 225px;
+  background-image: var(--c2);
+  backdrop-filter: blur(50%);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 23px;
+  color: var(--c4);
+  padding-bottom: 15px;
+  position: relative;
+  transition: all .2s ease;
+}
+
+.nav{
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+}
+
+.contenedor-img{
+  display: flex;
+  justify-content: center;
+  margin: 0 10px;
+}
+
+img{
+  width: 200px;
+  margin: 10px 0 10px 0;
+}
+
+
+.iconoMenu{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.seccionMenu{
+  width: 100%;
+  overflow-x: hidden;
+  white-space: nowrap
+}
+
+span{
+  margin-top: 2px;
+}
+
+.icono-seccion{
+  display: flex;
+  margin: 0 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all .1s ease-in;
+  padding: 3px 5px;
+  text-decoration: none;
+  color: var(--c4);
+  gap: 15px;
+}
+
+.icono-seccion:hover{
+  background-color: var(--c6);
+  color: black;
+}
+
+.seccion-actual{
+  display: flex;
+  padding: 3px 5px;
+  gap: 15px;
+  cursor: pointer;
+  margin: 0 0 0 10px;
+  border-right: 3px solid var(--c5);
+  color: var(--c5);
+  text-decoration: none;
+}
