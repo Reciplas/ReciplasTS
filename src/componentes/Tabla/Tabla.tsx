@@ -54,12 +54,14 @@ function getColumnClass(columna: string) {
 export function Tabla({
   columnas,
   datos,
+  estilo,
 }: {
   columnas: string[];
   datos: (string | undefined)[][];
+  estilo: string;
 }) {
   return (
-    <table>
+    <table className={estilo}>
       <thead>
         <tr>
           {columnas.map((columna: string, index: number) => (
@@ -165,16 +167,13 @@ export function Paginado() {
           estilo="paginado-btn"
           texto=""
         />
-
         <div className="nroPaginaActual">1</div>
-
         <BtnIcon
           icono="chevron_right"
           accion={() => {}}
           estilo="paginado-btn"
           texto=""
         />
-
         <BtnIcon
           icono="last_page"
           accion={() => {}}

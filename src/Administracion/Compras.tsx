@@ -152,7 +152,7 @@ function Compras() {
         </div>
 
         <div className="contenedor-tabla">
-          <Tabla columnas={columnas} datos={datos} />
+          <Tabla columnas={columnas} datos={datos} estilo={""}/>
         </div>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <Paginado />

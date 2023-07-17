@@ -1,6 +1,5 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import AdmCompras from "./Administracion/Compras";
 import AdmVentas from "./Administracion/Ventas";
 import AdmMP from "./Administracion/MateriaPrima";
 import AdmProductos from "./Administracion/Productos";
@@ -15,7 +14,6 @@ function App() {
     <div className="App">
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/Administracion/Compras" element={<AdmCompras />} />
           <Route path="/Administracion/Ventas" element={<AdmVentas />} />
           <Route path="/Administracion/MateriaPrima" element={<AdmMP />} />
           <Route path="/Administracion/Productos" element={<AdmProductos />} />

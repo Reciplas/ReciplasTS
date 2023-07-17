@@ -1,89 +1,93 @@
-
-table{
+table {
   font-size: 15px;
   table-layout: fixed;
   border-collapse: collapse;
-  width: 100%; 
+  width: 100%;
   min-width: 1200px;
   padding: 20px;
   text-align: left;
 }
+.tablaChiquita {
+  font-size: 15px;
+  table-layout: fixed;
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 400px;
+  padding: 20px;
+  text-align: left;
+}
 
-thead{
+thead {
   background-image: var(--c2);
-  
 }
 
-td{
-  padding: 12px 15px ;
+td {
+  padding: 12px 15px;
 }
 
-th{
+th {
   font-weight: 900;
   padding: 12px 15px;
   text-transform: uppercase;
 }
 
-tbody tr{
+tbody tr {
   max-height: 80px;
   height: 50px;
   padding: 10px 0;
   border-bottom: 1px solid var(--c6);
-
 }
 
-tbody tr:nth-child(even){
- background-color: var(--c7);
-
+tbody tr:nth-child(even) {
+  background-color: var(--c7);
 }
 
-tbody tr:hover{
+tbody tr:hover {
   background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
 }
 
-.id, .nro, .accion{
+.id,
+.nro,
+.accion {
   width: 30px;
 }
 
-
-.cuotas{
+.cuotas {
   width: 80px;
 }
 
-.plastico, .precio, .cantidad, .total{
+.plastico,
+.precio,
+.cantidad,
+.total {
   width: 100px;
 }
 
-.fecha, .producto{
+.fecha,
+.producto {
   width: 120px;
 }
 
-.descripcion{
+.descripcion {
   width: 350px;
-
 }
 
-.direccion{
+.direccion {
   width: 270px;
 }
 
-.correo,.email{
+.correo,
+.email {
   width: 250px;
 }
 
-.cliente, .nombre, .fechaIngreso{
+.cliente,
+.nombre,
+.fechaIngreso {
   width: 200px;
 }
 
-.area, .telefono{
+.area,
+.telefono {
   width: 140px;
 }
-
-
-
-
-
-
-
-
-

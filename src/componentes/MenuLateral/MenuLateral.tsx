@@ -49,17 +49,6 @@ function MenuLateral({ seccionActual }: { seccionActual: string }) {
         </div>
 
         <Link
-          to="/Administracion/Compras"
-          className={
-            seccionActual === "Compras" ? "seccion-actual" : "icono-seccion"
-          }
-        >
-          <div className="iconoMenu">
-            <span className="material-symbols-outlined">shopping_cart</span>
-          </div>
-          <div className="seccionMenu">Compras</div>
-        </Link>
-        <Link
           to="/Administracion/Ventas"
           className={
             seccionActual === "Ventas" ? "seccion-actual" : "icono-seccion"
