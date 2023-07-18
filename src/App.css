@@ -10,7 +10,7 @@ html, body{
 }
 
 :root{
-  --c1: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);;
+  --c1: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
   --c2: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
   --c3: #E28000;
   --c4: hsl(120, 100%, 9%);
