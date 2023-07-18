@@ -150,7 +150,7 @@ function MateriaPrima() {
         <div className="flex gap-3 w-full">
           <div className="flex flex-col gap-3 w-[70%]">
             <h1>Ingresos de materia prima</h1>
-            <div className="flex gap-1 items-center">
+            <div className="flex gap-[5px] items-center">
               <Btn estilo="btnOrdenar" valor="Ordenar" />
               <Btn estilo="btnOrdenar" valor="Filtrar Período" />
               <Filtro
@@ -161,7 +161,7 @@ function MateriaPrima() {
               />
               <BtnBuscador buscarPor="ID" estilo="btnBuscador" />
             </div>
-            <div className="w-full max-w-xl h-fit overflow-y-hidden border border-slate-blue2">
+            <div className="w-full max-h-[773px] h-fit overflow-y-hidden border border-slate-blue2">
               <Tabla columnas={columnas} datos={datos} estilo={""} />
             </div>
             <div className="flex justify-between">
