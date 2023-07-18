@@ -153,8 +153,8 @@ export function TablaEditable({
 
 export function Paginado() {
   return (
-    <div style={{ display: "flex", justifyContent: "space-between" }}>
-      <div className="paginado-tabla">
+    <div className="flex justify-between">
+      <div className="flex items-center">
         <BtnIcon
           icono="first_page"
           accion={() => {}}

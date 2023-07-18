@@ -7,6 +7,7 @@ import AdmUsuarios from "./Administracion/Usuarios";
 import AdmClientes from "./Administracion/Clientes";
 import AdmProveedores from "./Administracion/Proveedores";
 import AdmPerfil from "./Administracion/Perfil";
+import ProdMP from "./Produccion/MateriaPrima";
 import Login from "./Login";
 import ComprasProveedores from "./Compras/Proveedores";
 import ComprasMP from "./Compras/MateriaPrima";
@@ -29,6 +30,7 @@ function App() {
         <Route path="/Administracion/Perfil" element={<AdmPerfil />} />
         <Route path="/Compras/Proveedores" element={<ComprasProveedores />} />
         <Route path="/Compras/MateriaPrima" element={<ComprasMP />} />
+        <Route path="/Produccion/MateriaPrima" element={<ProdMP />} />
         {/* <Route path="/Compras/Pedidos" element={<ComprasPedidos />} /> */}
       </Routes>
     </div>

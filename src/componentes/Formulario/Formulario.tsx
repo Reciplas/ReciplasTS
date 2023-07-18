@@ -16,18 +16,15 @@ const Formulario = () => {
 
   const onSubmit = () => {
     switch (email) {
-      case "tobiassebastianstegmayer@gmail.com":
+      case "tobias@reciplas.com":
         return navigate("/Administracion/Ventas");
       case "lautaro@reciplas.com":
         return navigate("/Compras/Proveedores");
+      case "enzo@reciplas.com":
+        return navigate("/Produccion/MateriaPrima");
       default:
         return "";
     }
-    // if (email === "tobiassebastianstegmayer@gmail.com") {
-    //   navigate("/Administracion/Ventas");
-    // }else{
-
-    // }
   };
 
   return (
