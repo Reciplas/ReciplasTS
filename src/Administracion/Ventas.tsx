@@ -1,4 +1,4 @@
-import MenuLateral from "../componentes/MenuLateral/MenuLateral";
+import { MenuLateral } from "../componentes/MenuLateral/MenuLateral";
 import "../App.css";
 import { Paginado, TablaEditable } from "../componentes/Tabla/Tabla";
 import Header from "../componentes/Header/Header";

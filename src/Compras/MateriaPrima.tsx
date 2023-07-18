@@ -1,7 +1,7 @@
-import { MenuLateral } from "../componentes/MenuLateral/MenuLateral";
+import { MLcompras } from "../componentes/MenuLateral/MenuLateral";
 import "../App.css";
 import { BtnBuscador, Btn, Filtro } from "../componentes/Boton/Boton";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Paginado, Tabla } from "../componentes/Tabla/Tabla";
 import Header from "../componentes/Header/Header";
 
@@ -145,7 +145,7 @@ function MateriaPrima() {
 
   return (
     <div className="App">
-      <MenuLateral seccionActual={seccionActual} />
+      <MLcompras seccionActual={seccionActual} />
       <div className="contenedor-principal">
         <Header
           perfil="Tobias Stegmayer"

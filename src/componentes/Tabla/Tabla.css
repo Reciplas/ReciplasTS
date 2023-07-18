@@ -50,6 +50,7 @@ tbody tr:hover {
 .nro,
 .accion {
   width: 30px;
+  max-width: 30px;
 }
 
 .cuotas {
@@ -63,8 +64,8 @@ tbody tr:hover {
   width: 100px;
 }
 
-.fecha,
-.producto {
+.producto,
+.fecha {
   width: 120px;
 }
 
@@ -90,4 +91,8 @@ tbody tr:hover {
 .area,
 .telefono {
   width: 140px;
+}
+
+.accion-en-tabla:hover {
+  color: var(--c5);
 }

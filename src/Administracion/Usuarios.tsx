@@ -1,4 +1,4 @@
-import MenuLateral from "../componentes/MenuLateral/MenuLateral";
+import { MenuLateral } from "../componentes/MenuLateral/MenuLateral";
 import "../App.css";
 import Header from "../componentes/Header/Header";
 import { Btn, Filtro, BtnBuscador } from "../componentes/Boton/Boton";

@@ -15,9 +15,19 @@ const Formulario = () => {
   const [email, setEmail] = useState("");
 
   const onSubmit = () => {
-    if (email === "tobiassebastianstegmayer@gmail.com") {
-      navigate("/Administracion/Ventas");
+    switch (email) {
+      case "tobiassebastianstegmayer@gmail.com":
+        return navigate("/Administracion/Ventas");
+      case "lautaro@reciplas.com":
+        return navigate("/Compras/Proveedores");
+      default:
+        return "";
     }
+    // if (email === "tobiassebastianstegmayer@gmail.com") {
+    //   navigate("/Administracion/Ventas");
+    // }else{
+
+    // }
   };
 
   return (

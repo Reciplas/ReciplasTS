@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../App.css";
 import "../Perfil.css";
 import Header from "../componentes/Header/Header";
-import MenuLateral from "../componentes/MenuLateral/MenuLateral";
+import { MenuLateral } from "../componentes/MenuLateral/MenuLateral";
 import { BtnBuscador, Filtro } from "../componentes/Boton/Boton";
 
 function Perfil() {

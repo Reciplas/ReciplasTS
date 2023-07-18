@@ -1,4 +1,4 @@
-import { MenuLateral } from "../componentes/MenuLateral/MenuLateral";
+import { MLcompras } from "../componentes/MenuLateral/MenuLateral";
 import "../App.css";
 import Header from "../componentes/Header/Header";
 import { Btn, Filtro, BtnBuscador } from "../componentes/Boton/Boton";
@@ -180,7 +180,7 @@ function Proveedores() {
   ];
   return (
     <div className="App">
-      <MenuLateral seccionActual={seccionActual} />
+      <MLcompras seccionActual={seccionActual} />
       <div className="contenedor-principal">
         <Header
           perfil="Tobias Stegmayer"

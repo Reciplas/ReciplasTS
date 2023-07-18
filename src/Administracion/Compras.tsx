@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../App.css";
 import { Tabla, Paginado } from "../componentes/Tabla/Tabla";
 import Header from "../componentes/Header/Header";
-import MenuLateral from "../componentes/MenuLateral/MenuLateral";
+import { MenuLateral } from "../componentes/MenuLateral/MenuLateral";
 import { BtnBuscador, Btn, Filtro } from "../componentes/Boton/Boton";
 
 function Compras() {
@@ -152,7 +152,7 @@ function Compras() {
         </div>
 
         <div className="contenedor-tabla">
-          <Tabla columnas={columnas} datos={datos} estilo={""}/>
+          <Tabla columnas={columnas} datos={datos} estilo={""} />
         </div>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <Paginado />
