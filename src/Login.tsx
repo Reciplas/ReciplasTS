@@ -1,11 +1,11 @@
-import Formulario from './componentes/Formulario/Formulario'
+import Formulario from "./componentes/Formulario/Formulario";
 
 function Login() {
-    return (
-        <div className="App">
-        <Formulario/>
-        </div>
-    );
+  return (
+    <div className="App">
+      <Formulario />
+    </div>
+  );
 }
 
 export default Login;

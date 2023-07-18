@@ -11,7 +11,7 @@ import ProdMP from "./Produccion/MateriaPrima";
 import Login from "./Login";
 import ComprasProveedores from "./Compras/Proveedores";
 import ComprasMP from "./Compras/MateriaPrima";
-// import ComprasPedidos from "./Compras/Pedidos";
+import ComprasPedidos from "./Compras/Pedidos";
 
 function App() {
   return (
@@ -31,7 +31,7 @@ function App() {
         <Route path="/Compras/Proveedores" element={<ComprasProveedores />} />
         <Route path="/Compras/MateriaPrima" element={<ComprasMP />} />
         <Route path="/Produccion/MateriaPrima" element={<ProdMP />} />
-        {/* <Route path="/Compras/Pedidos" element={<ComprasPedidos />} /> */}
+        <Route path="/Compras/Pedidos" element={<ComprasPedidos />} />
       </Routes>
     </div>
   );

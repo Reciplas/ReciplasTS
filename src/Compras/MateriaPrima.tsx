@@ -216,8 +216,7 @@ function MateriaPrima() {
                 gap: "8px",
               }}>
               {/* <Paginado/> */}
-              <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-                <Btn estilo="btnImprimir" valor="Agregar" />
+              <div className="flex gap-(8px) flex-wrap">
                 <Btn estilo="btnImprimir" valor="Gernerar Informe" />
               </div>
             </div>

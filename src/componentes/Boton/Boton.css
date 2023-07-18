@@ -1,22 +1,23 @@
-.btnMenu{
+.btnMenu {
   background: none;
   width: 40px;
   height: 40px;
   cursor: pointer;
   border-radius: 50%;
   border: none;
-  transition: all .2s ease;
+  transition: all 0.2s ease;
   color: var(--c10);
   position: absolute;
   right: -50px;
-  top:7px
+  top: 7px;
 }
 
-.btnMenu:hover{
+.btnMenu:hover {
   background-color: var(--c7);
 }
 
-.btnBuscador, .btnBuscadorGeneral{
+.btnBuscador,
+.btnBuscadorGeneral {
   display: flex;
   align-items: center;
   background: var(--c7);
@@ -24,33 +25,32 @@
   width: fit-content;
   color: var(--c10);
   border-radius: 5px;
-  border:solid 1px var(--c4);
+  border: solid 1px var(--c4);
   padding: 0 1px 0 5px;
-  height: fit-content; 
+  height: fit-content;
 }
 
-.btnBuscadorGeneral input{
-  width: 150px
+.btnBuscadorGeneral input {
+  width: 150px;
 }
 
-.btnBuscador input{
-  width: 50px
+.btnBuscador input {
+  width: 50px;
 }
 
-
-input{
+input {
   outline: none;
   border: none;
   background-color: var(--c7);
   padding: 7px 0;
-  
 }
 
-.btnBuscador:focus-within, .btnBuscadorGeneral:focus-within{
-  border:solid 2px var(--c5);
+.btnBuscador:focus-within,
+.btnBuscadorGeneral:focus-within {
+  border: solid 2px var(--c5);
 }
 
-.btnFiltro{
+.btnFiltro {
   display: flex;
   align-items: center;
   position: relative;
@@ -60,23 +60,21 @@ input{
   width: 100px;
   height: fit-content;
   border-radius: 5px;
-  
 }
 
-
-select{
+select {
   border: none;
   appearance: none;
   outline: none;
   background-color: var(--c7);
   width: 100%;
   border-radius: 5px;
-  border:solid 1px var(--c4);
+  border: solid 1px var(--c4);
   padding: 7px 1px 7px 5px;
   cursor: pointer;
 }
 
-.btnFiltro span{
+.btnFiltro span {
   width: 22px;
   height: 100%;
   position: absolute;
@@ -88,7 +86,7 @@ select{
   font-size: 20px;
 }
 
-.btnOrdenar{
+.btnOrdenar {
   display: flex;
   align-items: center;
   background: var(--c7);
@@ -96,19 +94,19 @@ select{
   width: fit-content;
   height: fit-content;
   border-radius: 5px;
-  border:solid 1px var(--c4);
+  border: solid 1px var(--c4);
   cursor: pointer;
   padding: 8px;
-  transition: all .2s;
+  transition: all 0.2s;
 }
 
-.btnOrdenar:hover{
+.btnOrdenar:hover {
   background: none;
-  transition: all .2s;
+  transition: all 0.2s;
   border-color: var(--c5);
 }
 
-.btnImprimir{
+.btnImprimir {
   display: flex;
   align-items: center;
   background: var(--c5);
@@ -117,36 +115,35 @@ select{
   width: fit-content;
   height: fit-content;
   border-radius: 5px;
-  border:solid 1px var(--c5);
+  border: solid 1px var(--c5);
   cursor: pointer;
   padding: 10px;
   font-size: 16px;
-  transition: all .2s ;
-  
+  transition: all 0.2s;
 }
 
-.btnImprimir:hover{
+.btnImprimir:hover {
   background: var(--c2);
   color: var(--c4);
-  border:solid 1px var(--c4);
-  transition: all .2s;
+  border: solid 1px var(--c4);
+  transition: all 0.2s;
 }
 
-.btnImprimir:active{
+.btnImprimir:active {
   transform: translateY(-3px);
 }
 
-.paginado-btn{
+.paginado-btn {
   cursor: pointer;
   background: none;
   border: none;
 }
 
-.paginado-btn:active{
-  transform: scaleX(.9)
+.paginado-btn:active {
+  transform: scaleX(0.9);
 }
 
-.accion-en-tabla{
+.accion-en-tabla {
   cursor: pointer;
   background: none;
   border: none;

@@ -227,3 +227,78 @@ export function TablaEditable2({
     </table>
   );
 }
+
+export function TablaEditable4({
+  columnas,
+  datos,
+  icono1,
+  icono2,
+  icono3,
+  icono4,
+}: {
+  columnas: string[];
+  datos: string[][];
+  icono1: string;
+  icono2: string;
+  icono3: string;
+  icono4: string;
+}) {
+  const handleEdit = (id: string) => {
+    // Aquí puedes implementar la lógica para editar los campos de la fila correspondiente al ID
+    console.log("Editar fila con ID:", id);
+  };
+  return (
+    <table>
+      <thead>
+        <tr>
+          {columnas.map((columna: string, index: number) => (
+            <th key={index} className={getColumnClass(columna)}>
+              {columna}
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {datos.map((fila: string[], index: number) => (
+          <tr key={index}>
+            <td>
+              <BtnIcon
+                icono={icono1}
+                accion={() => handleEdit(fila[0])}
+                estilo="accion-en-tabla"
+                texto=""
+              />
+            </td>
+            <td>
+              <BtnIcon
+                icono={icono2}
+                accion={() => handleEdit(fila[0])}
+                estilo="accion-en-tabla"
+                texto=""
+              />
+            </td>
+            <td>
+              <BtnIcon
+                icono={icono3}
+                accion={() => handleEdit(fila[0])}
+                estilo="accion-en-tabla"
+                texto=""
+              />
+            </td>
+            <td>
+              <BtnIcon
+                icono={icono4}
+                accion={() => handleEdit(fila[0])}
+                estilo="accion-en-tabla"
+                texto=""
+              />
+            </td>
+            {fila.map((dato, index) => (
+              <td key={index}>{dato}</td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}

@@ -1,7 +1,7 @@
 import { MenuLateral } from "../componentes/MenuLateral/MenuLateral";
 import "../App.css";
 import { BtnBuscador, Btn, Filtro } from "../componentes/Boton/Boton";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Paginado, Tabla } from "../componentes/Tabla/Tabla";
 import Header from "../componentes/Header/Header";
 
@@ -153,7 +153,9 @@ function MateriaPrima() {
           fotoDe="canela"
         />
 
-        <div style={{ display: "flex", gap: "10px", width: "100%" }}>
+        <div
+          className="flex gap-[10px] w-[100%]"
+          style={{ display: "flex", gap: "10px", width: "100%" }}>
           <div
             style={{
               display: "flex",

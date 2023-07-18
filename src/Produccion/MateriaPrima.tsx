@@ -1,4 +1,4 @@
-import MenuLateral from "../componentes/MenuLateral/MenuLateral";
+import { MenuLateral } from "../componentes/MenuLateral/MenuLateral";
 // import "../App.css";
 import { BtnBuscador, Btn, Filtro } from "../componentes/Boton/Boton";
 import React, { useState } from "react";

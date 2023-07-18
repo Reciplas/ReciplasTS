@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import reciplasLogo from "../../img/reciplas-logo.png";
 import reciplasLogoChico from "../../img/reciplas-logoChico.png";
 import "./MenuLateral.css";

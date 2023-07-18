@@ -1,37 +1,36 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html, body{
+html,
+body {
   background-image: var(--c1);
-
 }
 
-:root{
+:root {
   --c1: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
   --c2: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
-  --c3: #E28000;
-  --c4: hsl(120, 100%, 9%);
-  --c5: hsl(120, 68%, 37%);
+  --c3: #e28000;
+  --c4: #002e00;
+  --c5: #1e9f1e;
   --c6: #d9dbe0;
   --c7: #ebedef;
   --c8: #91acb9;
   --c9: #e6e6e6;
-  --c10:hsl(210, 18%, 40%);
-  --c11:#F5F9FA;
-  --c12:#d8dbdc; 
-  --c13:#1B8D73;
-
+  --c10: hsl(210, 18%, 40%);
+  --c11: #f5f9fa;
+  --c12: #d8dbdc;
+  --c13: #1b8d73;
 }
 
-.Link{
+.Link {
   text-decoration: none;
 }
-.App{
+.App {
   display: flex;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   height: 100vh;
   width: 100vw;
   color: var(--c4);
@@ -40,7 +39,7 @@ html, body{
   flex-direction: row;
 }
 
-.contenedor-principal{
+.contenedor-principal {
   background-color: var(--c1);
   display: flex;
   flex-basis: 0;
@@ -51,20 +50,22 @@ html, body{
   gap: 10px;
 }
 
-.contenedor-tabla{
+.contenedor-tabla {
   width: 100%;
   max-height: 773px;
-  height: fit-content ;
+  height: fit-content;
   overflow-y: hidden;
   border: solid 1px var(--sombra);
   border: 1px solid var(--c8);
 }
 
-h1{
+h1 {
   color: var(--c4);
+  font-size: 30px;
+  font-weight: 600;
 }
 
-.titulo-principal{
+.titulo-principal {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -72,7 +73,7 @@ h1{
   flex-wrap: wrap;
 }
 
-.nroPaginaActual{
+.nroPaginaActual {
   background-color: var(--c12);
   width: 25px;
   height: 25px;
@@ -84,7 +85,7 @@ h1{
   cursor: default;
 }
 
-.paginado-tabla{
+.paginado-tabla {
   display: flex;
   align-items: center;
 }

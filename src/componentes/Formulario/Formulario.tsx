@@ -16,11 +16,11 @@ const Formulario = () => {
 
   const onSubmit = () => {
     switch (email) {
-      case "tobias@reciplas.com":
+      case "Administracion@reciplas.com":
         return navigate("/Administracion/Ventas");
-      case "lautaro@reciplas.com":
+      case "Compras@reciplas.com":
         return navigate("/Compras/Proveedores");
-      case "enzo@reciplas.com":
+      case "Produccion@reciplas.com":
         return navigate("/Produccion/MateriaPrima");
       default:
         return "";
