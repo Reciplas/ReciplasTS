@@ -1,5 +1,7 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
+import Login from "./Login";
+
 import AdmVentas from "./Administracion/Ventas";
 import AdmMP from "./Administracion/MateriaPrima";
 import AdmProductos from "./Administracion/Productos";
@@ -7,8 +9,11 @@ import AdmUsuarios from "./Administracion/Usuarios";
 import AdmClientes from "./Administracion/Clientes";
 import AdmProveedores from "./Administracion/Proveedores";
 import AdmPerfil from "./Administracion/Perfil";
+
 import ProdMP from "./Produccion/MateriaPrima";
-import Login from "./Login";
+import ProdProductos from "./Produccion/Productos";
+import ProdPedidos from "./Produccion/Pedidos";
+
 import ComprasProveedores from "./Compras/Proveedores";
 import ComprasMP from "./Compras/MateriaPrima";
 import ComprasPedidos from "./Compras/Pedidos";
@@ -28,10 +33,14 @@ function App() {
           element={<AdmProveedores />}
         />
         <Route path="/Administracion/Perfil" element={<AdmPerfil />} />
+
         <Route path="/Compras/Proveedores" element={<ComprasProveedores />} />
         <Route path="/Compras/MateriaPrima" element={<ComprasMP />} />
-        <Route path="/Produccion/MateriaPrima" element={<ProdMP />} />
         <Route path="/Compras/Pedidos" element={<ComprasPedidos />} />
+
+        <Route path="/Produccion/MateriaPrima" element={<ProdMP />} />
+        <Route path="/Produccion/Productos" element={<ProdProductos />} />
+        <Route path="/Produccion/Pedidos" element={<ProdPedidos />} />
       </Routes>
     </div>
   );
