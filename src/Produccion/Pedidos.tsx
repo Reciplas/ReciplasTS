@@ -47,7 +47,7 @@ function Pedidos() {
       <div className="flex flex-col basis-0 grow-[999] min-w-[70%] gap-3 py-0 px-4 bg-gradient-to-t from-white-1 to-white-2">
         <Header perfil="Lautaro Acosta" area="Produccion" fotoDe="osiris" />
         <div className="flex flex-wrap items-center justify-between gap-5">
-          <h1>Listado de proveedores</h1>
+          <h1>Listado de pedidos</h1>
           <div className="flex gap-[5px] items-center">
             <Btn estilo="btnOrdenar" valor="Ordenar" />
             <Btn estilo="btnOrdenar" valor="Filtrar Período" />

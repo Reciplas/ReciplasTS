@@ -51,7 +51,7 @@ function Pedidos() {
           fotoDe="canela"
         />
         <div className="titulo-principal">
-          <h1>Listado de proveedores</h1>
+          <h1>Listado de pedidos</h1>
           <div className="flex gap-[5px] items-center">
             <Btn estilo="btnOrdenar" valor="Ordenar" />
             <Btn estilo="btnOrdenar" valor="Filtrar Período" />
