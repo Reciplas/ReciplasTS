@@ -47,7 +47,7 @@ function Pedidos() {
       <div className="contenedor-principal">
         <Header perfil="Tomas Gúzman" area="Ventas" fotoDe="canelaTriste" />
         <div className="titulo-principal">
-          <h1>Listado de proveedores</h1>
+          <h1>Listado de pedidos</h1>
           <div className="flex gap-[5px] items-center">
             <Btn estilo="btnOrdenar" valor="Ordenar" />
             <Btn estilo="btnOrdenar" valor="Filtrar Período" />
