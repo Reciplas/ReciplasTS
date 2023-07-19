@@ -1,4 +1,4 @@
-import { MLcompras } from "../componentes/MenuLateral/MenuLateral";
+import { MenuLateralProduccion } from "../componentes/MenuLateral/MenuLateral";
 import "../App.css";
 import Header from "../componentes/Header/Header";
 import { Btn, BtnRatio, BtnBuscador } from "../componentes/Boton/Boton";
@@ -42,11 +42,11 @@ function Pedidos() {
     ["15", "Recibido", "$86190.39", "Willms Group", "12/13/2022"],
   ];
   return (
-    <div className="App">
-      <MLcompras seccionActual={seccionActual} />
-      <div className="contenedor-principal">
-        <Header perfil="Enzo Vallejos" area="Compras" fotoDe="enzo" />
-        <div className="titulo-principal">
+    <div className="flex h-screen w-screen text-base flex-row font-lato text-dark-green bg-gradient-to-t from-white-1 to-white-2">
+      <MenuLateralProduccion seccionActual={seccionActual} />
+      <div className="flex flex-col basis-0 grow-[999] min-w-[70%] gap-3 py-0 px-4 bg-gradient-to-t from-white-1 to-white-2">
+        <Header perfil="Lautaro Acosta" area="Produccion" fotoDe="osiris" />
+        <div className="flex flex-wrap items-center justify-between gap-5">
           <h1>Listado de pedidos</h1>
           <div className="flex gap-[5px] items-center">
             <Btn estilo="btnOrdenar" valor="Ordenar" />
@@ -57,7 +57,7 @@ function Pedidos() {
             <BtnRatio opciones={opcionesRatio} />
           </div>
         </div>
-        <div className="contenedor-tabla">
+        <div className="w-full max-h-[773px] h-fit overflow-y-hidden border border-slate-blue2">
           <TablaEditable4
             columnas={columnas}
             datos={datos}

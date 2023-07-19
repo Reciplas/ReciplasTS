@@ -18,7 +18,7 @@ export function MenuLateral({ seccionActual }: { seccionActual: string }) {
       if (clicked) {
         menuLateral.style.width = "55px";
         imagen.style.width = "40px";
-        imagen.style.margin = "20px 0 10px 0";
+        imagen.style.margin = "15px 0 10px 0";
       } else {
         menuLateral.style.width = "225px";
         imagen.style.width = "200px";
@@ -58,6 +58,7 @@ export function MenuLateral({ seccionActual }: { seccionActual: string }) {
           </div>
           <div className="seccionMenu">Ventas</div>
         </Link>
+
         <Link
           to="/Administracion/MateriaPrima"
           className={
@@ -68,6 +69,7 @@ export function MenuLateral({ seccionActual }: { seccionActual: string }) {
           </div>
           <div className="seccionMenu">Materia Prima</div>
         </Link>
+
         <Link
           to="/Administracion/Productos"
           className={
@@ -78,6 +80,7 @@ export function MenuLateral({ seccionActual }: { seccionActual: string }) {
           </div>
           <div className="seccionMenu">Productos</div>
         </Link>
+
         <Link
           to="/Administracion/Usuarios"
           className={
@@ -88,6 +91,7 @@ export function MenuLateral({ seccionActual }: { seccionActual: string }) {
           </div>
           <div className="seccionMenu">Usuarios</div>
         </Link>
+
         <Link
           to="/Administracion/Clientes"
           className={
@@ -98,6 +102,7 @@ export function MenuLateral({ seccionActual }: { seccionActual: string }) {
           </div>
           <div className="seccionMenu">Clientes</div>
         </Link>
+
         <Link
           to="/Administracion/Proveedores"
           className={
@@ -134,7 +139,7 @@ export function MLcompras({ seccionActual }: { seccionActual: string }) {
       if (clicked) {
         menuLateral.style.width = "55px";
         imagen.style.width = "40px";
-        imagen.style.margin = "20px 0 10px 0";
+        imagen.style.margin = "15px 0 10px 0";
       } else {
         menuLateral.style.width = "225px";
         imagen.style.width = "200px";
@@ -310,6 +315,89 @@ export function MLventas({ seccionActual }: { seccionActual: string }) {
 
         <div className="seccionMenu">Cerrar Sesión</div>
       </Link>
+    </div>
+  );
+}
+
+export function MenuLateralProduccion({
+  seccionActual,
+}: {
+  seccionActual: string;
+}) {
+  const menuLateralRef = useRef<HTMLDivElement>(null);
+  const imagenRef = useRef<HTMLImageElement>(null);
+  const [clicked, setClicked] = useState(false);
+
+  useEffect(() => {
+    const menuLateral = menuLateralRef.current;
+    const imagen = imagenRef.current;
+
+    if (menuLateral && imagen) {
+      if (clicked) {
+        menuLateral.style.width = "55px";
+        imagen.style.width = "40px";
+        imagen.style.margin = "15px 0 10px 0";
+      } else {
+        menuLateral.style.width = "225px";
+        imagen.style.width = "200px";
+        imagen.style.margin = "10px 0 10px 0";
+      }
+    }
+  }, [clicked]);
+
+  const manejarClick = () => {
+    setClicked(!clicked);
+  };
+  return (
+    <div className={"contenedor-menu"} ref={menuLateralRef}>
+      <BtnIcon
+        icono={clicked ? "menu_open" : "menu"}
+        accion={manejarClick}
+        estilo="btnMenu"
+        texto=""
+      />
+      <div className="nav">
+        <div className="contenedor-img">
+          <img
+            src={clicked ? reciplasLogoChico : reciplasLogo}
+            alt="logo reciplas"
+            ref={imagenRef}
+          />
+        </div>
+
+        <Link
+          to="/Produccion/MateriaPrima"
+          className={
+            seccionActual === "MP" ? "seccion-actual" : "icono-seccion"
+          }>
+          <div className="iconoMenu">
+            <span className="material-symbols-outlined">token</span>
+          </div>
+          <div className="seccionMenu">Materia Prima</div>
+        </Link>
+
+        <Link
+          to="/Produccion/Productos"
+          className={
+            seccionActual === "Productos" ? "seccion-actual" : "icono-seccion"
+          }>
+          <div className="iconoMenu">
+            <span className="material-symbols-outlined">shelves</span>
+          </div>
+          <div className="seccionMenu">Productos</div>
+        </Link>
+
+        <Link
+          to="/Produccion/Pedidos"
+          className={
+            seccionActual === "Pedidos" ? "seccion-actual" : "icono-seccion"
+          }>
+          <div className="iconoMenu">
+            <span className="material-symbols-outlined">box</span>
+          </div>
+          <div className="seccionMenu">Pedidos</div>
+        </Link>
+      </div>
     </div>
   );
 }
