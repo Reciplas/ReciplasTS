@@ -147,11 +147,7 @@ function MateriaPrima() {
     <div className="App">
       <MLcompras seccionActual={seccionActual} />
       <div className="contenedor-principal">
-        <Header
-          perfil="Tobias Stegmayer"
-          area="Administracion"
-          fotoDe="canela"
-        />
+        <Header perfil="Enzo Vallejos" area="Compras" fotoDe="enzo" />
 
         <div style={{ display: "flex", gap: "10px", width: "100%" }}>
           <div

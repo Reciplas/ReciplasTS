@@ -1,4 +1,4 @@
-import { MLcompras } from "../componentes/MenuLateral/MenuLateral";
+import { MLventas } from "../componentes/MenuLateral/MenuLateral";
 import "../App.css";
 import Header from "../componentes/Header/Header";
 import { Btn, BtnRatio, BtnBuscador } from "../componentes/Boton/Boton";
@@ -43,11 +43,11 @@ function Pedidos() {
   ];
   return (
     <div className="App">
-      <MLcompras seccionActual={seccionActual} />
+      <MLventas seccionActual={seccionActual} />
       <div className="contenedor-principal">
-        <Header perfil="Enzo Vallejos" area="Compras" fotoDe="enzo" />
+        <Header perfil="Tomas Gúzman" area="Ventas" fotoDe="canelaTriste" />
         <div className="titulo-principal">
-          <h1>Listado de pedidos</h1>
+          <h1>Listado de proveedores</h1>
           <div className="flex gap-[5px] items-center">
             <Btn estilo="btnOrdenar" valor="Ordenar" />
             <Btn estilo="btnOrdenar" valor="Filtrar Período" />
