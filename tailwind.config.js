@@ -8,9 +8,15 @@ module.exports = {
     },
     colors: {
       "dark-green": "#002E00",
+<<<<<<< HEAD
       green: "#1e9f1e",
       orange: "#E28000",
       cyan: "#1B8D73",
+=======
+      "green": "#1E9F1E",
+      "orange": "#E28000",
+      "cyan": "#1B8D73",
+>>>>>>> 64615293ebb744b68c02f60459f31b361cc935b6
       "slate-blue1": "#546678",
       "slate-blue2": "#91ACB9",
       "white-1": "#fdfbfb",
