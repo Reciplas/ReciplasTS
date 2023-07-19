@@ -19,6 +19,7 @@ module.exports = {
       "white-4": "#EEF1F5",
       "fondo-de-filtros": "#ebedef",
       "verde-clarito": "#D9E2D9",
+      "bordes-input": "#d8dbdc",
     },
   },
   plugins: [],

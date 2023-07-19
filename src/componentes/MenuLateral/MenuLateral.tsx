@@ -18,7 +18,7 @@ export function MenuLateral({ seccionActual }: { seccionActual: string }) {
       if (clicked) {
         menuLateral.style.width = "55px";
         imagen.style.width = "40px";
-        imagen.style.margin = "15px 0 10px 0";
+        imagen.style.margin = "20px 0 10px 0";
       } else {
         menuLateral.style.width = "225px";
         imagen.style.width = "200px";
@@ -139,7 +139,7 @@ export function MLcompras({ seccionActual }: { seccionActual: string }) {
       if (clicked) {
         menuLateral.style.width = "55px";
         imagen.style.width = "40px";
-        imagen.style.margin = "15px 0 10px 0";
+        imagen.style.margin = "20px 0 10px 0";
       } else {
         menuLateral.style.width = "225px";
         imagen.style.width = "200px";
