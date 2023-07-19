@@ -22,6 +22,8 @@ const Formulario = () => {
         return navigate("/Compras/Proveedores");
       case "Produccion@reciplas.com":
         return navigate("/Produccion/MateriaPrima");
+      case "Ventas@reciplas.com":
+        return navigate("/Ventas/Ventas");
       default:
         return "";
     }

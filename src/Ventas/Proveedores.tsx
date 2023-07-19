@@ -1,7 +1,7 @@
-import { MLcompras } from "../componentes/MenuLateral/MenuLateral";
+import { MLventas } from "../componentes/MenuLateral/MenuLateral";
 import "../App.css";
 import Header from "../componentes/Header/Header";
-import { Btn, Filtro, BtnBuscador } from "../componentes/Boton/Boton";
+import { Btn, BtnBuscador } from "../componentes/Boton/Boton";
 import { TablaEditable, Paginado } from "../componentes/Tabla/Tabla";
 
 function Proveedores() {
@@ -180,9 +180,9 @@ function Proveedores() {
   ];
   return (
     <div className="App">
-      <MLcompras seccionActual={seccionActual} />
+      <MLventas seccionActual={seccionActual} />
       <div className="contenedor-principal">
-        <Header perfil="Enzo Vallejos" area="Compras" fotoDe="enzo" />
+        <Header perfil="Tomas Gúzman" area="Ventas" fotoDe="canelaTriste" />
         <div className="titulo-principal">
           <h1>Listado de proveedores</h1>
           <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>

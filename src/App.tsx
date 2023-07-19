@@ -12,6 +12,11 @@ import Login from "./Login";
 import ComprasProveedores from "./Compras/Proveedores";
 import ComprasMP from "./Compras/MateriaPrima";
 import ComprasPedidos from "./Compras/Pedidos";
+import VentasVentas from "./Ventas/Ventas";
+import VentasPedidos from "./Ventas/Pedidos";
+import VentasProveedores from "./Ventas/Proveedores";
+import VentasClientes from "./Ventas/Clientes";
+import VentasProductos from "./Ventas/Productos";
 
 function App() {
   return (
@@ -32,6 +37,11 @@ function App() {
         <Route path="/Compras/MateriaPrima" element={<ComprasMP />} />
         <Route path="/Produccion/MateriaPrima" element={<ProdMP />} />
         <Route path="/Compras/Pedidos" element={<ComprasPedidos />} />
+        <Route path="/Ventas/Ventas" element={<VentasVentas />} />
+        <Route path="/Ventas/Pedidos" element={<VentasPedidos />} />
+        <Route path="/Ventas/Productos" element={<VentasProductos />} />
+        <Route path="/Ventas/Proveedores" element={<VentasProveedores />} />
+        <Route path="/Ventas/Clientes" element={<VentasClientes />} />
       </Routes>
     </div>
   );
