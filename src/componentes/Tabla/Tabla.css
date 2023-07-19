@@ -61,7 +61,8 @@ tbody tr:hover {
 .plastico,
 .precio,
 .cantidad,
-.total {
+.total,
+.estado {
   width: 100px;
 }
 
@@ -79,7 +80,8 @@ tbody tr:hover {
 }
 
 .correo,
-.email {
+.email,
+.proveedor {
   width: 250px;
 }
 

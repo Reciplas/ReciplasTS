@@ -179,6 +179,7 @@ function MateriaPrima() {
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Paginado />
               <div style={{ display: "flex", gap: "8px" }}>
+                <Btn estilo="btnImprimir" valor="Añadir ingresos" />
                 <Btn estilo="btnImprimir" valor="Generar Informe" />
               </div>
             </div>

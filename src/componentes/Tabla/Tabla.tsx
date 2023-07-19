@@ -42,10 +42,16 @@ function getColumnClass(columna: string) {
       return "fechaIngreso";
     case "Fecha de registro":
       return "fechaIngreso";
+    case "Fecha compra":
+      return "fechaIngreso";
     case " ":
       return "accion";
     case "":
       return "accion";
+    case "Estado":
+      return "estado";
+    case "Proveedor":
+      return "proveedor";
     default:
       return "";
   }
