@@ -1,8 +1,8 @@
-import { MLventas } from "../componentes/MenuLateral/MenuLateral";
+import { MLventas } from "../componentes/MenuLateral";
 import "../App.css";
-import Header from "../componentes/Header/Header";
-import { Btn, BtnBuscador } from "../componentes/Boton/Boton";
-import { TablaEditable, Paginado } from "../componentes/Tabla/Tabla";
+import Header from "../componentes/Header";
+import { Btn, BtnBuscador } from "../componentes/Boton";
+import { TablaEditable, Paginado } from "../componentes/Tabla";
 
 function Proveedores() {
   const seccionActual = "Proveedores";

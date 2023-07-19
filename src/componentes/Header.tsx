@@ -21,7 +21,7 @@ function Header({
           <Link to={`/${area}/Perfil`} className="dialog Link">
             <img
               className="person"
-              src={require(`../../img/foto-${fotoDe}.jpg`)}
+              src={require(`../img/foto-${fotoDe}.jpg`)}
               alt="foto de perfil"
             />
             <div className="triangulo"></div>

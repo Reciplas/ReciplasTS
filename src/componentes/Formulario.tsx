@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "./Formulario.css";
-import logo from "../../img/reciplas-logo.png";
+import logo from "../img/reciplas-logo.png";
 
 const Formulario = () => {
   const {

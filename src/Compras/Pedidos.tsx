@@ -1,8 +1,8 @@
-import { MLcompras } from "../componentes/MenuLateral/MenuLateral";
+import { MLcompras } from "../componentes/MenuLateral";
 import "../App.css";
-import Header from "../componentes/Header/Header";
-import { Btn, BtnRatio, BtnBuscador } from "../componentes/Boton/Boton";
-import { TablaEditable4, Paginado } from "../componentes/Tabla/Tabla";
+import Header from "../componentes/Header";
+import { Btn, BtnRatio, BtnBuscador } from "../componentes/Boton";
+import { TablaEditable4, Paginado } from "../componentes/Tabla";
 
 function Pedidos() {
   const seccionActual = "Pedidos";
@@ -45,7 +45,7 @@ function Pedidos() {
     <div className="App">
       <MLcompras seccionActual={seccionActual} />
       <div className="contenedor-principal">
-        <Header perfil="Enzo Vallejos" area="Compras" fotoDe="enzo" />
+        <Header perfil="Enzo Nahuel Vallejos" area="Compras" fotoDe="enzo" />
         <div className="titulo-principal">
           <h1>Listado de pedidos</h1>
           <div className="flex gap-[5px] items-center">

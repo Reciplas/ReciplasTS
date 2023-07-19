@@ -1,8 +1,8 @@
-import { MenuLateral } from "../componentes/MenuLateral/MenuLateral";
+import { MenuLateral } from "../componentes/MenuLateral";
 import "../App.css";
-import Header from "../componentes/Header/Header";
-import { Btn, Filtro, BtnBuscador } from "../componentes/Boton/Boton";
-import { TablaEditable, Paginado } from "../componentes/Tabla/Tabla";
+import Header from "../componentes/Header";
+import { Btn, Filtro, BtnBuscador } from "../componentes/Boton";
+import { TablaEditable, Paginado } from "../componentes/Tabla";
 
 function Clientes() {
   const seccionActual = "Clientes";

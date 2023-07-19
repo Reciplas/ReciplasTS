@@ -21,6 +21,9 @@ module.exports = {
       "verde-clarito": "#D9E2D9",
       "bordes-input": "#d8dbdc",
     },
+      backgroundImage: {
+          'gradient-120' : 'linear-gradient(120deg, var(--tw-gradient-stops))'
+      }
   },
   plugins: [],
 };

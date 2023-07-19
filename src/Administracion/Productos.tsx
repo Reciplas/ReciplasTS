@@ -1,8 +1,8 @@
-import { MenuLateral } from "../componentes/MenuLateral/MenuLateral";
+import { MenuLateral } from "../componentes/MenuLateral";
 import "../App.css";
-import { BtnBuscador, Btn, Filtro } from "../componentes/Boton/Boton";
-import { Paginado, TablaEditable } from "../componentes/Tabla/Tabla";
-import Header from "../componentes/Header/Header";
+import { BtnBuscador, Btn, Filtro } from "../componentes/Boton";
+import { Paginado, TablaEditable } from "../componentes/Tabla";
+import Header from "../componentes/Header";
 
 function Productos() {
   const seccionActual = "Productos";

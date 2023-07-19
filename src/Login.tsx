@@ -1,4 +1,4 @@
-import Formulario from "./componentes/Formulario/Formulario";
+import Formulario from "./componentes/Formulario";
 
 function Login() {
   return (

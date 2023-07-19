@@ -1,6 +1,6 @@
 import React from "react";
 import "./Tabla.css";
-import { Btn, BtnIcon } from "../Boton/Boton";
+import { Btn, BtnIcon } from "./Boton";
 
 function getColumnClass(columna: string) {
   switch (columna) {

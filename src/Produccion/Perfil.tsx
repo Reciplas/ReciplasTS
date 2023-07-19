@@ -1,14 +1,14 @@
 import { useForm } from "react-hook-form";
 import "../App.css";
 import Header from "../componentes/Header";
-import { MenuLateral } from "../componentes/MenuLateral";
+import { MenuLateralProduccion } from "../componentes/MenuLateral";
 import { LabelObligatorio, Label } from "../componentes/TextLabel";
 import { InputTypeText } from "../componentes/InputField";
 import { Btn, BtnIcon } from "../componentes/Boton";
 
 function Perfil() {
-  const nombre = "Tobias";
-  const apellido = "Stegmayer";
+  const nombre = "Lautaro";
+  const apellido = "Acosta";
   const nombreYape = nombre + " " + apellido;
   const {
     register,
@@ -17,9 +17,9 @@ function Perfil() {
   } = useForm();
   return (
     <div className="App">
-      <MenuLateral seccionActual="" />
+      <MenuLateralProduccion seccionActual="" />
       <div className="contenedor-principal">
-        <Header perfil={nombreYape} area="Administracion" fotoDe="canela" />
+        <Header perfil={nombreYape} area="Produccion" fotoDe="osiris" />
 
         <form>
           <div className="flex items-center gap-[20px]">
@@ -39,15 +39,15 @@ function Perfil() {
                 <div className="flex flex-wrap gap-[20px]">
                   <div className=" h-fit w-[150px] ">
                     <LabelObligatorio texto="Nombre" />
-                    <InputTypeText texto="Tobias" />
+                    <InputTypeText texto="Lautaro" />
                   </div>
                   <div className=" h-fit w-[150px] ">
                     <LabelObligatorio texto="Apellido" />
-                    <InputTypeText texto="Stegmayer" />
+                    <InputTypeText texto="Acosta" />
                   </div>
                   <div className=" h-fit w-[300px] ">
                     <LabelObligatorio texto="E-mail (nombre de usuario)" />
-                    <InputTypeText texto="Administración@reciplas.com" />
+                    <InputTypeText texto="Produccion@reciplas.com" />
                   </div>
                 </div>
                 <Btn estilo="btnImprimir" valor="Cambiar contraseña" />
@@ -61,19 +61,19 @@ function Perfil() {
                 <div className="flex flex-wrap gap-[20px]">
                   <div className=" h-fit w-[150px] ">
                     <LabelObligatorio texto="Provincia" />
-                    <InputTypeText texto="Chaco" />
+                    <InputTypeText texto="Corrientes" />
                   </div>
                   <div className=" h-fit w-[150px] ">
                     <LabelObligatorio texto="Ciudad" />
-                    <InputTypeText texto="Resistencia" />
+                    <InputTypeText texto="Corrientes" />
                   </div>
                   <div className=" h-fit w-[300px] ">
                     <LabelObligatorio texto="Calle" />
-                    <InputTypeText texto="Pasaje gob. Bosch" />
+                    <InputTypeText texto="Las Violetas" />
                   </div>
                   <div className=" h-fit w-[100px] ">
                     <LabelObligatorio texto="Nro" />
-                    <InputTypeText texto="1365" />
+                    <InputTypeText texto="3250" />
                   </div>
                   <div className=" h-fit w-[100px] ">
                     <Label texto="Piso" />
@@ -87,11 +87,11 @@ function Perfil() {
                 <div className="flex flex-wrap gap-[20px]">
                   <div className=" h-fit w-[150px] ">
                     <LabelObligatorio texto="Teléfono" />
-                    <InputTypeText texto="3624103405" />
+                    <InputTypeText texto="3794021106" />
                   </div>
                   <div className=" h-fit w-[300px] ">
                     <LabelObligatorio texto="E-mail (personal)" />
-                    <InputTypeText texto="tobiastegmayer@gmail.com" />
+                    <InputTypeText texto="lautaroacosta@gmail.com" />
                   </div>
                 </div>
               </div>

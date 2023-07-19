@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from "react";
-import reciplasLogo from "../../img/reciplas-logo.png";
-import reciplasLogoChico from "../../img/reciplas-logoChico.png";
+import reciplasLogo from "../img/reciplas-logo.png";
+import reciplasLogoChico from "../img/reciplas-logoChico.png";
 import "./MenuLateral.css";
 import { Link } from "react-router-dom";
-import { BtnIcon } from "../Boton/Boton";
+import { BtnIcon } from "./Boton";
 
 export function MenuLateral({ seccionActual }: { seccionActual: string }) {
   const menuLateralRef = useRef<HTMLDivElement>(null);

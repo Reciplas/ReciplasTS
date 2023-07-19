@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "../App.css";
-import { Tabla, Paginado } from "../componentes/Tabla/Tabla";
-import Header from "../componentes/Header/Header";
-import { MenuLateral } from "../componentes/MenuLateral/MenuLateral";
-import { BtnBuscador, Btn, Filtro } from "../componentes/Boton/Boton";
+import { Tabla, Paginado } from "../componentes/Tabla";
+import Header from "../componentes/Header";
+import { MenuLateral } from "../componentes/MenuLateral";
+import { BtnBuscador, Btn, Filtro } from "../componentes/Boton";
 
 function Compras() {
   const columnas = [

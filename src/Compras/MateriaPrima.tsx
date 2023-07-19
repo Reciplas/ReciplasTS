@@ -1,9 +1,9 @@
-import { MLcompras } from "../componentes/MenuLateral/MenuLateral";
+import { MLcompras } from "../componentes/MenuLateral";
 import "../App.css";
-import { BtnBuscador, Btn, Filtro } from "../componentes/Boton/Boton";
+import { BtnBuscador, Btn, Filtro } from "../componentes/Boton";
 import { useState } from "react";
-import { Paginado, Tabla } from "../componentes/Tabla/Tabla";
-import Header from "../componentes/Header/Header";
+import { Paginado, Tabla } from "../componentes/Tabla";
+import Header from "../componentes/Header";
 
 function MateriaPrima() {
   const seccionActual = "MP";
@@ -147,7 +147,7 @@ function MateriaPrima() {
     <div className="App">
       <MLcompras seccionActual={seccionActual} />
       <div className="contenedor-principal">
-        <Header perfil="Enzo Vallejos" area="Compras" fotoDe="enzo" />
+        <Header perfil="Enzo Nahuel Vallejos" area="Compras" fotoDe="enzo" />
 
         <div style={{ display: "flex", gap: "10px", width: "100%" }}>
           <div
