@@ -1,8 +1,8 @@
-import { MLventas } from "../componentes/MenuLateral/MenuLateral";
+import { MLventas} from "../componentes/MenuLateral/MenuLateral";
 import "../App.css";
+import { BtnBuscador, Btn, Filtro } from "../componentes/Boton/Boton";
+import { Paginado, TablaEditable } from "../componentes/Tabla/Tabla";
 import Header from "../componentes/Header/Header";
-import { Btn, BtnBuscador } from "../componentes/Boton/Boton";
-import { TablaEditable, Paginado } from "../componentes/Tabla/Tabla";
 
 function Productos() {
   const seccionActual = "Productos";
@@ -10,110 +10,87 @@ function Productos() {
     " ",
     " ",
     "id",
-    "Nombre",
-    "Telefono",
-    "Email",
-    "Dirección",
-    "Fecha de registro",
+    "Producto",
+    "Cantidad(kg)",
+    "Descripción",
+    "Ultimo Cambio",
   ];
   const datos = [
-    [
-      "1",
-      "Broderic Thornton",
-      "955 651 7054",
-      "bthornton0@tinyurl.com",
-      "2137 Lien Lane",
-      "7/14/2022",
-    ],
-    [
-      "2",
-      "Grantley Darville",
-      "723 414 1591",
-      "gdarville1@nps.gov",
-      "021 Knutson Plaza",
-      "8/13/2022",
-    ],
+    ["1", "Paraguas", "20", "Morbi ut odio.", "6/23/2023"],
+    ["2", "Mesa", "24", "In eleifend quam a odio.", "4/21/2023"],
     [
       "3",
-      "Brandy MacKniely",
-      "141 355 6533",
-      "bmackniely2@washingtonpost.com",
-      "3 Barby Pass",
-      "8/17/2022",
+      "Mesa",
+      "48",
+      "Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
+      "3/1/2023",
     ],
     [
       "4",
-      "Donna Forcer",
-      "590 492 5301",
-      "dforcer3@forbes.com",
-      "90 Brown Drive",
-      "1/15/2023",
+      "Zapatillas",
+      "59",
+      "Sed vel enim sit amet nunc viverra dapibus.",
+      "2/25/2023",
     ],
     [
       "5",
-      "Philbert Simoneau",
-      "450 735 4235",
-      "psimoneau4@bandcamp.com",
-      "9 Eastwood Center",
-      "4/7/2023",
+      "Lampara",
+      "17",
+      "Vivamus in felis eu sapien cursus vestibulum.",
+      "2/11/2023",
     ],
-    [
-      "6",
-      "Alejoa MacCoughen",
-      "657 586 9955",
-      "amaccoughen5@goo.gl",
-      "8313 Buell Alley",
-      "4/4/2023",
-    ],
+    ["6", "Mesa", "27", "Integer non velit.", "7/1/2023"],
     [
       "7",
-      "Indira Drinnan",
-      "821 734 0478",
-      "idrinnan6@cisco.com",
-      "7617 Anderson Hill",
-      "4/14/2023",
+      "Lampara",
+      "51",
+      "Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante.",
+      "3/13/2023",
     ],
     [
       "8",
-      "Joanne Goodley",
-      "418 525 9862",
-      "jgoodley7@state.tx.us",
-      "6595 Schmedeman Hill",
-      "2/9/2023",
+      "Mesa",
+      "42",
+      "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam.",
+      "3/6/2023",
     ],
-    [
-      "9",
-      "Jeanna Barbery",
-      "502 849 6461",
-      "jbarbery8@bizjournals.com",
-      "76620 Hayes Way",
-      "8/12/2022",
-    ],
-    [
-      "10",
-      "Roxana Luttgert",
-      "156 436 6339",
-      "rluttgert9@gravatar.com",
-      "569 American Court",
-      "4/20/2023",
-    ],
+    ["9", "Anteojos", "15", "Sed accumsan felis.", "8/31/2022"],
+    ["10", "Silla", "44", "Proin eu mi.", "5/27/2023"],
   ];
+  const itemsList = [
+    "Producto",
+    "Paraguas",
+    "Anteojos",
+    "Camiseta",
+    "Pantalon",
+    "Zapatillas",
+    "Silla",
+    "Mesa",
+    "Lampara",
+  ];
+
   return (
-    <div className="App">
+    <div className="flex h-screen w-screen text-base flex-row font-lato text-dark-green bg-gradient-to-t from-white-1 to-white-2">
       <MLventas seccionActual={seccionActual} />
-      <div className="contenedor-principal">
-        <Header perfil="Tomas Gúzman" area="Ventas" fotoDe="canelaTriste" />
-        <div className="titulo-principal">
-          <h1>Listado de clientes</h1>
+      <div className="flex flex-col basis-0 grow-[999] min-w-[70%] gap-3 py-0 px-4 bg-gradient-to-t from-white-1 to-white-2">
+        <Header perfil="Tomas Guzmán" area="Ventas" fotoDe="canelaTriste" />
+        <div className="flex flex-wrap items-center justify-between gap-5">
+          <h1>Listado de productos</h1>
           <div className="flex gap-[5px] items-center">
             <Btn estilo="btnOrdenar" valor="Ordenar" />
             <Btn estilo="btnOrdenar" valor="Filtrar Período" />
+            <Filtro
+              estilo="btnFiltro"
+              items={itemsList}
+              retornarOpcion={() => {}}
+              opcionSeleccionada=""
+            />
 
-            <BtnBuscador buscarPor="Nombre" estilo="btnBuscadorGeneral" />
             <BtnBuscador buscarPor="ID" estilo="btnBuscador" />
           </div>
         </div>
-        <div className="contenedor-tabla">
+
+        <div className="w-full max-h-[773px] h-fit overflow-y-hidden border border-slate-blue2">
           <TablaEditable
             columnas={columnas}
             datos={datos}
@@ -121,10 +98,10 @@ function Productos() {
             icono2="delete"
           />
         </div>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div className="flex justify-between">
           <Paginado />
-          <div className="flex gap-[8px]">
-            <Btn estilo="btnImprimir" valor="Añadir Cliente" />
+          <div className="flex gap-2">
+            <Btn estilo="btnImprimir" valor="Agregar" />
             <Btn estilo="btnImprimir" valor="Gernerar Informe" />
           </div>
         </div>
