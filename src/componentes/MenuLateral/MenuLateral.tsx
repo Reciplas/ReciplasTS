@@ -303,7 +303,15 @@ export function MenuLateralProduccion({
           </div>
           <div className="seccionMenu">Pedidos</div>
         </Link>
+        
       </div>
+      <Link to="/" className="icono-seccion">
+      <div className="iconoMenu">
+      <span className="material-symbols-outlined">logout</span>
+      </div>
+
+      <div className="seccionMenu">Cerrar Sesión</div>
+      </Link>
     </div>
   );
 }
