@@ -113,6 +113,7 @@ export function TablaEditable({
     // Aquí puedes implementar la lógica para editar los campos de la fila correspondiente al ID
     console.log("Editar fila con ID:", id);
   };
+
   return (
     <table>
       <thead>
@@ -131,7 +132,15 @@ export function TablaEditable({
               <td>
                 <BtnIcon
                   icono={icono1}
-                  accion={() => handleEdit(fila[0] ?? "")}
+                  accion={() => {
+                  const element = document.getElementById("show");
+                    
+                    if (element) {
+                        element.style.display = "flex";
+                    } else {
+                        console.log("no anduvo!");
+                    }
+                  }}
                   estilo="accion-en-tabla"
                   texto=""
                 />
