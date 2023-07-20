@@ -143,9 +143,9 @@ function MateriaPrima() {
   };
 
   return (
-    <div className="flex h-screen w-screen text-[1rem] flex-row font-lato text-dark-green bg-gradient-120 from-white-1 to-white-2">
+    <div className="flex h-screen w-screen text-[1rem] flex-row font-lato text-dark-green bg-white-5">
       <MenuLateralProduccion seccionActual={seccionActual} />
-      <div className="flex flex-col basis-0 grow-[999] min-w-[70%] gap-3 py-0 px-4 bg-gradient-120 from-white-1 to-white-2">
+      <div className="flex flex-col basis-0 grow-[999] min-w-[70%] gap-3 py-0 px-4 bg-white-5">
         <Header perfil="Lautaro Acosta" area="Produccion" fotoDe="osiris" />
         <div className="flex gap-3 w-full">
           <div className="flex flex-col gap-3 w-[70%]">

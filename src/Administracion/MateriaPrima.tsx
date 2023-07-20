@@ -153,18 +153,10 @@ function MateriaPrima() {
           fotoDe="canela"
         />
 
-        <div
-          className="flex gap-[10px] w-[100%]"
-          style={{ display: "flex", gap: "10px", width: "100%" }}>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "10px",
-              width: "70%",
-            }}>
+        <div className="flex gap-[10px] w-[100%]">
+          <div className="flex flex-col gap-3 w-[70%]">
             <h1>Ingresos de materia prima</h1>
-            <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
+            <div className="flex gap-[5px] items-center">
               <Btn estilo="btnOrdenar" valor="Ordenar" />
               <Btn estilo="btnOrdenar" valor="Filtrar Período" />
               <Filtro
@@ -178,23 +170,17 @@ function MateriaPrima() {
             <div className="contenedor-tabla">
               <Tabla columnas={columnas} datos={datos} estilo={""} />
             </div>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div className="flex justify-between">
               <Paginado />
-              <div style={{ display: "flex", gap: "8px" }}>
+              <div className="flex gap-2">
                 <Btn estilo="btnImprimir" valor="Generar Informe" />
               </div>
             </div>
           </div>
 
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "10px",
-              width: "30%",
-            }}>
+          <div className="flex flex-col w-[30%] gap-3">
             <h1>Stock de materia prima</h1>
-            <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
+            <div className="flex gap-1 items-center">
               <Btn estilo="btnOrdenar" valor="Ordenar" />
               <Filtro
                 estilo="btnFiltro"
@@ -210,20 +196,15 @@ function MateriaPrima() {
                 estilo="tablaChiquita"
               />
             </div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "right",
-                flexWrap: "wrap",
-                gap: "8px",
-              }}>
+            <div className="flex flex-wrap gap-2 justify-start">
               {/* <Paginado/> */}
-              <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+              <div className="flex gap-2 flex-wrap">
                 <Btn estilo="btnImprimir" valor="Agregar" />
                 <Btn estilo="btnImprimir" valor="Gernerar Informe" />
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </div>
