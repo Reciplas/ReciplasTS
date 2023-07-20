@@ -153,9 +153,7 @@ function MateriaPrima() {
           fotoDe="canela"
         />
 
-        <div
-          className="flex gap-[10px] w-[100%]"
-          style={{ display: "flex", gap: "10px", width: "100%" }}>
+        <div className="flex gap-[10px] w-[100%]">
           <div
             style={{
               display: "flex",

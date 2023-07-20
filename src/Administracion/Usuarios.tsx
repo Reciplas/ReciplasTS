@@ -1,5 +1,6 @@
 import { MenuLateral } from "../componentes/MenuLateral";
 import "../App.css";
+import { useState } from "react";
 import Header from "../componentes/Header";
 import { Btn, Filtro, BtnBuscador } from "../componentes/Boton";
 import { TablaEditable, Paginado } from "../componentes/Tabla";
@@ -110,6 +111,18 @@ function Usuarios() {
       "11/9/2022",
     ],
   ];
+  const [opcionSeleccionada, setOpcionSeleccionada] = useState("");
+  const [inputValue, setInputValue] = useState(itemsList[0]);
+  const handleOptionChange = (event: any) => {
+    const selectedValue = event.target.value;
+    setOpcionSeleccionada(selectedValue);
+    setInputValue(selectedValue);
+  };
+  const handleInputChange = () => {
+    const selectedValue = "";
+    setInputValue(selectedValue);
+  };
+
   return (
     <div className="App">
       <MenuLateral seccionActual={seccionActual} />
@@ -127,8 +140,8 @@ function Usuarios() {
             <Filtro
               estilo="btnFiltro"
               items={itemsList}
-              retornarOpcion={() => {}}
-              opcionSeleccionada=""
+              opcionSeleccionada={opcionSeleccionada}
+              retornarOpcion={handleOptionChange}
             />
             <BtnBuscador buscarPor="Nombre" estilo="btnBuscadorGeneral" />
             <BtnBuscador buscarPor="ID" estilo="btnBuscador" />

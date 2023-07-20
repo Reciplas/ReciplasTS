@@ -2,7 +2,7 @@ import { MenuLateral } from "../componentes/MenuLateral";
 import "../App.css";
 import { Paginado, TablaEditable } from "../componentes/Tabla";
 import Header from "../componentes/Header";
-import { BtnBuscador, Btn } from "../componentes/Boton";
+import { BtnBuscador, Btn, BtnPopUp } from "../componentes/Boton";
 
 function Ventas() {
   const columnas = [" ", " ", "id", "Total", "Cuotas", "Cliente", "Fecha"];
@@ -32,7 +32,7 @@ function Ventas() {
         <div className="titulo-principal">
           <h1>Listado de ventas</h1>
           <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-            <Btn estilo="btnOrdenar" valor="Ordenar" />
+            <BtnPopUp estilo="btnOrdenar" valor="Ordenar" />
             <Btn estilo="btnOrdenar" valor="Filtrar Período" />
             <Btn estilo="btnOrdenar" valor="Filtrar Total" />
             <Btn estilo="btnOrdenar" valor="Cuotas" />

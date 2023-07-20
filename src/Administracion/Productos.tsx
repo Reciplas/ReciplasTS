@@ -3,6 +3,7 @@ import "../App.css";
 import { BtnBuscador, Btn, Filtro } from "../componentes/Boton";
 import { Paginado, TablaEditable } from "../componentes/Tabla";
 import Header from "../componentes/Header";
+import { useState } from "react";
 
 function Productos() {
   const seccionActual = "Productos";
@@ -68,6 +69,17 @@ function Productos() {
     "Mesa",
     "Lampara",
   ];
+  const [opcionSeleccionada, setOpcionSeleccionada] = useState("");
+  const [inputValue, setInputValue] = useState(itemsList[0]);
+  const handleOptionChange = (event: any) => {
+    const selectedValue = event.target.value;
+    setOpcionSeleccionada(selectedValue);
+    setInputValue(selectedValue);
+  };
+  const handleInputChange = () => {
+    const selectedValue = "";
+    setInputValue(selectedValue);
+  };
 
   return (
     <div className="App">
@@ -86,8 +98,8 @@ function Productos() {
             <Filtro
               estilo="btnFiltro"
               items={itemsList}
-              retornarOpcion={() => {}}
-              opcionSeleccionada=""
+              opcionSeleccionada={opcionSeleccionada}
+              retornarOpcion={handleOptionChange}
             />
 
             <BtnBuscador buscarPor="ID" estilo="btnBuscador" />

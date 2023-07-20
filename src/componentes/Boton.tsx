@@ -1,5 +1,6 @@
 import React from "react";
 import "./Boton.css";
+import { Popup } from "./Popup";
 
 export function BtnIcon({
   icono,
@@ -14,8 +15,8 @@ export function BtnIcon({
 }) {
   return (
     <button className={estilo} onClick={accion}>
-      <span className="material-symbols-outlined">{icono}</span>
       {texto && <span>{texto}</span>}
+      <span className="material-symbols-outlined">{icono}</span>
     </button>
   );
 }
@@ -63,7 +64,25 @@ export function Filtro({
 
 export function Btn({ estilo, valor }: { estilo: string; valor: string }) {
   // Este Boton es la plantilla de un boton para utilizar en la seccion de filtros arriba de una tabla, el boton abrira un popup para elegir la opcion
-  return <input type="button" value={valor} className={estilo} />;
+  const items = ["Fecha", "ID", "Total"];
+
+  return (
+    <div className="relative ">
+      <input type="button" value={valor} className={estilo} />
+    </div>
+  );
+}
+
+export function BtnPopUp({ estilo, valor }: { estilo: string; valor: string }) {
+  // Este Boton es la plantilla de un boton para utilizar en la seccion de filtros arriba de una tabla, el boton abrira un popup para elegir la opcion
+  const items = ["Fecha", "ID", "Total"];
+
+  return (
+    <div className="h-fit relative">
+      <input type="button" value={valor} className={estilo} />
+      <Popup opciones={items} />
+    </div>
+  );
 }
 
 export function BtnRatio({ opciones }: { opciones: string[] }) {
