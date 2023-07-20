@@ -23,6 +23,7 @@ body {
   --c11: #f5f9fa;
   --c12: #d8dbdc;
   --c13: #1b8d73;
+  --c14: #fdfbfb;
 }
 
 .Link {
@@ -40,7 +41,7 @@ body {
 }
 
 .contenedor-principal {
-  background-color: var(--c1);
+  background-color: var(--c14);
   display: flex;
   flex-basis: 0;
   flex-grow: 999;

@@ -18,6 +18,8 @@ function getColumnClass(columna: string) {
       return "precio";
     case "Cantidad(kg)":
       return "cantidad";
+    case "Cantidad":
+      return "cantidad";
     case "Descripción":
       return "descripcion";
     case "Ultimo Cambio":

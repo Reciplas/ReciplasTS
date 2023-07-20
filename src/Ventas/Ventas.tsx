@@ -50,6 +50,7 @@ function Ventas() {
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <Paginado />
           <div style={{ display: "flex", gap: "8px" }}>
+            <Btn estilo="btnImprimir" valor="Nueva Venta" />
             <Btn estilo="btnImprimir" valor="Generar Informe" />
           </div>
         </div>

@@ -6,7 +6,7 @@ import { TablaEditable4, Paginado } from "../componentes/Tabla";
 
 function Pedidos() {
   const seccionActual = "Pedidos";
-  const opcionesRatio = ["Todos", "Pendientes", "Recibidos"];
+  const opcionesRatio = ["Todos", "Pendientes", "Frabricación", "Entrega"];
   const columnas = [
     " ",
     " ",
@@ -52,7 +52,7 @@ function Pedidos() {
             <Btn estilo="btnOrdenar" valor="Ordenar" />
             <Btn estilo="btnOrdenar" valor="Filtrar Período" />
 
-            <BtnBuscador buscarPor="Proveedor" estilo="btnBuscadorGeneral" />
+            <BtnBuscador buscarPor="Cliente" estilo="btnBuscadorGeneral" />
             <BtnBuscador buscarPor="ID" estilo="btnBuscador" />
             <BtnRatio opciones={opcionesRatio} />
           </div>

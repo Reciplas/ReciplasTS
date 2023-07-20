@@ -1,4 +1,4 @@
-import { MLventas} from "../componentes/MenuLateral";
+import { MLventas } from "../componentes/MenuLateral";
 import "../App.css";
 import { BtnBuscador, Btn, Filtro } from "../componentes/Boton";
 import { Paginado, TablaEditable } from "../componentes/Tabla";
@@ -11,7 +11,7 @@ function Productos() {
     " ",
     "id",
     "Producto",
-    "Cantidad(kg)",
+    "Cantidad",
     "Descripción",
     "Ultimo Cambio",
   ];
@@ -68,7 +68,7 @@ function Productos() {
     "Mesa",
     "Lampara",
   ];
-  
+
   return (
     <div className="flex h-screen w-screen text-[1rem] flex-row font-lato text-dark-green bg-gradient-120 from-white-1 to-white-2">
       <MLventas seccionActual={seccionActual} />
