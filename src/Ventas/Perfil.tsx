@@ -31,8 +31,8 @@ function Perfil() {
             <h1>Información personal</h1>
             <div className="flex  gap-[30px] h-fit">
               <img
-                className="flex justify-center items-center w-64 h-64 rounded-[50%] object-cover"
-                src={require(`../img/foto-canela.jpg`)}
+                className="flex justify-center items-center w-64 h-64 rounded-[50%]  object-cover"
+                src={require(`../img/foto-canelaTriste.jpg`)}
                 alt="Foto de perfil del usuario"
               />
               <div className=" p-[10px] flex flex-wrap flex-col gap-[20px]">

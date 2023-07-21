@@ -47,7 +47,7 @@ function Perfil() {
                   </div>
                   <div className=" h-fit w-[300px] ">
                     <LabelObligatorio texto="E-mail (nombre de usuario)" />
-                    <InputTypeText texto="Ventas@reciplas.com" />
+                    <InputTypeText texto="Compras@reciplas.com" />
                   </div>
                 </div>
                 <Btn estilo="btnImprimir" valor="Cambiar contraseña" />
