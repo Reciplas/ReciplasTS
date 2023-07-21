@@ -89,7 +89,7 @@ export function BtnPopUp({ estilo, valor }: { estilo: string; valor: string }) {
       />
       {estadoPopup && (
         <div
-          className="w-[100vw] h-[100vh] fixed top-0 left-0 "
+          className="w-[100vw] h-[100vh] fixed top-0 left-0 z-10"
           onClick={() => cambiarEstadoPopup(!estadoPopup)}></div>
       )}
       <Popup
@@ -122,7 +122,7 @@ export function BtnPopUpPeriodo({
       />
       {estadoPopup && (
         <div
-          className="w-[100vw] h-[100vh] fixed top-0 left-0 "
+          className="w-[100vw] h-[100vh] fixed top-0 left-0 z-10"
           onClick={() => cambiarEstadoPopup(!estadoPopup)}></div>
       )}
       <PopupPeriodo estado={estadoPopup} cambiarEstado={cambiarEstadoPopup} />
@@ -151,7 +151,7 @@ export function BtnPopUpTotal({
       />
       {estadoPopup && (
         <div
-          className="w-[100vw] h-[100vh] fixed top-0 left-0 "
+          className="w-[100vw] h-[100vh] fixed top-0 left-0  z-10"
           onClick={() => cambiarEstadoPopup(!estadoPopup)}></div>
       )}
       <PopupPrecio estado={estadoPopup} cambiarEstado={cambiarEstadoPopup} />
@@ -180,7 +180,7 @@ export function BtnPopUpCuotas({
       />
       {estadoPopup && (
         <div
-          className="w-[100vw] h-[100vh] fixed top-0 left-0 "
+          className="w-[100vw] h-[100vh] fixed top-0 left-0 z-10"
           onClick={() => cambiarEstadoPopup(!estadoPopup)}></div>
       )}
       <PopupCuotas
