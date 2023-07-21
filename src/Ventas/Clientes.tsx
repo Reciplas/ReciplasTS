@@ -121,7 +121,7 @@ function Clientes() {
             icono2="delete"
           />
         </div>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div className="flex justify-between">
           <Paginado />
           <div className="flex gap-[8px]">
             <Btn estilo="btnImprimir" valor="Añadir Cliente" />

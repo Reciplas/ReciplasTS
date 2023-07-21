@@ -27,7 +27,7 @@ function Ventas() {
         <Header perfil="Tomas Gúzman" area="Ventas" fotoDe="canelaTriste" />
         <div className="titulo-principal">
           <h1>Listado de ventas</h1>
-          <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
+          <div className="flex gap-[5px] items-center">
             <Btn estilo="btnOrdenar" valor="Ordenar" />
             <Btn estilo="btnOrdenar" valor="Filtrar Período" />
             <Btn estilo="btnOrdenar" valor="Filtrar Total" />
@@ -47,9 +47,9 @@ function Ventas() {
             icono2="print"
           />
         </div>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div className="flex justify-between">
           <Paginado />
-          <div style={{ display: "flex", gap: "8px" }}>
+          <div className="flex gap-2">
             <Btn estilo="btnImprimir" valor="Nueva Venta" />
             <Btn estilo="btnImprimir" valor="Generar Informe" />
           </div>

@@ -185,7 +185,7 @@ function Proveedores() {
         <Header perfil="Enzo Nahuel Vallejos" area="Compras" fotoDe="enzo" />
         <div className="titulo-principal">
           <h1>Listado de proveedores</h1>
-          <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
+          <div className="flex gap-[5px] items-center">
             <Btn estilo="btnOrdenar" valor="Ordenar" />
             <Btn estilo="btnOrdenar" valor="Filtrar Período" />
 
@@ -201,9 +201,9 @@ function Proveedores() {
             icono2="delete"
           />
         </div>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div className="flex justify-between">
           <Paginado />
-          <div style={{ display: "flex", gap: "8px" }}>
+          <div className="flex gap-2">
             <Btn estilo="btnImprimir" valor="Añadir Proveedor" />
           </div>
         </div>
