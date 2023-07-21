@@ -2,7 +2,14 @@ import { MenuLateral } from "../componentes/MenuLateral";
 import "../App.css";
 import { Paginado, TablaEditable } from "../componentes/Tabla";
 import Header from "../componentes/Header";
-import { BtnBuscador, Btn, BtnPopUp } from "../componentes/Boton";
+import {
+  BtnBuscador,
+  Btn,
+  BtnPopUp,
+  BtnPopUpPeriodo,
+  BtnPopUpTotal,
+  BtnPopUpCuotas,
+} from "../componentes/Boton";
 
 function Ventas() {
   const columnas = [" ", " ", "id", "Total", "Cuotas", "Cliente", "Fecha"];
@@ -20,6 +27,7 @@ function Ventas() {
   ];
 
   const seccionActual = "Ventas";
+
   return (
     <div className="App">
       <MenuLateral seccionActual={seccionActual} />
@@ -31,11 +39,11 @@ function Ventas() {
         />
         <div className="titulo-principal">
           <h1>Listado de ventas</h1>
-          <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
+          <div className="flex gap-[5px] items-center ">
             <BtnPopUp estilo="btnOrdenar" valor="Ordenar" />
-            <Btn estilo="btnOrdenar" valor="Filtrar Período" />
-            <Btn estilo="btnOrdenar" valor="Filtrar Total" />
-            <Btn estilo="btnOrdenar" valor="Cuotas" />
+            <BtnPopUpPeriodo estilo="btnOrdenar" valor="Filtrar Período" />
+            <BtnPopUpTotal estilo="btnOrdenar" valor="Filtrar Total" />
+            <BtnPopUpCuotas estilo="btnOrdenar" valor="Cuotas" />
 
             <BtnBuscador
               buscarPor="Buscar Nro o Cliente"
@@ -51,9 +59,9 @@ function Ventas() {
             icono2="print"
           />
         </div>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div className="flex justify-between">
           <Paginado />
-          <div style={{ display: "flex", gap: "8px" }}>
+          <div className="flex gap-[8px] ">
             <Btn estilo="btnImprimir" valor="Generar Informe" />
           </div>
         </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "../App.css";
 import { Tabla, Paginado } from "../componentes/Tabla";
 import Header from "../componentes/Header";

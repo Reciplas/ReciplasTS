@@ -7,10 +7,10 @@ export function LabelObligatorio({ texto }: { texto: string }) {
   );
 }
 
-export function Label({ texto }: { texto: string }) {
+export function Label({ texto, estilo }: { texto: string; estilo: string }) {
   return (
     <label className="font-semibold ">
-      <div className=" h-[30px] ">{texto}</div>
+      <div className={estilo}>{texto}</div>
     </label>
   );
 }

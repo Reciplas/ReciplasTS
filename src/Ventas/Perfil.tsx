@@ -76,11 +76,11 @@ function Perfil() {
                     <InputTypeText texto="2135" />
                   </div>
                   <div className=" h-fit w-[100px] ">
-                    <Label texto="Piso" />
+                    <Label texto="Piso" estilo="h-[30px] " />
                     <InputTypeText texto="-" />
                   </div>
                   <div className=" h-fit w-[100px] ">
-                    <Label texto="Dept." />
+                    <Label texto="Dept." estilo="h-[30px] " />
                     <InputTypeText texto="-" />
                   </div>
                 </div>
