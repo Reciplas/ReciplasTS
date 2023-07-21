@@ -1,4 +1,5 @@
 import { MenuLateral } from "../componentes/MenuLateral";
+import { Detalle } from "../componentes/Detalles";
 import "../App.css";
 import { Paginado, TablaEditable } from "../componentes/Tabla";
 import Header from "../componentes/Header";
@@ -37,33 +38,41 @@ function Ventas() {
           area="Administracion"
           fotoDe="canela"
         />
-        <div className="titulo-principal">
-          <h1>Listado de ventas</h1>
-          <div className="flex gap-[5px] items-center ">
-            <BtnPopUp estilo="btnOrdenar" valor="Ordenar" />
-            <BtnPopUpPeriodo estilo="btnOrdenar" valor="Filtrar Período" />
-            <BtnPopUpTotal estilo="btnOrdenar" valor="Filtrar Total" />
-            <BtnPopUpCuotas estilo="btnOrdenar" valor="Cuotas" />
+        <div className="flex gap-[10px] w-[100%] flex-row">
+          <div className="flex flex-col gap-3 w-[70%]">
+            <h1>Listado de ventas</h1>
+            <div className="flex gap-[5px] items-center ">
+              <BtnPopUp estilo="btnOrdenar" valor="Ordenar" />
+              <BtnPopUpPeriodo estilo="btnOrdenar" valor="Filtrar Período" />
+              <BtnPopUpTotal estilo="btnOrdenar" valor="Filtrar Total" />
+              <BtnPopUpCuotas estilo="btnOrdenar" valor="Cuotas" />
 
-            <BtnBuscador
-              buscarPor="Buscar Nro o Cliente"
-              estilo=" btnBuscadorGeneral"
-            />
+              <BtnBuscador
+                buscarPor="Buscar Nro o Cliente"
+                estilo=" btnBuscadorGeneral"
+              />
+            </div>
+            <div className="contenedor-tabla">
+              <TablaEditable
+                columnas={columnas}
+                datos={datos}
+                icono1="visibility"
+                icono2="print"
+              />
+            </div>
+            <div className="flex justify-between">
+              <Paginado />
+              <div className="flex gap-[8px] ">
+                <Btn estilo="btnImprimir" valor="Generar Informe" />
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="contenedor-tabla">
-          <TablaEditable
-            columnas={columnas}
-            datos={datos}
-            icono1="visibility"
-            icono2="print"
-          />
-        </div>
-        <div className="flex justify-between">
-          <Paginado />
-          <div className="flex gap-[8px] ">
-            <Btn estilo="btnImprimir" valor="Generar Informe" />
+
+          <div className="flex flex-col w-[30%] gap-3">
+            <h1> Detalle </h1>
+              <Detalle />
           </div>
+
         </div>
       </div>
     </div>

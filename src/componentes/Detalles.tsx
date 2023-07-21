@@ -1,51 +1,46 @@
 import { Label } from "../componentes/TextLabel";
 import { InputTypeText } from "../componentes/InputField";
+import { Tabla, Paginado } from "../componentes/Tabla";
 
 export function Detalle() {
-  return (
-    <div className="flex flex-col gap-[20px] border-b-2 border-b-solid border-b-bordes-input pb-[20px]   ">
-      <div className="flex flex-wrap gap-[30px] h-fit">
-        <div className=" p-[10px] flex flex-col gap-[20px]">
-          <div className="flex flex-wrap gap-[20px]">
-            <div className=" h-fit w-[66px] ">
-              <Label texto="ID" estilo="h-[30px] " />
-              <InputTypeText texto="123" />
-            </div>
-            <div className=" h-fit w-[66px] ">
-              <Label texto="Cuota" estilo="h-[30px] " />
-              <InputTypeText texto="1/4" />
-            </div>
-            <div className=" h-fit w-[150px] ">
-              <Label texto="Cliente" estilo="h-[30px] " />
-              <InputTypeText texto="Amber Shutte" />
-            </div>
-            <div className=" h-fit w-[150px] ">
-              <Label texto="Fecha" estilo="h-[30px] " />
-              <InputTypeText texto="5/30/2023" />
-            </div>
-            <div className=" h-fit w-[150px] ">
-              <Label texto="Número de Pedido" estilo="h-[30px] " />
-              <InputTypeText texto="235" />
-            </div>
+  const columnas = [
+    "Cantidad",
+    "Descripción",
+    "Precio Unidad",
+    "Importe Total",
+  ];
+  const filas = [
+    ["1", "Paraguas", "$5.000", "$5.000,00"],
+    ["7", "Zapatillas", "$1.500", "$10.500,00"],
+    ["12", "Papelera", "$2.500", "$30.000,00"],
+    ["8", "Cuaderno", "$875", "$7.000,00"],
+    ["6", "Mesa", "$25.000", "$150.000,00"],
+    ["9", "Lampara", "$10.000", "$90.000,00"],
+  ];
 
-            <div className=" h-fit w-[150px] ">
-              <Label texto="Precio Unitario" estilo="h-[30px] " />
-              <InputTypeText texto="$321" />
-            </div>
-            <div className=" h-fit w-[150px] ">
-              <Label texto="Importe Total" estilo="h-[30px] " />
-              <InputTypeText texto="$5235" />
-            </div>
-            <div className="h-fit w-[320px]">
-              <Label texto="Descripción" estilo="h-[30px] " />
-              <textarea
-                rows={10}
-                className=" w-[100%] border-solid border-2 rounded-[5px] px-[10px] border-bordes-input overflow-hidden">
-                Descripción
-              </textarea>
-            </div>
-          </div>
+  return (
+    <div>
+      <div className="flex flex-wrap gap-[20px] p-4">
+        <div className=" h-fit w-fit">
+          <label> <b>Cliente:</b> Amber Shutte </label>
         </div>
+        <div className=" h-fit w-fit">
+          <label> <b>Fecha:</b> 5/30/2023 </label>
+        </div>
+        <div className=" h-fit w-fit">
+          <label> <b>Cuota:</b> 1/4 </label>
+        </div>
+
+      </div>
+      <div className="w-full h-fit overflow-y-hidden max-h-[773px] border border-slate-blue2">
+        <Tabla
+          columnas={columnas}
+          datos={filas}
+          estilo="table-fixed w-full text-left text-[15px] min-w-[400px] p-5 border-collapse"
+        />
+      </div>
+      <div className="flex justify-between py-4">
+        <Paginado />
       </div>
     </div>
   );

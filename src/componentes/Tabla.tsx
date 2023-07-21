@@ -18,10 +18,14 @@ function getColumnClass(columna: string) {
       return "precio";
     case "Cantidad(kg)":
       return "cantidad";
+    case "Precio Unidad":
+      return "precio";
+    case "Importe Total":
+      return "precio";
     case "Cantidad":
       return "cantidad";
     case "Descripción":
-      return "descripcion";
+      return "area";
     case "Ultimo Cambio":
       return "fecha";
     case "Nro":
