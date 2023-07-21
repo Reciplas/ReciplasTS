@@ -2,7 +2,14 @@ import { MLventas } from "../componentes/MenuLateral";
 import "../App.css";
 import { Paginado, TablaEditable } from "../componentes/Tabla";
 import Header from "../componentes/Header";
-import { BtnBuscador, Btn } from "../componentes/Boton";
+import {
+  BtnBuscador,
+  Btn,
+  BtnPopUp,
+  BtnPopUpCuotas,
+  BtnPopUpPeriodo,
+  BtnPopUpTotal,
+} from "../componentes/Boton";
 
 function Ventas() {
   const columnas = [" ", " ", "id", "Total", "Cuotas", "Cliente", "Fecha"];
@@ -28,10 +35,14 @@ function Ventas() {
         <div className="titulo-principal">
           <h1>Listado de ventas</h1>
           <div className="flex gap-[5px] items-center">
-            <Btn estilo="btnOrdenar" valor="Ordenar" />
-            <Btn estilo="btnOrdenar" valor="Filtrar Período" />
-            <Btn estilo="btnOrdenar" valor="Filtrar Total" />
-            <Btn estilo="btnOrdenar" valor="Cuotas" />
+            <BtnPopUp
+              estilo="btnOrdenar"
+              valor="Ordenar"
+              items={["Fecha", "ID", "Total"]}
+            />
+            <BtnPopUpPeriodo estilo="btnOrdenar" valor="Filtrar Período" />
+            <BtnPopUpTotal estilo="btnOrdenar" valor="Filtrar Total" />
+            <BtnPopUpCuotas estilo="btnOrdenar" valor="Cuotas" />
 
             <BtnBuscador
               buscarPor="Buscar Nro o Cliente"

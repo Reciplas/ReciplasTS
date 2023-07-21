@@ -1,7 +1,13 @@
 import { MLcompras } from "../componentes/MenuLateral";
 import "../App.css";
 import Header from "../componentes/Header";
-import { Btn, BtnRatio, BtnBuscador } from "../componentes/Boton";
+import {
+  Btn,
+  BtnRatio,
+  BtnBuscador,
+  BtnPopUp,
+  BtnPopUpPeriodo,
+} from "../componentes/Boton";
 import { TablaEditable4, Paginado } from "../componentes/Tabla";
 
 function Pedidos() {
@@ -49,8 +55,12 @@ function Pedidos() {
         <div className="titulo-principal">
           <h1>Listado de pedidos</h1>
           <div className="flex gap-[5px] items-center">
-            <Btn estilo="btnOrdenar" valor="Ordenar" />
-            <Btn estilo="btnOrdenar" valor="Filtrar Período" />
+            <BtnPopUp
+              estilo="btnOrdenar"
+              valor="Ordenar"
+              items={["Fecha", "ID", "Precio"]}
+            />
+            <BtnPopUpPeriodo estilo="btnOrdenar" valor="Filtrar Período" />
 
             <BtnBuscador buscarPor="Proveedor" estilo="btnBuscadorGeneral" />
             <BtnBuscador buscarPor="ID" estilo="btnBuscador" />

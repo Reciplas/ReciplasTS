@@ -1,7 +1,13 @@
 import { MenuLateral } from "../componentes/MenuLateral";
 import "../App.css";
 import Header from "../componentes/Header";
-import { Btn, Filtro, BtnBuscador } from "../componentes/Boton";
+import {
+  Btn,
+  Filtro,
+  BtnBuscador,
+  BtnPopUp,
+  BtnPopUpPeriodo,
+} from "../componentes/Boton";
 import { TablaEditable, Paginado } from "../componentes/Tabla";
 
 function Clientes() {
@@ -110,9 +116,12 @@ function Clientes() {
         <div className="titulo-principal">
           <h1>Listado de clientes</h1>
           <div className="flex gap-[5px] items-center">
-            <Btn estilo="btnOrdenar" valor="Ordenar" />
-            <Btn estilo="btnOrdenar" valor="Filtrar Período" />
-
+            <BtnPopUp
+              estilo="btnOrdenar"
+              valor="Ordenar"
+              items={["Fecha", "ID"]}
+            />
+            <BtnPopUpPeriodo estilo="btnOrdenar" valor="Filtrar Período" />
             <BtnBuscador buscarPor="Nombre" estilo="btnBuscadorGeneral" />
             <BtnBuscador buscarPor="ID" estilo="btnBuscador" />
           </div>

@@ -2,7 +2,13 @@ import { MenuLateral } from "../componentes/MenuLateral";
 import "../App.css";
 import { useState } from "react";
 import Header from "../componentes/Header";
-import { Btn, Filtro, BtnBuscador } from "../componentes/Boton";
+import {
+  Btn,
+  Filtro,
+  BtnBuscador,
+  BtnPopUp,
+  BtnPopUpPeriodo,
+} from "../componentes/Boton";
 import { TablaEditable, Paginado } from "../componentes/Tabla";
 
 function Usuarios() {
@@ -135,8 +141,12 @@ function Usuarios() {
         <div className="titulo-principal">
           <h1>Listado de usuarios</h1>
           <div className="flex gap-[5px] items-center">
-            <Btn estilo="btnOrdenar" valor="Ordenar" />
-            <Btn estilo="btnOrdenar" valor="Filtrar Período" />
+            <BtnPopUp
+              estilo="btnOrdenar"
+              valor="Ordenar"
+              items={["Fecha", "ID"]}
+            />
+            <BtnPopUpPeriodo estilo="btnOrdenar" valor="Filtrar Período" />
             <Filtro
               estilo="btnFiltro"
               items={itemsList}

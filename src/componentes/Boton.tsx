@@ -74,9 +74,16 @@ export function Btn({ estilo, valor }: { estilo: string; valor: string }) {
   );
 }
 
-export function BtnPopUp({ estilo, valor }: { estilo: string; valor: string }) {
+export function BtnPopUp({
+  estilo,
+  valor,
+  items,
+}: {
+  estilo: string;
+  valor: string;
+  items: string[];
+}) {
   // Este Boton es la plantilla de un boton para utilizar en la seccion de filtros arriba de una tabla, el boton abrira un popup para elegir la opcion
-  const items = ["Fecha", "ID", "Total"];
   const [estadoPopup, cambiarEstadoPopup] = useState<boolean>(false);
 
   return (

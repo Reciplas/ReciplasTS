@@ -1,6 +1,12 @@
 import { MenuLateral } from "../componentes/MenuLateral";
 import "../App.css";
-import { BtnBuscador, Btn, Filtro } from "../componentes/Boton";
+import {
+  BtnBuscador,
+  Btn,
+  Filtro,
+  BtnPopUp,
+  BtnPopUpPeriodo,
+} from "../componentes/Boton";
 import { Paginado, TablaEditable } from "../componentes/Tabla";
 import Header from "../componentes/Header";
 import { useState } from "react";
@@ -93,8 +99,12 @@ function Productos() {
         <div className="titulo-principal">
           <h1>Listado de productos</h1>
           <div className="flex gap-[5px] items-center">
-            <Btn estilo="btnOrdenar" valor="Ordenar" />
-            <Btn estilo="btnOrdenar" valor="Filtrar Período" />
+            <BtnPopUp
+              estilo="btnOrdenar"
+              valor="Ordenar"
+              items={["Fecha", "ID", "Cantidad"]}
+            />
+            <BtnPopUpPeriodo estilo="btnOrdenar" valor="Filtrar Período" />
             <Filtro
               estilo="btnFiltro"
               items={itemsList}

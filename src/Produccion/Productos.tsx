@@ -1,6 +1,12 @@
 import { MenuLateralProduccion } from "../componentes/MenuLateral";
 import "../App.css";
-import { BtnBuscador, Btn, Filtro } from "../componentes/Boton";
+import {
+  BtnBuscador,
+  Btn,
+  Filtro,
+  BtnPopUp,
+  BtnPopUpPeriodo,
+} from "../componentes/Boton";
 import { Paginado, TablaEditable } from "../componentes/Tabla";
 import Header from "../componentes/Header";
 
@@ -77,8 +83,12 @@ function Productos() {
         <div className="flex flex-wrap items-center justify-between gap-5">
           <h1>Listado de productos</h1>
           <div className="flex gap-[5px] items-center">
-            <Btn estilo="btnOrdenar" valor="Ordenar" />
-            <Btn estilo="btnOrdenar" valor="Filtrar Período" />
+            <BtnPopUp
+              estilo="btnOrdenar"
+              valor="Ordenar"
+              items={["Fecha", "ID", "Cantidad"]}
+            />
+            <BtnPopUpPeriodo estilo="btnOrdenar" valor="Filtrar Período" />
             <Filtro
               estilo="btnFiltro"
               items={itemsList}

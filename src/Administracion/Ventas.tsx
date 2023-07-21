@@ -42,7 +42,11 @@ function Ventas() {
           <div className="flex flex-col gap-3 w-[70%]">
             <h1>Listado de ventas</h1>
             <div className="flex gap-[5px] items-center ">
-              <BtnPopUp estilo="btnOrdenar" valor="Ordenar" />
+              <BtnPopUp
+                estilo="btnOrdenar"
+                valor="Ordenar"
+                items={["Fecha", "ID", "Total"]}
+              />
               <BtnPopUpPeriodo estilo="btnOrdenar" valor="Filtrar Período" />
               <BtnPopUpTotal estilo="btnOrdenar" valor="Filtrar Total" />
               <BtnPopUpCuotas estilo="btnOrdenar" valor="Cuotas" />
@@ -70,9 +74,8 @@ function Ventas() {
 
           <div className="flex flex-col w-[30%] gap-3">
             <h1> Detalle </h1>
-              <Detalle />
+            <Detalle />
           </div>
-
         </div>
       </div>
     </div>

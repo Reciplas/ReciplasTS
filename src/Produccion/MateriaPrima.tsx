@@ -1,6 +1,12 @@
 import { MenuLateralProduccion } from "../componentes/MenuLateral";
 // import "../App.css";
-import { BtnBuscador, Btn, Filtro } from "../componentes/Boton";
+import {
+  BtnBuscador,
+  Btn,
+  Filtro,
+  BtnPopUp,
+  BtnPopUpPeriodo,
+} from "../componentes/Boton";
 import React, { useState } from "react";
 import { Paginado, Tabla } from "../componentes/Tabla";
 import Header from "../componentes/Header";
@@ -151,8 +157,12 @@ function MateriaPrima() {
           <div className="flex flex-col gap-3 w-[70%]">
             <h1>Ingresos de materia prima</h1>
             <div className="flex gap-[5px] items-center">
-              <Btn estilo="btnOrdenar" valor="Ordenar" />
-              <Btn estilo="btnOrdenar" valor="Filtrar Período" />
+              <BtnPopUp
+                estilo="btnOrdenar"
+                valor="Ordenar"
+                items={["Fecha", "ID", "Precio", "Cantidad"]}
+              />
+              <BtnPopUpPeriodo estilo="btnOrdenar" valor="Filtrar Período" />
               <Filtro
                 estilo="btnFiltro"
                 items={itemsList}
@@ -175,7 +185,12 @@ function MateriaPrima() {
           <div className="flex flex-col gap-3 w-[30%]">
             <h1>Stock de materia prima</h1>
             <div className="flex gap-1 items-center">
-              <Btn estilo="btnOrdenar" valor="Ordenar" />
+              <BtnPopUp
+                estilo="btnOrdenar"
+                valor="Ordenar"
+                items={["Fecha", "Cantidad"]}
+              />
+
               <Filtro
                 estilo="btnFiltro"
                 items={itemsList}

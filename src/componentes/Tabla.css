@@ -62,11 +62,15 @@ tbody tr:hover {
 .precio,
 .cantidad,
 .total,
-.estado {
+.estado,
+.producto {
+  width: 60px;
+}
+.cantidad {
   width: 100px;
+  max-width: 80px;
 }
 
-.producto,
 .fecha {
   width: 120px;
 }
