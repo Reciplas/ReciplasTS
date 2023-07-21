@@ -18,7 +18,7 @@ export function Popup({
             {opciones.map((opcion, index) => (
               <div key={index} className="flex gap-[5px] hover:cursor-pointer">
                 <input
-                  className="peer"
+                  className="peer accent-green"
                   type="radio"
                   id={opcion}
                   name="ratio"
@@ -124,7 +124,7 @@ export function PopupCuotas({
             {opciones.map((opcion, index) => (
               <div key={index} className="flex gap-[5px] hover:cursor-pointer">
                 <input
-                  className="peer"
+                  className="peer accent-green"
                   type="radio"
                   id={opcion}
                   name="ratio"
