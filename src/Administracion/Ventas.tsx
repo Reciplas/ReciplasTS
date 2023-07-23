@@ -41,7 +41,7 @@ function Ventas() {
         <div className="flex gap-[10px] w-[100%] flex-row">
           <div className="flex flex-col gap-3 w-[70%]">
             <h1>Listado de ventas</h1>
-            <div className="flex gap-[5px] items-center ">
+            <div className="flex gap-[5px] items-center flex-wrap ">
               <BtnPopUp
                 estilo="btnOrdenar"
                 valor="Ordenar"
@@ -72,7 +72,7 @@ function Ventas() {
             </div>
           </div>
 
-          <div className="flex flex-col w-[30%] gap-3">
+          <div className="flex flex-col w-[30%] gap-[10px] ">
             <h1> Detalle </h1>
             <Detalle />
           </div>

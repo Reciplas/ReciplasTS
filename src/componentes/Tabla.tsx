@@ -25,7 +25,7 @@ function getColumnClass(columna: string) {
     case "Cantidad":
       return "cantidad";
     case "Descripción":
-      return "area";
+      return "descripcion";
     case "Ultimo Cambio":
       return "fecha";
     case "Nro":
@@ -137,12 +137,12 @@ export function TablaEditable({
                 <BtnIcon
                   icono={icono1}
                   accion={() => {
-                  const element = document.getElementById("show");
-                    
+                    const element = document.getElementById("show");
+
                     if (element) {
-                        element.style.display = "flex";
+                      element.style.display = "flex";
                     } else {
-                        console.log("no anduvo!");
+                      console.log("no anduvo!");
                     }
                   }}
                   estilo="accion-en-tabla"

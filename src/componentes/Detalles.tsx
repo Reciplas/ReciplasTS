@@ -19,18 +19,28 @@ export function Detalle() {
   ];
 
   return (
-    <div>
-      <div className="flex flex-wrap gap-[20px] p-4">
+    <div className="flex flex-col gap-3">
+      <div className="flex flex-wrap gap-[15px] min-h-[45px] items-center">
         <div className=" h-fit w-fit">
-          <label> <b>Cliente:</b> Amber Shutte </label>
+          <label>
+            <b>ID:</b> 1
+          </label>
         </div>
         <div className=" h-fit w-fit">
-          <label> <b>Fecha:</b> 5/30/2023 </label>
+          <label>
+            <b>Cliente:</b> Amber Shutte
+          </label>
         </div>
         <div className=" h-fit w-fit">
-          <label> <b>Cuota:</b> 1/4 </label>
+          <label>
+            <b>Fecha:</b> 5/30/2023
+          </label>
         </div>
-
+        <div className=" h-fit w-fit">
+          <label>
+            <b>Cuota:</b> 1/4
+          </label>
+        </div>
       </div>
       <div className="w-full h-fit overflow-y-hidden max-h-[773px] border border-slate-blue2">
         <Tabla
@@ -39,7 +49,7 @@ export function Detalle() {
           estilo="table-fixed w-full text-left text-[15px] min-w-[400px] p-5 border-collapse"
         />
       </div>
-      <div className="flex justify-between py-4">
+      <div className="flex justify-between">
         <Paginado />
       </div>
     </div>
