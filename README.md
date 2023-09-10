@@ -35,13 +35,7 @@ pnpm start
 **4. Videos**
 - npm:
   
-
-https://github.com/Reciplas/ReciplasTS/assets/63467023/b8841b73-1f53-4cca-9cdb-2e5f52b435a0
-
-
 [![IMAGE ALT TEXT](http://img.youtube.com/vi/Lnilxcmlm4w/0.jpg)](http://www.youtube.com/watch?v=Lnilxcmlm4w "Video Title")
 - pnpm:
-
-https://github.com/Reciplas/ReciplasTS/assets/63467023/db5ea47b-de4e-4314-8409-f4a0adc19595
-  
+ 
 [![IMAGE ALT TEXT](http://img.youtube.com/vi/tbe_IRs-EVM/0.jpg)](http://www.youtube.com/watch?v=tbe_IRs-EVM "Video Title")
