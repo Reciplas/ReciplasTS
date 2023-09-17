@@ -16,7 +16,7 @@ gh repo clone Reciplas/ReciplasTS
 **2. Setup:** Una vez descargado el repositorio, dentro de la carpeta ReciplasTS, instala las dependencias de la app:
 - Con npm:
 ~~~
-npm install --legacy-per-deps    
+npm install --legacy-peer-deps    
 ~~~
 - Con pnpm:
 ~~~
