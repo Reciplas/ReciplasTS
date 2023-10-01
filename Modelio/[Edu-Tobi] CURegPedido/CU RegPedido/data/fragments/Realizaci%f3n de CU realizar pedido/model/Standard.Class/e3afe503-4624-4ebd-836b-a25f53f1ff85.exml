@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Sistema" version="4">
+  <OBJECT>
+    <ID name="Sistema" mc="Standard.Class" uid="e3afe503-4624-4ebd-836b-a25f53f1ff85"/>
+    <PID name="Clases" mc="Standard.Package" uid="d191d085-61a0-42a8-bf48-89b794df1079"/>
+    <ATTRIBUTES>
+      <ATT name="IsActive">true</ATT>
+      <ATT name="IsMain">false</ATT>
+      <ATT name="IsElementary">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Sistema]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedEnd">
+        <REFOBJ>
+          <ID name="" mc="Standard.AssociationEnd" uid="8604229f-6124-4de3-873c-9f4e9a38aacc"/>
+        </REFOBJ>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

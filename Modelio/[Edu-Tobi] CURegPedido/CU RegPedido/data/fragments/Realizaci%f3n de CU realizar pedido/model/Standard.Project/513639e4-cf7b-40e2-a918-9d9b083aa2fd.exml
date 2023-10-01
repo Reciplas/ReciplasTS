@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Realización de CU realizar pedido" version="4">
+  <OBJECT>
+    <ID name="Realización de CU realizar pedido" mc="Standard.Project" uid="513639e4-cf7b-40e2-a918-9d9b083aa2fd"/>
+    <ATTRIBUTES>
+      <ATT name="ProjectContext"></ATT>
+      <ATT name="ProjectDescr"></ATT>
+      <ATT name="Name"><![CDATA[Realización de CU realizar pedido]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="Model">
+        <COMPID name="RegPedido" mc="Standard.Package" uid="5473d763-9bd3-4af2-88b8-7297cb238b01"/>
+        <COMPID name="BuscPedido" mc="Standard.Package" uid="b1e5cf54-40a2-48c1-a819-11577328ffcb"/>
+        <COMPID name="Clases" mc="Standard.Package" uid="d191d085-61a0-42a8-bf48-89b794df1079"/>
+      </COMP>
+      <COMP relation="DiagramRoot">
+        <COMPID name="Realización de CU realizar pedido" mc="Infrastructure.DiagramSet" uid="f2abe27c-bc7e-47c3-a39c-923d71ea40c1"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>
