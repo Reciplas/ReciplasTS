@@ -40,11 +40,18 @@ export function AGTable() {
         {ID: 10, Producto:"Silla", Cantidad:"44", Precio:"$1000", Descripción:"Proin eu mi.", UltimoCambio: "05/27/2023"}
     ]);
     
-    // Esto es para que el ancho de las columnas de la tabla se actualizen para usar todo el ancho de la ventana
+    // Esto es para que el ancho de las columnas de la tabla se actualizen para usar todo el ancho de la ventana.
     const sizeToFit = useCallback(() => {
         gridRef.current?.api?.sizeColumnsToFit({});
     }, []);
-
+    
+    // TODO: HACER QUE sizeToFit se ejecute cuando se carga la ventana por primera vez.
+    // Me parece que esto no funciona por cómo está definida sizeToFit.
+    useEffect(() => {
+        console.log("ACA DEBERIA FUNCIONAR!")
+        sizeToFit
+    }, []);
+    
     useEffect(() => {
         window.addEventListener('resize', sizeToFit);
         return () => {
@@ -52,7 +59,7 @@ export function AGTable() {
         };
     }, []);
 
-    // Acá hay que montar el endpoint de la base de datos para generar dinámicamente un archivo JSON con los datos.
+    // Acá hay que montar el endpoint de la base de datos para recibir un archivo JSON con los datos.
     // useEffect(() => {
     //   fetch('endpoint path')
     //   .then(result => result.json())
