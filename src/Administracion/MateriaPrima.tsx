@@ -14,16 +14,7 @@ import Header from "../componentes/Header";
 function MateriaPrima() {
   const seccionActual = "MP";
 
-  const columnasStock = ["Plástico", "Cantidad(kg)", "Ultimo Cambio"];
-  const datosStock = [
-    ["PS", "79", "12/7/2022"],
-    ["PP", "20", "1/25/2023"],
-    ["PVC", "28", "9/29/2022"],
-    ["PEBD", "65", "3/27/2023"],
-    ["READ", "91", "3/14/2023"],
-    ["PET", "77", "6/18/2023"],
-  ];
-
+    // Tabla de la izquierda
   const columnas = [
     "id",
     "Plástico",
@@ -123,6 +114,17 @@ function MateriaPrima() {
       "Tapón de rosca para botella PET",
       "3/4/2023",
     ],
+  ];
+
+// Tabla de la derecha
+  const columnasStock = ["Plástico", "Cantidad(kg)", "Ultimo Cambio"];
+  const datosStock = [
+    ["PS", "79", "12/7/2022"],
+    ["PP", "20", "1/25/2023"],
+    ["PVC", "28", "9/29/2022"],
+    ["PEBD", "65", "3/27/2023"],
+    ["READ", "91", "3/14/2023"],
+    ["PET", "77", "6/18/2023"],
   ];
 
   const itemsList = ["Plástico", "PET", "READ", "PVC", "PEBD", "PP", "PS"];

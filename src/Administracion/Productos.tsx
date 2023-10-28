@@ -23,7 +23,7 @@ function Productos() {
                     <h1>Listado de productos</h1>
                 </div>
 
-                <AGTable/>
+                <AGTable endpointPath={""}/>
 
                 <div className="flex justify-between">
                     <div className="flex gap-2">
