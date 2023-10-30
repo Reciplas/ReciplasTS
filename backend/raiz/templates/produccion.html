@@ -1,0 +1,276 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'css/areas.css' %}">
+
+        <!-- Link con google icons -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+        <!-- Link con google fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@900&family=Poppins:wght@300;400;700&family=Roboto&display=swap" rel="stylesheet">
+
+        <!-- Link con FontsAwesome-->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>
+
+        <title>Área de producción | RECIPLAS | Materia prima</title>
+    </head>
+    <body>
+        <main>
+            <header>
+                <!-- Este boton solo aparece cuando la pantalla es de celu, en las otras pantallas esta oculto -->
+                <button class="btn-lateral" onclick="desplerMenu()" >
+                    <span class="material-symbols-outlined" >
+                        menu
+                    </span>
+                </button>
+                    <div class="menu-para-mobil">
+                        <div>
+                            <button class="btn-lateral-cerrar" onclick="cerrarMenu()">
+                                <span class="material-symbols-outlined">
+                                    arrow_back_ios
+                                </span>
+                            </button>
+                        </div>
+
+                        <nav>
+                            <a href="#"><span class="material-symbols-outlined">
+                                    token
+                                </span>Materia prima </a> 
+                                <a href="#" >
+                                    <span class="material-symbols-outlined">
+                                        shelves
+                                    </span>
+                                    Productos
+                                </a>
+                                <a href="#" >
+                                    <span class="material-symbols-outlined">
+                                        package
+                                    </span>
+                                    Pedidos
+                                </a>
+                                <a href="#">
+                                    <span class="material-symbols-outlined">
+                                        error
+                                    </span>
+                                    Términos y condiciones
+                                </a>
+                                <a href="#">
+                                    <span class="material-symbols-outlined">
+                                        verified_user
+                                    </span>
+                                    Políticas de privacidad
+                                </a>
+                                <a href="{% url 'logout' %}"> <!--link de logout de DJANGO-->
+                                    <span class="material-symbols-outlined">
+                                        logout
+                                    </span>
+                                    Cerrar sesión
+                                </a>
+                        </nav>
+
+                        <p class="footer-mobil">Reciplas®2023. Todos los derechos reservados</p>
+
+                    </div>
+
+
+                    <!-- Menu horizontal, pantalla grande -->
+                    <div>
+                        <img src="{% static 'img/LogoBlanco.png' %}" alt="logo de reciplas">
+                        <p>PRODUCCIÓN</p>
+                    </div>
+                    <nav>
+                        <ul>
+                            <li><a href="#" class="seccion-actual">Materia prima</a></li>
+                            <li><a href="#">Productos</a></li>
+                            <li><a href="#">Pedidos</a></li>
+                            <li><a href="#">Perfil</a></li>
+                            <li><a href="{% url 'logout' %}" class="logout"> <!--link de logout de DJANGO-->
+                                    <span class="material-symbols-outlined">
+                                        logout
+                                    </span>
+                                </a></li>
+                        </ul>
+                    </nav>
+                    <div class="logout-lateral">
+                        <a href="#">
+                            <span class="material-symbols-outlined">
+                                manage_accounts
+                            </span>
+                        </a>
+                        <a href="{% url 'logout' %}" class="logout"> <!--link de logout de DJANGO-->
+                            <span class="material-symbols-outlined">
+                                logout
+                            </span>
+                        </a>
+                    </div>
+            </header>
+
+            <!-- Menu Lateral, pantalla mediana-->
+            <div class="menu-lateral">
+                <a href="#">
+                    <span class="material-symbols-outlined">
+                        token
+                    </span>
+                </a>
+                <a href="#">
+                    <span class="material-symbols-outlined">
+                        shelves
+                    </span>
+                </a>
+                <a href="#">
+                    <span class="material-symbols-outlined">
+                        package
+                    </span>
+                </a>
+            </div>
+
+            <button class="btn-cerrar-menu" onclick="cerrarMenu2()">
+                <span class="material-symbols-outlined">
+                    arrow_back_ios 
+                </span>
+            </button>
+
+            <div class="menu-lateral-desplegable">
+
+                <a href="#" class="underline">Materia prima </a> 
+                <a href="#" class="underline">Productos</a>
+                <a href="#" class="underline">Pedidos</a>
+            </div>
+
+            <!-- tabla -->
+            <div class="contenedor-tabla">
+                <table>
+                    <caption> LISTADO DE MATERIA PRIMA DISPONIBLE </caption>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Fecha ingreso</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Cantidad (kg)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#77723</td>
+                            <td>15-04-2023</td>
+                            <td>Plástico</td>
+                            <td>Botellas 375ml</td>
+                            <td>12,00</td>
+                        </tr>
+                        <tr>
+                            <td>#77723</td>
+                            <td>15-04-2023</td>
+                            <td>Plástico</td>
+                            <td>Botellas 375ml</td>
+                            <td>12,00</td>
+                        </tr>
+                        <tr>
+                            <td>#77723</td>
+                            <td>15-04-2023</td>
+                            <td>Plástico</td>
+                            <td>Botellas 375ml</td>
+                            <td>12,00</td>
+                        </tr>
+                        <tr>
+                            <td>#77723</td>
+                            <td>15-04-2023</td>
+                            <td>Plástico</td>
+                            <td>Botellas 375ml</td>
+                            <td>12,00</td>
+                        </tr>
+                        <tr>
+                            <td>#77723</td>
+                            <td>15-04-2023</td>
+                            <td>Plástico</td>
+                            <td>Botellas 375ml</td>
+                            <td>12,00</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="botonInforme"> 
+                    Imprimir Informe 
+                </button>
+            </div>
+
+            <!-- TABLA PARA MOVIL -->
+            <div class="contenedor-tabla-mobil"> 
+                <table class="tabla-mobil-responsive">
+                    <thead>
+                        <tr>
+                            <td>ID</td>
+                            <td>FECHA INGRESO</td>
+                            <td>NOMBRE</td>
+                            <td>DESCRIPCIÓN</td>
+                            <td>CANTIDAD(KG)</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       <tr>
+                            <td data-label="ID">#77723</td>
+                            <td data-label="FECHA INGRESO">15-04-2023</td>
+                            <td data-label="NOMBRE">Plástico</td>
+                            <td data-label="DESCRIPCIÓN">Botellas 375ml</td>
+                            <td data-label="CANTIDAD(KG)">12,00</td>
+                       </tr>
+                        
+                        <tr>
+                            <td data-label="ID">#77723</td>
+                            <td data-label="FECHA INGRESO">15-04-2023</td>
+                            <td data-label="NOMBRE">Plástico</td>
+                            <td data-label="DESCRIPCIÓN">Botellas 375ml</td>
+                            <td data-label="CANTIDAD(KG)">12,00</td>
+                        </tr>
+                        
+                        <tr>
+                            <td data-label="ID">#77723</td>
+                            <td data-label="FECHA INGRESO">15-04-2023</td>
+                            <td data-label="NOMBRE">Plástico</td>
+                            <td data-label="DESCRIPCIÓN">Botellas 375ml</td>
+                            <td data-label="CANTIDAD(KG)">12,00</td>
+                        </tr>
+                        
+                        <tr>
+                            <td data-label="ID">#77723</td>
+                            <td data-label="FECHA INGRESO">15-04-2023</td>
+                            <td data-label="NOMBRE">Plástico</td>
+                            <td data-label="DESCRIPCIÓN">Botellas 375ml</td>
+                            <td data-label="CANTIDAD(KG)">12,00</td>
+                        </tr>
+                        
+                        <tr>
+                            <td data-label="ID">#77723</td>
+                            <td data-label="FECHA INGRESO">15-04-2023</td>
+                            <td data-label="NOMBRE">Plástico</td>
+                            <td data-label="DESCRIPCIÓN">Botellas 375ml</td>
+                            <td data-label="CANTIDAD(KG)">12,00</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <button class="botonInforme-mobil">
+                    <span class="material-symbols-outlined">
+                        print
+                    </span>
+                </button>
+            </div>
+
+        </main>
+        <footer>
+            <div>
+                <a href="#">Términos y condiciones | </a>
+                <a href="#">Políticas de privacidad</a>
+            </div>
+            <p>Reciplas®2023. Todos los derechos reservados</p>
+        </footer>
+
+    </body>
+    <!--<script src="script.js"></script>-->
+</html>
+

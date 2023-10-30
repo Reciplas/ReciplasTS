@@ -1,0 +1,254 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'css/areas.css' %}">
+
+        <!-- Link con google icons -->
+        <link rel="stylesheet"
+              href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+        <!-- Link con google fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+                href="https://fonts.googleapis.com/css2?family=Lato:wght@900&family=Poppins:wght@300;400;700&family=Roboto&display=swap"
+                rel="stylesheet">
+
+        <!-- Link con FontsAwesome-->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" />
+
+        <title>Área de administración| RECIPLAS</title>
+    </head>
+
+    <body>
+        <main>
+            <header>
+                <!-- Este boton solo aparece cuando la pantalla es de celu, en las otras pantallas esta oculto -->
+                <button class="btn-lateral" onclick="desplerMenu()">
+                    <span class="material-symbols-outlined">
+                        menu
+                    </span>
+                </button>
+                <div class="menu-para-mobil">
+                    <div>
+                        <button class="btn-lateral-cerrar" onclick="cerrarMenu()">
+                            <span class="material-symbols-outlined">
+                                arrow_back_ios
+                            </span>
+                        </button>
+                    </div>
+
+                    <nav>
+                        <a href="#">
+                            <span class="material-symbols-outlined">
+                                shopping_cart
+                            </span>
+                            Compras
+                        </a>
+
+                        <a href="#">
+                            <span class="material-symbols-outlined">
+                                monitoring
+                            </span>
+                            Ventas
+                        </a>
+
+                        <a href="#">
+                            <span class="material-symbols-outlined">
+                                package
+                            </span>
+                            Pedidos
+                        </a>
+
+                        <a href="#">
+                            <span class="material-symbols-outlined">
+                                token
+                            </span>
+                            Materia prima
+                        </a>
+
+                        <a href="#">
+                            <span class="material-symbols-outlined">
+                                shelves
+                            </span>
+                            Productos
+                        </a>
+
+                        <a href="#">
+                            <span class="material-symbols-outlined">
+                                person_add
+                            </span>
+                            Alta de Usuarios
+                        </a>
+
+                        <a href="#">
+                            <span class="material-symbols-outlined">
+                                groups
+                            </span>
+                            Clientes
+                        </a>
+
+                        <a href="#">
+                            <span class="material-symbols-outlined">
+                                local_shipping
+                            </span>
+                            Proovedores
+                        </a>
+
+                        <a href="#">
+                            <span class="material-symbols-outlined">
+                                error
+                            </span>
+                            Términos y condiciones
+                        </a>
+
+                        <a href="#">
+                            <span class="material-symbols-outlined">
+                                verified_user
+                            </span>
+                            Políticas de privacidad
+                        </a>
+
+                        <a href="{% url 'logout' %}"> <!--link de logout de DJANGO-->
+                            <span class="material-symbols-outlined">
+                                logout
+                            </span>
+                            Cerrar sesión
+                        </a>
+                    </nav>
+                    <p class="footer-mobil">Reciplas®2023. Todos los derechos reservados</p>
+                </div>
+
+                <!-- Menu horizontal, pantalla grande -->
+                <div>
+                    <img src="{% static 'img/LogoBlanco.png' %}" alt="logo de reciplas">
+                    <p>ADMINISTRACIÓN</p>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="menu-adm seccion-actual">Compras</a></li>
+                        <li><a href="#" class="menu-adm">Ventas</a></li>
+                        <li><a href="#" class="menu-adm">Pedidos</a></li>
+                        <li><a href="#" class="menu-adm">Materia prima</a></li>
+                        <li><a href="#" class="menu-adm">Productos</a></li>
+                        <li><a href="#" class="menu-adm">Clientes</a></li>
+                        <li><a href="#" class="menu-adm">Proovedores</a></li>
+                    </ul>
+                </nav>
+                <div class="iconos-pantalla-grande">
+                  <a href="#" class="logout">
+                    <span class="material-symbols-outlined">
+                        person_add
+                    </span>
+                  </a>
+                    <a href="#" class="logout">
+                        <span class="material-symbols-outlined">
+                            manage_accounts
+                        </span>
+                    </a>
+                    <a href="{% url 'logout' %}" class="logout"> <!--link de logout de DJANGO-->
+                        <span class="material-symbols-outlined">
+                            logout
+                        </span>
+                    </a>
+                </div>
+
+                <div class="logout-lateral">
+                    <a href="#" class="logout">
+                        <span class="material-symbols-outlined">
+                            manage_accounts
+                        </span>
+                    </a>
+                    <a href="{% url 'logout' %}" class="logout"> <!--link de logout de DJANGO-->
+                        <span class="material-symbols-outlined">
+                            logout
+                        </span>
+                    </a>
+                </div>
+
+            </header>
+
+            <!-- Menu Lateral, pantalla mediana-->
+            <div class="menu-lateral">
+                <a href="#">
+                    <span class="material-symbols-outlined">
+                        shopping_cart
+                    </span>
+                </a>
+
+                <a href="#">
+                    <span class="material-symbols-outlined">
+                        monitoring
+                    </span>
+                </a>
+                <a href="#">
+                    <span class="material-symbols-outlined">
+                        package
+                    </span>
+                </a>
+
+                <a href="#">
+                    <span class="material-symbols-outlined">
+                        token
+                    </span>
+                </a>
+
+                <a href="#">
+                    <span class="material-symbols-outlined">
+                        shelves
+                    </span>
+                </a>
+                <a href="#">
+                    <span class="material-symbols-outlined">
+                        person_add
+                    </span>
+                </a>
+                <a href="#">
+                    <span class="material-symbols-outlined">
+                        groups
+                    </span>
+                </a>
+                <a href="#">
+                    <span class="material-symbols-outlined">
+                        local_shipping
+                    </span>
+                </a>
+
+            </div>
+            <button class="btn-cerrar-menu" onclick="cerrarMenu2()">
+                <span class="material-symbols-outlined">
+                    arrow_back_ios
+                </span>
+            </button>
+
+            <div class="menu-lateral-desplegable">
+
+                <a href="#" class="underline">Compras</a>
+                <a href="#" class="underline">Ventas</a>
+                <a href="#" class="underline">Pedidos</a>
+                <a href="#" class="underline">Materia prima</a>
+                <a href="#" class="underline">Productos</a>
+                <a href="#" class="underline">Alta Usuarios</a>
+                <a href="#" class="underline">Clientes</a>
+                <a href="#" class="underline">Proovedores</a>
+
+            </div>
+
+        </main>
+        <footer>
+            <div>
+                <a href="#">Términos y condiciones | </a>
+                <a href="#">Políticas de privacidad</a>
+            </div>
+            <p>Reciplas®2023. Todos los derechos reservados</p>
+        </footer>
+
+    </body>
+    <!--<script src="script.js"></script>-->
+
+</html>
