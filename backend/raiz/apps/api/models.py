@@ -9,7 +9,7 @@ from django.db import models
 
 
 class Cliente(models.Model):
-    id=models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     nombres = models.CharField(max_length=80, blank=True, null=True)
     apellido = models.CharField(max_length=60, blank=True, null=True)
     dni = models.IntegerField(blank=True, null=True)
@@ -20,27 +20,27 @@ class Cliente(models.Model):
     direccion = models.CharField(max_length=150, blank=True, null=True)
     fecha_creacion = models.DateField(blank=True, null=True)
     fecha_modificacion = models.DateField(blank=True, null=True)
-    estado = models.CharField(max_length=20, blank=True, null=True, default='True')
+    estado = models.CharField(max_length=20, blank=True, null=True, default="True")
 
     class Meta:
-        db_table = 'cliente'
+        db_table = "cliente"
 
 
 class Compra(models.Model):
-    id=models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     cliente_id = models.ForeignKey(Cliente, models.DO_NOTHING)
     total = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
     observacion = models.CharField(max_length=255, blank=True, null=True)
     fecha_creacion = models.DateField(blank=True, null=True)
     fecha_modificacion = models.DateField(blank=True, null=True)
-    estado = models.CharField(max_length=50, blank=True, null=True, default='True')
+    estado = models.CharField(max_length=50, blank=True, null=True, default="True")
 
     class Meta:
-        db_table = 'compra'
+        db_table = "compra"
 
 
 class Empleado(models.Model):
-    id=models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     nombres = models.CharField(max_length=80, blank=True, null=True)
     apellido = models.CharField(max_length=60, blank=True, null=True)
     dni = models.IntegerField(blank=True, null=True)
@@ -49,58 +49,62 @@ class Empleado(models.Model):
     celular_alt = models.IntegerField(blank=True, null=True)
     email = models.CharField(max_length=60, blank=True, null=True)
     direccion = models.CharField(max_length=150, blank=True, null=True)
-    salario = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    salario = models.DecimalField(
+        max_digits=10, decimal_places=2, blank=True, null=True
+    )
     area = models.CharField(max_length=255, blank=True, null=True)
     cargo = models.CharField(max_length=100, blank=True, null=True)
     desde = models.DateField(blank=True, null=True)
     hasta = models.DateField(blank=True, null=True)
     fecha_creacion = models.DateField(blank=True, null=True)
     fecha_modificacion = models.DateField(blank=True, null=True)
-    estado = models.CharField(max_length=20, blank=True, null=True, default='True')
+    estado = models.CharField(max_length=20, blank=True, null=True, default="True")
 
     class Meta:
-        db_table = 'empleado'
+        db_table = "empleado"
 
 
 class Ingresan(models.Model):
-    id=models.AutoField(primary_key=True)
-    ingreso_id = models.ForeignKey('Ingresos', models.DO_NOTHING)  # The composite primary key (ingreso_id, materia_prima_id) found, that is not supported. The first column is selected.
-    materia_prima_id = models.ForeignKey('Materiaprima', models.DO_NOTHING)
+    id = models.AutoField(primary_key=True)
+    ingreso_id = models.ForeignKey(
+        "Ingresos", models.DO_NOTHING
+    )  # The composite primary key (ingreso_id, materia_prima_id) found, that is not supported. The first column is selected.
+    materia_prima_id = models.ForeignKey("Materiaprima", models.DO_NOTHING)
     cantidad = models.IntegerField(blank=True, null=True)
     precio = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
     descripcion = models.CharField(max_length=150, blank=True, null=True)
 
     class Meta:
-        db_table = 'ingresan'
-
+        db_table = "ingresan"
 
 
 class Ingresos(models.Model):
-    id=models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     fecha = models.DateField(blank=True, null=True)
     total = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
     fecha_creacion = models.DateField(blank=True, null=True)
     fecha_modificacion = models.DateField(blank=True, null=True)
-    estado = models.CharField(max_length=10, blank=True, null=True, default='True')
+    estado = models.CharField(max_length=10, blank=True, null=True, default="True")
 
     class Meta:
-        db_table = 'ingresos'
+        db_table = "ingresos"
 
 
 class Lineadetalle(models.Model):
-    id=models.AutoField(primary_key=True)
-    pedido_id = models.ForeignKey('Pedido', models.DO_NOTHING)  # The composite primary key (pedido_id, producto_id) found, that is not supported. The first column is selected.
-    producto_id = models.ForeignKey('Producto', models.DO_NOTHING)
+    id = models.AutoField(primary_key=True)
+    pedido_id = models.ForeignKey(
+        "Pedido", models.DO_NOTHING
+    )  # The composite primary key (pedido_id, producto_id) found, that is not supported. The first column is selected.
+    producto_id = models.ForeignKey("Producto", models.DO_NOTHING)
     cantidad = models.IntegerField(blank=True, null=True)
     precio = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
 
     class Meta:
-        db_table = 'lineadetalle'
-
+        db_table = "lineadetalle"
 
 
 class Materiaprima(models.Model):
-    id=models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     plastico = models.CharField(max_length=100, blank=True, null=True)
     descripcion = models.CharField(max_length=150, blank=True, null=True)
     presentacion = models.CharField(max_length=100, blank=True, null=True)
@@ -109,28 +113,27 @@ class Materiaprima(models.Model):
     precio = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
     fecha_creacion = models.DateField(blank=True, null=True)
     fecha_modificacion = models.DateField(blank=True, null=True)
-    estado = models.CharField(max_length=20, blank=True, null=True, default='True')
-    
+    estado = models.CharField(max_length=20, blank=True, null=True, default="True")
 
     class Meta:
-        db_table = 'materia_prima'
+        db_table = "materia_prima"
 
 
 class Pedido(models.Model):
-    id=models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     empleado_id = models.ForeignKey(Empleado, models.DO_NOTHING)
     compra_id = models.ForeignKey(Compra, models.DO_NOTHING)
     observacion = models.CharField(max_length=255, blank=True, null=True)
     fecha_creacion = models.DateField(blank=True, null=True)
     fecha_modificacion = models.DateField(blank=True, null=True)
-    estado = models.CharField(max_length=50, blank=True, null=True, default='True')
+    estado = models.CharField(max_length=50, blank=True, null=True, default="True")
 
     class Meta:
-        db_table = 'pedido'
+        db_table = "pedido"
 
 
 class Producto(models.Model):
-    id=models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=100, blank=True, null=True)
     descripcion = models.CharField(max_length=150, blank=True, null=True)
     presentacion = models.CharField(max_length=100, blank=True, null=True)
@@ -140,25 +143,28 @@ class Producto(models.Model):
     precio = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
     fecha_creacion = models.DateField(blank=True, null=True)
     fecha_modificacion = models.DateField(blank=True, null=True)
-    estado = models.CharField(max_length=20, blank=True, null=True, default='True')
+    estado = models.CharField(max_length=20, blank=True, null=True, default="True")
 
     class Meta:
-        db_table = 'producto'
+        db_table = "producto"
+
 
 class Producen(models.Model):
-    id=models.AutoField(primary_key=True)
-    empleado_id = models.ForeignKey(Empleado, models.DO_NOTHING)  # The composite primary key (empleado_id, producto_id) found, that is not supported. The first column is selected.
+    id = models.AutoField(primary_key=True)
+    empleado_id = models.ForeignKey(
+        Empleado, models.DO_NOTHING
+    )  # The composite primary key (empleado_id, producto_id) found, that is not supported. The first column is selected.
     producto_id = models.ForeignKey(Producto, models.DO_NOTHING)
     cantidad = models.IntegerField(blank=True, null=True)
     precio = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
     descripcion = models.CharField(max_length=150, blank=True, null=True)
 
     class Meta:
-        db_table = 'producen'
+        db_table = "producen"
 
 
 class Proveedor(models.Model):
-    id=models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     razon_social = models.CharField(max_length=255, blank=True, null=True)
     nombre_fantasia = models.CharField(max_length=100, blank=True, null=True)
     cuit = models.IntegerField(blank=True, null=True)
@@ -168,27 +174,29 @@ class Proveedor(models.Model):
     direccion = models.CharField(max_length=150, blank=True, null=True)
     fecha_creacion = models.DateField(blank=True, null=True)
     fecha_modificacion = models.DateField(blank=True, null=True)
-    estado = models.CharField(max_length=20, blank=True, null=True, default='True')
+    estado = models.CharField(max_length=20, blank=True, null=True, default="True")
 
     class Meta:
-        db_table = 'proveedor'
+        db_table = "proveedor"
 
 
 class Proveen(models.Model):
-    id=models.AutoField(primary_key=True)
-    proveedor_id = models.ForeignKey(Proveedor, models.DO_NOTHING)  # The composite primary key (proveedor_id, materia_prima_id) found, that is not supported. The first column is selected.
+    id = models.AutoField(primary_key=True)
+    proveedor_id = models.ForeignKey(
+        Proveedor, models.DO_NOTHING
+    )  # The composite primary key (proveedor_id, materia_prima_id) found, that is not supported. The first column is selected.
     materia_prima_id = models.ForeignKey(Materiaprima, models.DO_NOTHING)
 
     class Meta:
-        db_table = 'proveen'
-
+        db_table = "proveen"
 
 
 class Registra(models.Model):
-    id=models.AutoField(primary_key=True)
-    empleado_id = models.ForeignKey(Empleado, models.DO_NOTHING)  # The composite primary key (empleado_id, compra_id) found, that is not supported. The first column is selected.
+    id = models.AutoField(primary_key=True)
+    empleado_id = models.ForeignKey(
+        Empleado, models.DO_NOTHING
+    )  # The composite primary key (empleado_id, compra_id) found, that is not supported. The first column is selected.
     compra_id = models.ForeignKey(Compra, models.DO_NOTHING)
 
     class Meta:
-        db_table = 'registra'
-
+        db_table = "registra"

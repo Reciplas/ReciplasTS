@@ -5,219 +5,401 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Cliente',
+            name="Cliente",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('nombres', models.CharField(blank=True, max_length=80, null=True)),
-                ('apellido', models.CharField(blank=True, max_length=60, null=True)),
-                ('dni', models.IntegerField(blank=True, null=True)),
-                ('fec_nac', models.DateField(blank=True, null=True)),
-                ('celular', models.IntegerField(blank=True, null=True)),
-                ('celular_alt', models.IntegerField(blank=True, null=True)),
-                ('email', models.CharField(blank=True, max_length=60, null=True)),
-                ('direccion', models.CharField(blank=True, max_length=150, null=True)),
-                ('fecha_creacion', models.DateField(blank=True, null=True)),
-                ('fecha_modificacion', models.DateField(blank=True, null=True)),
-                ('estado', models.CharField(blank=True, default='True', max_length=20, null=True)),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("nombres", models.CharField(blank=True, max_length=80, null=True)),
+                ("apellido", models.CharField(blank=True, max_length=60, null=True)),
+                ("dni", models.IntegerField(blank=True, null=True)),
+                ("fec_nac", models.DateField(blank=True, null=True)),
+                ("celular", models.IntegerField(blank=True, null=True)),
+                ("celular_alt", models.IntegerField(blank=True, null=True)),
+                ("email", models.CharField(blank=True, max_length=60, null=True)),
+                ("direccion", models.CharField(blank=True, max_length=150, null=True)),
+                ("fecha_creacion", models.DateField(blank=True, null=True)),
+                ("fecha_modificacion", models.DateField(blank=True, null=True)),
+                (
+                    "estado",
+                    models.CharField(
+                        blank=True, default="True", max_length=20, null=True
+                    ),
+                ),
             ],
             options={
-                'db_table': 'cliente',
+                "db_table": "cliente",
             },
         ),
         migrations.CreateModel(
-            name='Compra',
+            name="Compra",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('total', models.DecimalField(blank=True, decimal_places=2, max_digits=12, null=True)),
-                ('observacion', models.CharField(blank=True, max_length=255, null=True)),
-                ('fecha_creacion', models.DateField(blank=True, null=True)),
-                ('fecha_modificacion', models.DateField(blank=True, null=True)),
-                ('estado', models.CharField(blank=True, default='True', max_length=50, null=True)),
-                ('cliente_id', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='api.cliente')),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                (
+                    "total",
+                    models.DecimalField(
+                        blank=True, decimal_places=2, max_digits=12, null=True
+                    ),
+                ),
+                (
+                    "observacion",
+                    models.CharField(blank=True, max_length=255, null=True),
+                ),
+                ("fecha_creacion", models.DateField(blank=True, null=True)),
+                ("fecha_modificacion", models.DateField(blank=True, null=True)),
+                (
+                    "estado",
+                    models.CharField(
+                        blank=True, default="True", max_length=50, null=True
+                    ),
+                ),
+                (
+                    "cliente_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.DO_NOTHING, to="api.cliente"
+                    ),
+                ),
             ],
             options={
-                'db_table': 'compra',
+                "db_table": "compra",
             },
         ),
         migrations.CreateModel(
-            name='Empleado',
+            name="Empleado",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('nombres', models.CharField(blank=True, max_length=80, null=True)),
-                ('apellido', models.CharField(blank=True, max_length=60, null=True)),
-                ('dni', models.IntegerField(blank=True, null=True)),
-                ('fec_nac', models.DateField(blank=True, null=True)),
-                ('celular', models.IntegerField(blank=True, null=True)),
-                ('celular_alt', models.IntegerField(blank=True, null=True)),
-                ('email', models.CharField(blank=True, max_length=60, null=True)),
-                ('direccion', models.CharField(blank=True, max_length=150, null=True)),
-                ('salario', models.DecimalField(blank=True, decimal_places=2, max_digits=10, null=True)),
-                ('area', models.CharField(blank=True, max_length=255, null=True)),
-                ('cargo', models.CharField(blank=True, max_length=100, null=True)),
-                ('desde', models.DateField(blank=True, null=True)),
-                ('hasta', models.DateField(blank=True, null=True)),
-                ('fecha_creacion', models.DateField(blank=True, null=True)),
-                ('fecha_modificacion', models.DateField(blank=True, null=True)),
-                ('estado', models.CharField(blank=True, default='True', max_length=20, null=True)),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("nombres", models.CharField(blank=True, max_length=80, null=True)),
+                ("apellido", models.CharField(blank=True, max_length=60, null=True)),
+                ("dni", models.IntegerField(blank=True, null=True)),
+                ("fec_nac", models.DateField(blank=True, null=True)),
+                ("celular", models.IntegerField(blank=True, null=True)),
+                ("celular_alt", models.IntegerField(blank=True, null=True)),
+                ("email", models.CharField(blank=True, max_length=60, null=True)),
+                ("direccion", models.CharField(blank=True, max_length=150, null=True)),
+                (
+                    "salario",
+                    models.DecimalField(
+                        blank=True, decimal_places=2, max_digits=10, null=True
+                    ),
+                ),
+                ("area", models.CharField(blank=True, max_length=255, null=True)),
+                ("cargo", models.CharField(blank=True, max_length=100, null=True)),
+                ("desde", models.DateField(blank=True, null=True)),
+                ("hasta", models.DateField(blank=True, null=True)),
+                ("fecha_creacion", models.DateField(blank=True, null=True)),
+                ("fecha_modificacion", models.DateField(blank=True, null=True)),
+                (
+                    "estado",
+                    models.CharField(
+                        blank=True, default="True", max_length=20, null=True
+                    ),
+                ),
             ],
             options={
-                'db_table': 'empleado',
+                "db_table": "empleado",
             },
         ),
         migrations.CreateModel(
-            name='Ingresos',
+            name="Ingresos",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('fecha', models.DateField(blank=True, null=True)),
-                ('total', models.DecimalField(blank=True, decimal_places=2, max_digits=12, null=True)),
-                ('fecha_creacion', models.DateField(blank=True, null=True)),
-                ('fecha_modificacion', models.DateField(blank=True, null=True)),
-                ('estado', models.CharField(blank=True, default='True', max_length=10, null=True)),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("fecha", models.DateField(blank=True, null=True)),
+                (
+                    "total",
+                    models.DecimalField(
+                        blank=True, decimal_places=2, max_digits=12, null=True
+                    ),
+                ),
+                ("fecha_creacion", models.DateField(blank=True, null=True)),
+                ("fecha_modificacion", models.DateField(blank=True, null=True)),
+                (
+                    "estado",
+                    models.CharField(
+                        blank=True, default="True", max_length=10, null=True
+                    ),
+                ),
             ],
             options={
-                'db_table': 'ingresos',
+                "db_table": "ingresos",
             },
         ),
         migrations.CreateModel(
-            name='Materiaprima',
+            name="Materiaprima",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('plastico', models.CharField(blank=True, max_length=100, null=True)),
-                ('descripcion', models.CharField(blank=True, max_length=150, null=True)),
-                ('presentacion', models.CharField(blank=True, max_length=100, null=True)),
-                ('stock_act', models.IntegerField(blank=True, null=True)),
-                ('stock_inf', models.IntegerField(blank=True, null=True)),
-                ('precio', models.DecimalField(blank=True, decimal_places=2, max_digits=12, null=True)),
-                ('fecha_creacion', models.DateField(blank=True, null=True)),
-                ('fecha_modificacion', models.DateField(blank=True, null=True)),
-                ('estado', models.CharField(blank=True, default='True', max_length=20, null=True)),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("plastico", models.CharField(blank=True, max_length=100, null=True)),
+                (
+                    "descripcion",
+                    models.CharField(blank=True, max_length=150, null=True),
+                ),
+                (
+                    "presentacion",
+                    models.CharField(blank=True, max_length=100, null=True),
+                ),
+                ("stock_act", models.IntegerField(blank=True, null=True)),
+                ("stock_inf", models.IntegerField(blank=True, null=True)),
+                (
+                    "precio",
+                    models.DecimalField(
+                        blank=True, decimal_places=2, max_digits=12, null=True
+                    ),
+                ),
+                ("fecha_creacion", models.DateField(blank=True, null=True)),
+                ("fecha_modificacion", models.DateField(blank=True, null=True)),
+                (
+                    "estado",
+                    models.CharField(
+                        blank=True, default="True", max_length=20, null=True
+                    ),
+                ),
             ],
             options={
-                'db_table': 'materia_prima',
+                "db_table": "materia_prima",
             },
         ),
         migrations.CreateModel(
-            name='Producto',
+            name="Producto",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('nombre', models.CharField(blank=True, max_length=100, null=True)),
-                ('descripcion', models.CharField(blank=True, max_length=150, null=True)),
-                ('presentacion', models.CharField(blank=True, max_length=100, null=True)),
-                ('lote', models.IntegerField(blank=True, null=True)),
-                ('stock_act', models.IntegerField(blank=True, null=True)),
-                ('stock_inf', models.IntegerField(blank=True, null=True)),
-                ('precio', models.DecimalField(blank=True, decimal_places=2, max_digits=12, null=True)),
-                ('fecha_creacion', models.DateField(blank=True, null=True)),
-                ('fecha_modificacion', models.DateField(blank=True, null=True)),
-                ('estado', models.CharField(blank=True, default='True', max_length=20, null=True)),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("nombre", models.CharField(blank=True, max_length=100, null=True)),
+                (
+                    "descripcion",
+                    models.CharField(blank=True, max_length=150, null=True),
+                ),
+                (
+                    "presentacion",
+                    models.CharField(blank=True, max_length=100, null=True),
+                ),
+                ("lote", models.IntegerField(blank=True, null=True)),
+                ("stock_act", models.IntegerField(blank=True, null=True)),
+                ("stock_inf", models.IntegerField(blank=True, null=True)),
+                (
+                    "precio",
+                    models.DecimalField(
+                        blank=True, decimal_places=2, max_digits=12, null=True
+                    ),
+                ),
+                ("fecha_creacion", models.DateField(blank=True, null=True)),
+                ("fecha_modificacion", models.DateField(blank=True, null=True)),
+                (
+                    "estado",
+                    models.CharField(
+                        blank=True, default="True", max_length=20, null=True
+                    ),
+                ),
             ],
             options={
-                'db_table': 'producto',
+                "db_table": "producto",
             },
         ),
         migrations.CreateModel(
-            name='Proveedor',
+            name="Proveedor",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('razon_social', models.CharField(blank=True, max_length=255, null=True)),
-                ('nombre_fantasia', models.CharField(blank=True, max_length=100, null=True)),
-                ('cuit', models.IntegerField(blank=True, null=True)),
-                ('celular', models.IntegerField(blank=True, null=True)),
-                ('celular_alt', models.IntegerField(blank=True, null=True)),
-                ('email', models.CharField(blank=True, max_length=60, null=True)),
-                ('direccion', models.CharField(blank=True, max_length=150, null=True)),
-                ('fecha_creacion', models.DateField(blank=True, null=True)),
-                ('fecha_modificacion', models.DateField(blank=True, null=True)),
-                ('estado', models.CharField(blank=True, default='True', max_length=20, null=True)),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                (
+                    "razon_social",
+                    models.CharField(blank=True, max_length=255, null=True),
+                ),
+                (
+                    "nombre_fantasia",
+                    models.CharField(blank=True, max_length=100, null=True),
+                ),
+                ("cuit", models.IntegerField(blank=True, null=True)),
+                ("celular", models.IntegerField(blank=True, null=True)),
+                ("celular_alt", models.IntegerField(blank=True, null=True)),
+                ("email", models.CharField(blank=True, max_length=60, null=True)),
+                ("direccion", models.CharField(blank=True, max_length=150, null=True)),
+                ("fecha_creacion", models.DateField(blank=True, null=True)),
+                ("fecha_modificacion", models.DateField(blank=True, null=True)),
+                (
+                    "estado",
+                    models.CharField(
+                        blank=True, default="True", max_length=20, null=True
+                    ),
+                ),
             ],
             options={
-                'db_table': 'proveedor',
+                "db_table": "proveedor",
             },
         ),
         migrations.CreateModel(
-            name='Registra',
+            name="Registra",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('compra_id', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='api.compra')),
-                ('empleado_id', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='api.empleado')),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                (
+                    "compra_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.DO_NOTHING, to="api.compra"
+                    ),
+                ),
+                (
+                    "empleado_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.DO_NOTHING,
+                        to="api.empleado",
+                    ),
+                ),
             ],
             options={
-                'db_table': 'registra',
+                "db_table": "registra",
             },
         ),
         migrations.CreateModel(
-            name='Proveen',
+            name="Proveen",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('materia_prima_id', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='api.materiaprima')),
-                ('proveedor_id', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='api.proveedor')),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                (
+                    "materia_prima_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.DO_NOTHING,
+                        to="api.materiaprima",
+                    ),
+                ),
+                (
+                    "proveedor_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.DO_NOTHING,
+                        to="api.proveedor",
+                    ),
+                ),
             ],
             options={
-                'db_table': 'proveen',
+                "db_table": "proveen",
             },
         ),
         migrations.CreateModel(
-            name='Producen',
+            name="Producen",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('cantidad', models.IntegerField(blank=True, null=True)),
-                ('precio', models.DecimalField(blank=True, decimal_places=2, max_digits=12, null=True)),
-                ('descripcion', models.CharField(blank=True, max_length=150, null=True)),
-                ('empleado_id', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='api.empleado')),
-                ('producto_id', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='api.producto')),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("cantidad", models.IntegerField(blank=True, null=True)),
+                (
+                    "precio",
+                    models.DecimalField(
+                        blank=True, decimal_places=2, max_digits=12, null=True
+                    ),
+                ),
+                (
+                    "descripcion",
+                    models.CharField(blank=True, max_length=150, null=True),
+                ),
+                (
+                    "empleado_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.DO_NOTHING,
+                        to="api.empleado",
+                    ),
+                ),
+                (
+                    "producto_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.DO_NOTHING,
+                        to="api.producto",
+                    ),
+                ),
             ],
             options={
-                'db_table': 'producen',
+                "db_table": "producen",
             },
         ),
         migrations.CreateModel(
-            name='Pedido',
+            name="Pedido",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('observacion', models.CharField(blank=True, max_length=255, null=True)),
-                ('fecha_creacion', models.DateField(blank=True, null=True)),
-                ('fecha_modificacion', models.DateField(blank=True, null=True)),
-                ('estado', models.CharField(blank=True, default='True', max_length=50, null=True)),
-                ('compra_id', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='api.compra')),
-                ('empleado_id', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='api.empleado')),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                (
+                    "observacion",
+                    models.CharField(blank=True, max_length=255, null=True),
+                ),
+                ("fecha_creacion", models.DateField(blank=True, null=True)),
+                ("fecha_modificacion", models.DateField(blank=True, null=True)),
+                (
+                    "estado",
+                    models.CharField(
+                        blank=True, default="True", max_length=50, null=True
+                    ),
+                ),
+                (
+                    "compra_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.DO_NOTHING, to="api.compra"
+                    ),
+                ),
+                (
+                    "empleado_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.DO_NOTHING,
+                        to="api.empleado",
+                    ),
+                ),
             ],
             options={
-                'db_table': 'pedido',
+                "db_table": "pedido",
             },
         ),
         migrations.CreateModel(
-            name='Lineadetalle',
+            name="Lineadetalle",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('cantidad', models.IntegerField(blank=True, null=True)),
-                ('precio', models.DecimalField(blank=True, decimal_places=2, max_digits=12, null=True)),
-                ('pedido_id', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='api.pedido')),
-                ('producto_id', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='api.producto')),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("cantidad", models.IntegerField(blank=True, null=True)),
+                (
+                    "precio",
+                    models.DecimalField(
+                        blank=True, decimal_places=2, max_digits=12, null=True
+                    ),
+                ),
+                (
+                    "pedido_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.DO_NOTHING, to="api.pedido"
+                    ),
+                ),
+                (
+                    "producto_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.DO_NOTHING,
+                        to="api.producto",
+                    ),
+                ),
             ],
             options={
-                'db_table': 'lineadetalle',
+                "db_table": "lineadetalle",
             },
         ),
         migrations.CreateModel(
-            name='Ingresan',
+            name="Ingresan",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('cantidad', models.IntegerField(blank=True, null=True)),
-                ('precio', models.DecimalField(blank=True, decimal_places=2, max_digits=12, null=True)),
-                ('descripcion', models.CharField(blank=True, max_length=150, null=True)),
-                ('ingreso_id', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='api.ingresos')),
-                ('materia_prima_id', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='api.materiaprima')),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("cantidad", models.IntegerField(blank=True, null=True)),
+                (
+                    "precio",
+                    models.DecimalField(
+                        blank=True, decimal_places=2, max_digits=12, null=True
+                    ),
+                ),
+                (
+                    "descripcion",
+                    models.CharField(blank=True, max_length=150, null=True),
+                ),
+                (
+                    "ingreso_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.DO_NOTHING,
+                        to="api.ingresos",
+                    ),
+                ),
+                (
+                    "materia_prima_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.DO_NOTHING,
+                        to="api.materiaprima",
+                    ),
+                ),
             ],
             options={
-                'db_table': 'ingresan',
+                "db_table": "ingresan",
             },
         ),
     ]
