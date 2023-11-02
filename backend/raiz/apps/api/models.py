@@ -29,7 +29,6 @@ class Cliente(models.Model):
 class Compra(models.Model):
     id=models.AutoField(primary_key=True)
     cliente_id = models.ForeignKey(Cliente, models.DO_NOTHING)
-    empleado_id = models.ForeignKey('Empleado', models.DO_NOTHING)
     total = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
     observacion = models.CharField(max_length=255, blank=True, null=True)
     fecha_creacion = models.DateField(blank=True, null=True)
@@ -119,6 +118,7 @@ class Materiaprima(models.Model):
 
 class Pedido(models.Model):
     id=models.AutoField(primary_key=True)
+    empleado_id = models.ForeignKey(Empleado, models.DO_NOTHING)
     compra_id = models.ForeignKey(Compra, models.DO_NOTHING)
     observacion = models.CharField(max_length=255, blank=True, null=True)
     fecha_creacion = models.DateField(blank=True, null=True)

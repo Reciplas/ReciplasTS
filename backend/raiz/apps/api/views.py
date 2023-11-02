@@ -26,10 +26,10 @@ class ClienteView(View):
         else:
             clientes = list(Cliente.objects.values())
             if len(clientes) > 0:
-                datos = {'message': "Exito!", 'clientes': clientes}
+                datos = clientes
             else:
                 datos = {'message': "clientes not found..."}
-            return JsonResponse(datos)
+            return JsonResponse(datos, safe=False)
         
 
 

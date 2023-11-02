@@ -14,14 +14,21 @@ ALLOWED_HOSTS = ['*']
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     # hay que instalar la liberia pip install psycopg2-binary pro consola
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'api',
+#         'USER': 'root',
+#         'PASSWORD': '',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     }
+# }
+
 DATABASES = {
-    # hay que instalar la liberia pip install psycopg2-binary pro consola
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'api',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
