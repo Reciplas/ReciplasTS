@@ -4,7 +4,7 @@ import Header from "../componentes/Header";
 import { MLcompras } from "../componentes/MenuLateral";
 import { LabelObligatorio, Label } from "../componentes/TextLabel";
 import { InputTypeText } from "../componentes/InputField";
-import { Btn, BtnIcon } from "../componentes/Boton";
+import { Btn } from "../componentes/Boton";
 
 function Perfil() {
   const nombre = "Enzo Nahuel";
@@ -16,7 +16,7 @@ function Perfil() {
     handleSubmit,
   } = useForm();
   return (
-    <div className="App">
+    <div className="flex h-screen w-screen text-[1rem] flex-row font-lato text-dark-green bg-gradient-120 from-white-1 to-white-2">
       <MLcompras seccionActual="" />
       <div className="contenedor-principal">
         <Header perfil={nombreYape} area="Compras" fotoDe="enzo" />

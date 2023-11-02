@@ -23,7 +23,7 @@ function Productos() {
                     <h1>Listado de productos</h1>
                 </div>
 
-                <AGTable endpointPath={"http://127.0.0.1:8000/api/clientes/"}/>
+                <AGTable endpointPath={"http://127.0.0.1:8000/api/productos/"}/>
 
                 <div className="flex justify-between">
                     <div className="flex gap-2">

@@ -135,17 +135,17 @@ class ProveedorView(View):
             proveedores = list(Proveedor.objects.filter(id=id).values())
             if len(proveedores) > 0:
                 proveedor = proveedores[0]
-                datos = {"message": "Exito!", "proveedor": proveedor}
+                datos = proveedor
             else:
                 datos = {"message": "proveedor not found..."}
-            return JsonResponse(datos)
+            return JsonResponse(datos, safe=False)
         else:
             proveedores = list(Proveedor.objects.values())
             if len(proveedores) > 0:
-                datos = {"message": "Exito!", "proveedores": proveedores}
+                datos = proveedores
             else:
                 datos = {"message": "proveedores not found..."}
-            return JsonResponse(datos)
+            return JsonResponse(datos, safe=False)
 
     def post(self, request):
         try:
@@ -323,17 +323,17 @@ class MateriaprimaView(View):
             materias_primas = list(Materiaprima.objects.filter(id=id).values())
             if len(materias_primas) > 0:
                 materia_prima = materias_primas[0]
-                datos = {"message": "Exito!", "materia_prima": materia_prima}
+                datos = materia_prima
             else:
                 datos = {"message": "materia_prima not found..."}
-            return JsonResponse(datos)
+            return JsonResponse(datos, safe=False)
         else:
             materias_primas = list(Materiaprima.objects.values())
             if len(materias_primas) > 0:
-                datos = {"message": "Exito!", "materias_primas": materias_primas}
+                datos = materias_primas
             else:
                 datos = {"message": "materias primas not found..."}
-            return JsonResponse(datos)
+            return JsonResponse(datos, safe=False)
 
     def post(self, request):
         try:

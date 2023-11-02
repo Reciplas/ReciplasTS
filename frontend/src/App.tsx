@@ -7,8 +7,8 @@ import AdmMP from "./Administracion/MateriaPrima";
 import AdmProductos from "./Administracion/Productos";
 import AdmUsuarios from "./Administracion/Usuarios";
 import AdmClientes from "./Administracion/Clientes";
-import AdmProveedores from "./Administracion/Proveedores";
 import AdmPerfil from "./Administracion/Perfil";
+import AdmProveedores from "./Administracion/Proveedores";
 
 import ProdMP from "./Produccion/MateriaPrima";
 import ProdProductos from "./Produccion/Productos";
