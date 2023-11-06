@@ -463,7 +463,7 @@ class ProductoView(View):
                 producto.save()
                 datos = {"message": "Exito!"}
             else:
-                datos = {"message": "Producto not found..."}
+                datos = {"message": "Producto no encontrado..."}
         except json.JSONDecodeError as e:
             datos = {
                 "error": "Error al analizar el cuerpo de la solicitud",
@@ -478,7 +478,154 @@ class ProductoView(View):
                 Producto.objects.filter(id=id).delete()
                 datos = {"message": "Producto eliminado con éxito"}
             else:
-                datos = {"message": "Producto no encontrad..."}
+                datos = {"message": "Producto no encontrado..."}
         except Exception as e:
-            datos = {"error": "Error al eliminar la Producto", "message": str(e)}
+            datos = {"error": "Error al eliminar el Producto", "message": str(e)}
+        return JsonResponse(datos)
+
+# ___________________________________________________________________________________________
+
+class PedidoView(View):
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def get(self, request, id=0):
+        if id > 0:
+            pedidos = list(Pedido.objects.filter(id=id).values())
+            if len(pedidos) > 0:
+                pedido = pedidos[0]
+                datos = {"message": "Exito!", "pedido": pedido}
+            else:
+                datos = {"message": "Pedido no encontrado..."}
+            return JsonResponse(datos)
+        else:
+            pedidos = list(Pedido.objects.values())
+            if len(pedidos) > 0:
+                datos = pedidos
+            else:
+                datos = {"message": "Pedidos no encontrados..."}
+            return JsonResponse(datos, safe=False)
+
+    def post(self, request):
+        try:
+            data = json.loads(request.body)
+            nueva_pedido = Pedido(
+                # empleado_id         = data.get("empleado_id", ""),
+                # compra_id           = data.get("compra_id", ""),
+                cliente             =  data.get("cliente", ""),
+                total               =  data.get("total", ""),
+                estado              =  data.get("estado", ""),
+                fecha_creacion      = data.get("fecha_creacion", None),
+                fecha_modificacion  = data.get("fecha_modificacion", None),
+            )
+            nueva_pedido.save()
+            return JsonResponse({"message": "Pedido creado con éxito"}, status=201)
+        except json.JSONDecodeError as e:
+            return JsonResponse(
+                {"error": "Error al analizar el cuerpo de la solicitud"}, status=400
+            )
+
+    def put(self, request, id):
+        try:
+            jd = json.loads(request.body)
+            pedidos = list(Pedido.objects.filter(id=id).values())
+            if len(pedidos) > 0:
+                pedido                    = Pedido.objects.get(id=id)
+                pedido.fecha_creacion     = jd.get("fecha_creacion", pedido.fecha_creacion)
+                pedido.fecha_modificacion = jd.get("fecha_modificacion", pedido.fecha_modificacion)
+                pedido.estado             = jd.get("estado", pedido.estado)
+                pedido.save()
+                datos = {"message": "Exito!"}
+            else:
+                datos = {"message": "Pedido not found..."}
+        except json.JSONDecodeError as e:
+            datos = {
+                "error": "Error al analizar el cuerpo de la solicitud",
+                "message": str(e),
+            }
+        return JsonResponse(datos)
+
+    def delete(self, request, id):
+        try:
+            pedidos = list(Pedido.objects.filter(id=id).values())
+            if len(pedidos) > 0:
+                Pedido.objects.filter(id=id).delete()
+                datos = {"message": "Pedido eliminado con éxito"}
+            else:
+                datos = {"message": "Pedido no encontrado..."}
+        except Exception as e:
+            datos = {"error": "Error al eliminar el Pedido", "message": str(e)}
+        return JsonResponse(datos)
+# ___________________________________________________________________________________________
+
+class VentaView(View):
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def get(self, request, id=0):
+        if id > 0:
+            ventas = list(Venta.objects.filter(id=id).values())
+            if len(ventas) > 0:
+                venta = ventas[0]
+                datos = {"message": "Exito!", "venta": venta}
+            else:
+                datos = {"message": "Venta no encontrado..."}
+            return JsonResponse(datos)
+        else:
+            ventas = list(Venta.objects.values())
+            if len(ventas) > 0:
+                datos = ventas
+            else:
+                datos = {"message": "Ventas no encontrados..."}
+            return JsonResponse(datos, safe=False)
+
+    def post(self, request):
+        try:
+            data = json.loads(request.body)
+            nueva_venta = Venta(
+                cliente             =  data.get("cliente", ""),
+                total               =  data.get("total", ""),
+                cuotas              =  data.get("estado", ""),
+                fecha_creacion      = data.get("fecha_creacion", None),
+                fecha_modificacion  = data.get("fecha_modificacion", None),
+            )
+            nueva_venta.save()
+            return JsonResponse({"message": "Venta creada con éxito"}, status=201)
+        except json.JSONDecodeError as e:
+            return JsonResponse(
+                {"error": "Error al analizar el cuerpo de la solicitud"}, status=400
+            )
+
+    def put(self, request, id):
+        try:
+            jd = json.loads(request.body)
+            ventas = list(Venta.objects.filter(id=id).values())
+            if len(ventas) > 0:
+                venta                    = Venta.objects.get(id=id)
+                venta.fecha_creacion     = jd.get("fecha_creacion", venta.fecha_creacion)
+                venta.fecha_modificacion = jd.get("fecha_modificacion", venta.fecha_modificacion)
+                venta.estado             = jd.get("estado", venta.estado)
+                venta.save()
+                datos = {"message": "Exito!"}
+            else:
+                datos = {"message": "Venta not found..."}
+        except json.JSONDecodeError as e:
+            datos = {
+                "error": "Error al analizar el cuerpo de la solicitud",
+                "message": str(e),
+            }
+        return JsonResponse(datos)
+
+    def delete(self, request, id):
+        try:
+            ventas = list(Venta.objects.filter(id=id).values())
+            if len(ventas) > 0:
+                Venta.objects.filter(id=id).delete()
+                datos = {"message": "Venta eliminado con éxito"}
+            else:
+                datos = {"message": "Venta no encontrado..."}
+        except Exception as e:
+            datos = {"error": "Error al eliminar el Venta", "message": str(e)}
         return JsonResponse(datos)

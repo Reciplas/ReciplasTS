@@ -31,7 +31,7 @@ export function AGTable({endpointPath}:{endpointPath: string }) {
         setColumnDefs(colDefs);
         setRowData(data);
         })
-      }, []);
+      }, [endpointPath]);
 
     return (
     <div>

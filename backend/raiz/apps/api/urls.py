@@ -8,35 +8,31 @@ from . import views
 app_name = "api"
 
 urlpatterns = [
-    # URLS CRUD CLIENTE
-    path(
-        "clientes/", views.ClienteView.as_view(), name="clientes_listar"
-    ),  # Si la petición es get muestra todos los clientes
+    
+    path("clientes/", views.ClienteView.as_view(), name="clientes_listar"),   
     path("clientes/<int:id>", views.ClienteView.as_view(), name="cliente"),
-    # #URLS CRUD EMPLEADO
-    path(
-        "empleados/", views.EmpleadoView.as_view(), name="empleados_listar"
-    ),  # Si la petición es get muestra todos los empleados
+    
+
+    path("empleados/", views.EmpleadoView.as_view(), name="empleados_listar"),      
     path("empleados/<int:id>", views.EmpleadoView.as_view(), name="empleado"),
-    # URLS CRUD PROVEEDOR
-    path(
-        "proveedores/", views.ProveedorView.as_view(), name="proveedores_listar"
-    ),  # Si la petición es get muestra todos los proveedores
+    
+
+    path("proveedores/", views.ProveedorView.as_view(), name="proveedores_listar"),      
     path("proveedores/<int:id>", views.ProveedorView.as_view(), name="proveedor"),
-    # URLS CRUD MATERIA PRIMA
-    path(
-        "materias_primas/",
-        views.MateriaprimaView.as_view(),
-        name="materias_primas_listar",
-    ),  # Si la petición es get muestra todos las materias_primas
-    path(
-        "materias_primas/<int:id>",
-        views.MateriaprimaView.as_view(),
-        name="materia_prima",
-    ),
-    # URLS CRUD PRODUCTOS
-    path(
-        "productos/", views.ProductoView.as_view(), name="productos_listar"
-    ),  # Si la petición es get muestra todos los productos
+    
+
+    path("materias_primas/",views.MateriaprimaView.as_view(), name="materias_primas_listar"),
+    path("materias_primas/<int:id>", views.MateriaprimaView.as_view(), name="materia_prima"),
+    
+
+    path("productos/", views.ProductoView.as_view(), name="productos_listar"),
     path("productos/<int:id>", views.ProductoView.as_view(), name="productos"),
+
+
+    path("pedidos/", views.PedidoView.as_view(), name="pedidos_listar"),
+    path("pedidos/<int:id>", views.PedidoView.as_view(), name="pedidos"),
+
+    path("ventas/", views.VentaView.as_view(), name="ventas_listar"),
+    path("ventas/<int:id>", views.VentaView.as_view(), name="ventas"),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
