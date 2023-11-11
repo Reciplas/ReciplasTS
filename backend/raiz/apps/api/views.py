@@ -41,8 +41,8 @@ class ClienteView(View):
                 celular_alt         = data.get("celular_alt", None),
                 email               = data.get("email", ""),
                 direccion           = data.get("direccion", ""),
-                fecha_creacion      = data.get("fecha_creacion", None),
-                fecha_modificacion  = data.get("fecha_modificacion", None),
+                # fecha_creacion      = data.get("fecha_creacion", None),
+                # fecha_modificacion  = data.get("fecha_modificacion", None),
                 estado              = data.get("estado", ""),
             )
             nuevo_cliente.save()
@@ -74,8 +74,8 @@ class ClienteView(View):
                 cliente.celular_alt         = jd.get("celular_alt", cliente.celular_alt)
                 cliente.email               = jd.get("email", cliente.email)
                 cliente.direccion           = jd.get("direccion", cliente.direccion)
-                cliente.fecha_creacion      = jd.get("fecha_creacion", cliente.fecha_creacion)
-                cliente.fecha_modificacion  = jd.get("fecha_modificacion", cliente.fecha_modificacion)
+                # cliente.fecha_creacion      = jd.get("fecha_creacion", cliente.fecha_creacion)
+                # cliente.fecha_modificacion  = jd.get("fecha_modificacion", cliente.fecha_modificacion)
                 cliente.estado              = jd.get("estado", cliente.estado)
                 cliente.save()
                 datos = {"message": "Exito!"}
@@ -158,8 +158,8 @@ class ProveedorView(View):
                 celular_alt         = data.get("celular_alt", None),
                 email               = data.get("email", ""),
                 direccion           = data.get("direccion", ""),
-                fecha_creacion      = data.get("fecha_creacion", None),
-                fecha_modificacion  = data.get("fecha_modificacion", None),
+                # fecha_creacion      = data.get("fecha_creacion", None),
+                # fecha_modificacion  = data.get("fecha_modificacion", None),
                 estado              = data.get("estado", ""),
             )
             nuevo_proveedor.save()
@@ -184,12 +184,12 @@ class ProveedorView(View):
                 proveedor.celular_alt = jd.get("celular", proveedor.celular_alt)
                 proveedor.email = jd.get("email", proveedor.email)
                 proveedor.direccion = jd.get("direccion", proveedor.direccion)
-                proveedor.fecha_creacion = jd.get(
-                    "fecha_creacion", proveedor.fecha_creacion
-                )
-                proveedor.fecha_modificacion = jd.get(
-                    "fecha_modificacion", proveedor.fecha_modificacion
-                )
+                # proveedor.fecha_creacion = jd.get(
+                #     "fecha_creacion", proveedor.fecha_creacion
+                # )
+                # proveedor.fecha_modificacion = jd.get(
+                #     "fecha_modificacion", proveedor.fecha_modificacion
+                # )
                 proveedor.estado = jd.get("estado", proveedor.estado)
                 proveedor.save()
                 datos = {"message": "Exito!"}
@@ -255,8 +255,8 @@ class EmpleadoView(View):
                 cargo               = data.get("cargo", ""),
                 desde               = data.get("desde", None),
                 hasta               = data.get("hasta", None),
-                fecha_creacion      = data.get("fecha_creacion", None),
-                fecha_modificacion  = data.get("fecha_modificacion", None),
+                # fecha_creacion      = data.get("fecha_creacion", None),
+                # fecha_modificacion  = data.get("fecha_modificacion", None),
                 estado              = data.get("estado", ""),
             )
             nuevo_empleado.save()
@@ -285,8 +285,8 @@ class EmpleadoView(View):
                 empleado.cargo              = jd.get("cargo", empleado.cargo)
                 empleado.desde              = jd.get("desde", empleado.desde)
                 empleado.hasta              = jd.get("hasta", empleado.hasta)
-                empleado.fecha_creacion     = jd.get("fecha_creacion", empleado.fecha_creacion)
-                empleado.fecha_modificacion = jd.get("fecha_modificacion", empleado.fecha_modificacion)
+                # empleado.fecha_creacion     = jd.get("fecha_creacion", empleado.fecha_creacion)
+                # empleado.fecha_modificacion = jd.get("fecha_modificacion", empleado.fecha_modificacion)
                 empleado.estado             = jd.get("estado", empleado.estado)
                 empleado.save()
                 datos = {"message": "Exito!"}
@@ -313,14 +313,14 @@ class EmpleadoView(View):
 
 
 # ___________________________________________________________________________________________
-class MateriaprimaView(View):
+class MateriaPrimaView(View):
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
     def get(self, request, id=0):
         if id > 0:
-            materias_primas = list(Materiaprima.objects.filter(id=id).values())
+            materias_primas = list(MateriaPrima.objects.filter(id=id).values())
             if len(materias_primas) > 0:
                 materia_prima = materias_primas[0]
                 datos = materia_prima
@@ -328,7 +328,7 @@ class MateriaprimaView(View):
                 datos = {"message": "materia_prima not found..."}
             return JsonResponse(datos, safe=False)
         else:
-            materias_primas = list(Materiaprima.objects.values())
+            materias_primas = list(MateriaPrima.objects.values())
             if len(materias_primas) > 0:
                 datos = materias_primas
             else:
@@ -338,15 +338,15 @@ class MateriaprimaView(View):
     def post(self, request):
         try:
             data = json.loads(request.body)
-            nueva_materia_prima = Materiaprima(
+            nueva_materia_prima = MateriaPrima(
                 plastico            = data.get("plastico", ""),
                 descripcion         = data.get("descripcion", ""),
                 presentacion        = data.get("presentacion", None),
                 stock_act           = data.get("stock_act", None),
                 stock_inf           = data.get("stock_inf", None),
                 precio              = data.get("precio", None),
-                fecha_creacion      = data.get("fecha_creacion", None),
-                fecha_modificacion  = data.get("fecha_modificacion", None),
+                # fecha_creacion      = data.get("fecha_creacion", None),
+                # fecha_modificacion  = data.get("fecha_modificacion", None),
                 estado=data.get("estado", ""),
             )
             nueva_materia_prima.save()
@@ -361,17 +361,17 @@ class MateriaprimaView(View):
     def put(self, request, id):
         try:
             jd = json.loads(request.body)
-            materias_primas = list(Materiaprima.objects.filter(id=id).values())
+            materias_primas = list(MateriaPrima.objects.filter(id=id).values())
             if len(materias_primas) > 0:
-                materia_prima = Materiaprima.objects.get(id=id)
+                materia_prima = MateriaPrima.objects.get(id=id)
                 materia_prima.plastico           = jd.get("plastico", materia_prima.plastico)
                 materia_prima.descripcion        = jd.get("descripcion", materia_prima.descripcion)
                 materia_prima.presentacion       = jd.get("presentacion", materia_prima.presentacion)
                 materia_prima.stock_act          = jd.get("stock_act", materia_prima.stock_act)
                 materia_prima.stock_inf          = jd.get("stock_inf", materia_prima.stock_inf)
                 materia_prima.precio             = jd.get("precio", materia_prima.precio)
-                materia_prima.fecha_creacion     = jd.get("fecha_creacion", materia_prima.fecha_creacion)
-                materia_prima.fecha_modificacion = jd.get("fecha_modificacion", materia_prima.fecha_modificacion)
+                # materia_prima.fecha_creacion     = jd.get("fecha_creacion", materia_prima.fecha_creacion)
+                # materia_prima.fecha_modificacion = jd.get("fecha_modificacion", materia_prima.fecha_modificacion)
                 materia_prima.estado             = jd.get("estado", materia_prima.estado)
                 materia_prima.save()
                 datos = {"message": "Exito!"}
@@ -386,9 +386,9 @@ class MateriaprimaView(View):
 
     def delete(self, request, id):
         try:
-            materias_primas = list(Materiaprima.objects.filter(id=id).values())
+            materias_primas = list(MateriaPrima.objects.filter(id=id).values())
             if len(materias_primas) > 0:
-                Materiaprima.objects.filter(id=id).delete()
+                MateriaPrima.objects.filter(id=id).delete()
                 datos = {"message": "Materia prima eliminada con éxito"}
             else:
                 datos = {"message": "Materia prima no encontrada..."}
@@ -433,8 +433,8 @@ class ProductoView(View):
                 stock_act           = data.get("stock_act", None),
                 stock_inf           = data.get("stock_inf", None),
                 precio              = data.get("precio", None),
-                fecha_creacion      = data.get("fecha_creacion", None),
-                fecha_modificacion  = data.get("fecha_modificacion", None),
+                # fecha_creacion      = data.get("fecha_creacion", None),
+                # fecha_modificacion  = data.get("fecha_modificacion", None),
                 estado              = data.get("estado", ""),
             )
             nueva_producto.save()
@@ -457,8 +457,8 @@ class ProductoView(View):
                 producto.stock_act          = jd.get("stock_act", producto.stock_act)
                 producto.stock_inf          = jd.get("stock_inf", producto.stock_inf)
                 producto.precio             = jd.get("precio", producto.precio)
-                producto.fecha_creacion     = jd.get("fecha_creacion", producto.fecha_creacion)
-                producto.fecha_modificacion = jd.get("fecha_modificacion", producto.fecha_modificacion)
+                # producto.fecha_creacion     = jd.get("fecha_creacion", producto.fecha_creacion)
+                # producto.fecha_modificacion = jd.get("fecha_modificacion", producto.fecha_modificacion)
                 producto.estado             = jd.get("estado", producto.estado)
                 producto.save()
                 datos = {"message": "Exito!"}
@@ -516,8 +516,8 @@ class PedidoView(View):
                 cliente             =  data.get("cliente", ""),
                 total               =  data.get("total", ""),
                 estado              =  data.get("estado", ""),
-                fecha_creacion      = data.get("fecha_creacion", None),
-                fecha_modificacion  = data.get("fecha_modificacion", None),
+                # fecha_creacion      = data.get("fecha_creacion", None),
+                # fecha_modificacion  = data.get("fecha_modificacion", None),
             )
             nueva_pedido.save()
             return JsonResponse({"message": "Pedido creado con éxito"}, status=201)
@@ -532,8 +532,8 @@ class PedidoView(View):
             pedidos = list(Pedido.objects.filter(id=id).values())
             if len(pedidos) > 0:
                 pedido                    = Pedido.objects.get(id=id)
-                pedido.fecha_creacion     = jd.get("fecha_creacion", pedido.fecha_creacion)
-                pedido.fecha_modificacion = jd.get("fecha_modificacion", pedido.fecha_modificacion)
+                # pedido.fecha_creacion     = jd.get("fecha_creacion", pedido.fecha_creacion)
+                # pedido.fecha_modificacion = jd.get("fecha_modificacion", pedido.fecha_modificacion)
                 pedido.estado             = jd.get("estado", pedido.estado)
                 pedido.save()
                 datos = {"message": "Exito!"}
@@ -559,73 +559,73 @@ class PedidoView(View):
         return JsonResponse(datos)
 # ___________________________________________________________________________________________
 
-class VentaView(View):
-    @method_decorator(csrf_exempt)
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
+# class VentaView(View):
+#     @method_decorator(csrf_exempt)
+#     def dispatch(self, request, *args, **kwargs):
+#         return super().dispatch(request, *args, **kwargs)
 
-    def get(self, request, id=0):
-        if id > 0:
-            ventas = list(Venta.objects.filter(id=id).values())
-            if len(ventas) > 0:
-                venta = ventas[0]
-                datos = {"message": "Exito!", "venta": venta}
-            else:
-                datos = {"message": "Venta no encontrado..."}
-            return JsonResponse(datos)
-        else:
-            ventas = list(Venta.objects.values())
-            if len(ventas) > 0:
-                datos = ventas
-            else:
-                datos = {"message": "Ventas no encontrados..."}
-            return JsonResponse(datos, safe=False)
+#     def get(self, request, id=0):
+#         if id > 0:
+#             ventas = list(Venta.objects.filter(id=id).values())
+#             if len(ventas) > 0:
+#                 venta = ventas[0]
+#                 datos = {"message": "Exito!", "venta": venta}
+#             else:
+#                 datos = {"message": "Venta no encontrado..."}
+#             return JsonResponse(datos)
+#         else:
+#             ventas = list(Venta.objects.values())
+#             if len(ventas) > 0:
+#                 datos = ventas
+#             else:
+#                 datos = {"message": "Ventas no encontrados..."}
+#             return JsonResponse(datos, safe=False)
 
-    def post(self, request):
-        try:
-            data = json.loads(request.body)
-            nueva_venta = Venta(
-                cliente             =  data.get("cliente", ""),
-                total               =  data.get("total", ""),
-                cuotas              =  data.get("estado", ""),
-                fecha_creacion      = data.get("fecha_creacion", None),
-                fecha_modificacion  = data.get("fecha_modificacion", None),
-            )
-            nueva_venta.save()
-            return JsonResponse({"message": "Venta creada con éxito"}, status=201)
-        except json.JSONDecodeError as e:
-            return JsonResponse(
-                {"error": "Error al analizar el cuerpo de la solicitud"}, status=400
-            )
+#     def post(self, request):
+#         try:
+#             data = json.loads(request.body)
+#             nueva_venta = Venta(
+#                 cliente             =  data.get("cliente", ""),
+#                 total               =  data.get("total", ""),
+#                 cuotas              =  data.get("estado", ""),
+#                 # fecha_creacion      = data.get("fecha_creacion", None),
+#                 # fecha_modificacion  = data.get("fecha_modificacion", None),
+#             )
+#             nueva_venta.save()
+#             return JsonResponse({"message": "Venta creada con éxito"}, status=201)
+#         except json.JSONDecodeError as e:
+#             return JsonResponse(
+#                 {"error": "Error al analizar el cuerpo de la solicitud"}, status=400
+#             )
 
-    def put(self, request, id):
-        try:
-            jd = json.loads(request.body)
-            ventas = list(Venta.objects.filter(id=id).values())
-            if len(ventas) > 0:
-                venta                    = Venta.objects.get(id=id)
-                venta.fecha_creacion     = jd.get("fecha_creacion", venta.fecha_creacion)
-                venta.fecha_modificacion = jd.get("fecha_modificacion", venta.fecha_modificacion)
-                venta.estado             = jd.get("estado", venta.estado)
-                venta.save()
-                datos = {"message": "Exito!"}
-            else:
-                datos = {"message": "Venta not found..."}
-        except json.JSONDecodeError as e:
-            datos = {
-                "error": "Error al analizar el cuerpo de la solicitud",
-                "message": str(e),
-            }
-        return JsonResponse(datos)
+#     def put(self, request, id):
+#         try:
+#             jd = json.loads(request.body)
+#             ventas = list(Venta.objects.filter(id=id).values())
+#             if len(ventas) > 0:
+#                 venta                    = Venta.objects.get(id=id)
+#                 # venta.fecha_creacion     = jd.get("fecha_creacion", venta.fecha_creacion)
+#                 # venta.fecha_modificacion = jd.get("fecha_modificacion", venta.fecha_modificacion)
+#                 venta.estado             = jd.get("estado", venta.estado)
+#                 venta.save()
+#                 datos = {"message": "Exito!"}
+#             else:
+#                 datos = {"message": "Venta not found..."}
+#         except json.JSONDecodeError as e:
+#             datos = {
+#                 "error": "Error al analizar el cuerpo de la solicitud",
+#                 "message": str(e),
+#             }
+#         return JsonResponse(datos)
 
-    def delete(self, request, id):
-        try:
-            ventas = list(Venta.objects.filter(id=id).values())
-            if len(ventas) > 0:
-                Venta.objects.filter(id=id).delete()
-                datos = {"message": "Venta eliminado con éxito"}
-            else:
-                datos = {"message": "Venta no encontrado..."}
-        except Exception as e:
-            datos = {"error": "Error al eliminar el Venta", "message": str(e)}
-        return JsonResponse(datos)
+#     def delete(self, request, id):
+#         try:
+#             ventas = list(Venta.objects.filter(id=id).values())
+#             if len(ventas) > 0:
+#                 Venta.objects.filter(id=id).delete()
+#                 datos = {"message": "Venta eliminado con éxito"}
+#             else:
+#                 datos = {"message": "Venta no encontrado..."}
+#         except Exception as e:
+#             datos = {"error": "Error al eliminar el Venta", "message": str(e)}
+#         return JsonResponse(datos)

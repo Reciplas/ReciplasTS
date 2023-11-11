@@ -21,8 +21,8 @@ urlpatterns = [
     path("proveedores/<int:id>", views.ProveedorView.as_view(), name="proveedor"),
     
 
-    path("materias_primas/",views.MateriaprimaView.as_view(), name="materias_primas_listar"),
-    path("materias_primas/<int:id>", views.MateriaprimaView.as_view(), name="materia_prima"),
+    path("materias_primas/",views.MateriaPrimaView.as_view(), name="materias_primas_listar"),
+    path("materias_primas/<int:id>", views.MateriaPrimaView.as_view(), name="materia_prima"),
     
 
     path("productos/", views.ProductoView.as_view(), name="productos_listar"),
@@ -32,7 +32,7 @@ urlpatterns = [
     path("pedidos/", views.PedidoView.as_view(), name="pedidos_listar"),
     path("pedidos/<int:id>", views.PedidoView.as_view(), name="pedidos"),
 
-    path("ventas/", views.VentaView.as_view(), name="ventas_listar"),
-    path("ventas/<int:id>", views.VentaView.as_view(), name="ventas"),
+    # path("ventas/", views.VentaView.as_view(), name="ventas_listar"),
+    # path("ventas/<int:id>", views.VentaView.as_view(), name="ventas"),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

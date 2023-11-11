@@ -3,6 +3,7 @@ import "../App.css";
 import Header from "../componentes/Header";
 import { Btn } from "../componentes/Boton";
 import { AGTable } from "../componentes/AGTable";
+import { Link } from "react-router-dom";
 
 function Pedidos() {
   const seccionActual = "Pedidos";
@@ -19,7 +20,9 @@ function Pedidos() {
 
         <div className="flex justify-between">
           <div className="flex gap-[8px]">
-            <Btn estilo="btnImprimir" valor="Añadir Proveedor" />
+            <Link to="/Ventas/NuevoPedido" className={"btnImpimir"}>
+              <Btn estilo="btnImprimir" valor="Nuevo Pedido" />
+            </Link>
           </div>
         </div>
       </div>

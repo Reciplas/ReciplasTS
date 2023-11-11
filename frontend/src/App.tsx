@@ -26,6 +26,7 @@ import VentasProveedores from "./Ventas/Proveedores";
 import VentasClientes from "./Ventas/Clientes";
 import VentasProductos from "./Ventas/Productos";
 import VentasPerfil from "./Ventas/Perfil";
+import VentasNuevoPedido from "./Ventas/NuevoPedido";
 
 function App() {
   return (
@@ -46,19 +47,20 @@ function App() {
         <Route path="/Compras/Proveedores" element={<ComprasProveedores />} />
         <Route path="/Compras/MateriaPrima" element={<ComprasMP />} />
         <Route path="/Compras/Pedidos" element={<ComprasPedidos />} />
-        <Route path="/Compras/Perfil" element={<ComprasPerfil/>} />
+        <Route path="/Compras/Perfil" element={<ComprasPerfil />} />
 
         <Route path="/Ventas/Ventas" element={<VentasVentas />} />
         <Route path="/Ventas/Pedidos" element={<VentasPedidos />} />
         <Route path="/Ventas/Productos" element={<VentasProductos />} />
         <Route path="/Ventas/Proveedores" element={<VentasProveedores />} />
         <Route path="/Ventas/Clientes" element={<VentasClientes />} />
-        <Route path="/Ventas/Perfil" element={<VentasPerfil/>} />
+        <Route path="/Ventas/Perfil" element={<VentasPerfil />} />
+        <Route path="/Ventas/NuevoPedido" element={<VentasNuevoPedido />} />
 
         <Route path="/Produccion/MateriaPrima" element={<ProdMP />} />
         <Route path="/Produccion/Productos" element={<ProdProductos />} />
         <Route path="/Produccion/Pedidos" element={<ProdPedidos />} />
-        <Route path="/Produccion/Perfil" element={<ProdPerfil/>} />
+        <Route path="/Produccion/Perfil" element={<ProdPerfil />} />
       </Routes>
     </div>
   );

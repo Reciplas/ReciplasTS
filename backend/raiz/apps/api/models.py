@@ -18,26 +18,15 @@ class Cliente(models.Model):
     celular_alt        = models.IntegerField(blank=True, null=True)
     email              = models.CharField(max_length=60, blank=True, null=True)
     direccion          = models.CharField(max_length=150, blank=True, null=True)
-    fecha_creacion     = models.DateField(blank=True, null=True)
-    fecha_modificacion = models.DateField(blank=True, null=True)
-    estado             = models.CharField(max_length=20, blank=True, null=True, default="True")
+    fecha_creacion     = models.DateField(blank=True, null=True, auto_now_add=True)
+    fecha_modificacion = models.DateField(blank=True, null=True, auto_now=True)
+    estado             = models.CharField(max_length=20, blank=True, null=True, default="Activo")
 
     class Meta:
-        db_table = "cliente"
+        db_table = "clientes"
 
-
-class Compra(models.Model):
-    id                 = models.AutoField(primary_key=True)
-    cliente_id         = models.ForeignKey(Cliente, models.DO_NOTHING)
-    total              = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
-    observacion        = models.CharField(max_length=255, blank=True, null=True)
-    fecha_creacion     = models.DateField(blank=True, null=True)
-    fecha_modificacion = models.DateField(blank=True, null=True)
-    estado             = models.CharField(max_length=50, blank=True, null=True, default="True")
-
-    class Meta:
-        db_table = "compra"
-
+    def __str__(self):
+        return self.apellido + ' ' + self.nombres
 
 class Empleado(models.Model):
     id          = models.AutoField(primary_key=True)
@@ -56,19 +45,22 @@ class Empleado(models.Model):
     cargo              = models.CharField(max_length=100, blank=True, null=True)
     desde              = models.DateField(blank=True, null=True)
     hasta              = models.DateField(blank=True, null=True)
-    fecha_creacion     = models.DateField(blank=True, null=True)
-    fecha_modificacion = models.DateField(blank=True, null=True)
-    estado             = models.CharField(max_length=20, blank=True, null=True, default="True")
+    fecha_creacion     = models.DateField(blank=True, null=True, auto_now_add=True)
+    fecha_modificacion = models.DateField(blank=True, null=True, auto_now=True)
+    estado             = models.CharField(max_length=20, blank=True, null=True, default="Activo")
 
     class Meta:
-        db_table = "empleado"
+        db_table = "empleados"
+
+    def __str__(self):
+        return self.apellido + ' ' + self.nombres
 
 
 class Ingresan(models.Model):
     id               = models.AutoField(primary_key=True)
     ingreso_id       = models.ForeignKey(
         "Ingresos", models.DO_NOTHING
-    )  # The composite primary key (ingreso_id, materia_prima_id) found, that is not supported. The first column is selected.
+    )  
     materia_prima_id = models.ForeignKey("Materiaprima", models.DO_NOTHING)
     cantidad         = models.IntegerField(blank=True, null=True)
     precio           = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
@@ -78,32 +70,34 @@ class Ingresan(models.Model):
         db_table = "ingresan"
 
 
+
 class Ingresos(models.Model):
     id                 = models.AutoField(primary_key=True)
     fecha              = models.DateField(blank=True, null=True)
     total              = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
-    fecha_creacion     = models.DateField(blank=True, null=True)
-    fecha_modificacion = models.DateField(blank=True, null=True)
-    estado             = models.CharField(max_length=10, blank=True, null=True, default="True")
+    fecha_creacion     = models.DateField(blank=True, null=True, auto_now_add=True)
+    fecha_modificacion = models.DateField(blank=True, null=True, auto_now=True)
+    estado             = models.CharField(max_length=10, blank=True, null=True, default="Finalizado")
 
     class Meta:
         db_table = "ingresos"
 
 
-# class Lineadetalle(models.Model):
-#     id          = models.AutoField(primary_key=True)
-#     pedido_id   = models.ForeignKey(
-#         "Pedido", models.DO_NOTHING
-#     )  # The composite primary key (pedido_id, producto_id) found, that is not supported. The first column is selected.
-#     producto_id = models.ForeignKey("Producto", models.DO_NOTHING)
-#     cantidad    = models.IntegerField(blank=True, null=True)
-#     precio      = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
+class LineaPedido(models.Model):
+    id          = models.AutoField(primary_key=True)
+    pedido_id   = models.ForeignKey(
+        "Pedido", models.CASCADE
+    )  
+    producto_id = models.ForeignKey("Producto", models.DO_NOTHING)
+    cantidad    = models.IntegerField(blank=True, null=True)
+    precio      = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
+    subtotal    = models.DecimalField(max_digits=13, decimal_places=2, blank=True, null=True)
 
-#     class Meta:
-#         db_table = "lineadetalle"
+    class Meta:
+        db_table = "linea_pedido"
 
 
-class Materiaprima(models.Model):
+class MateriaPrima(models.Model):
     id                 = models.AutoField(primary_key=True)
     plastico           = models.CharField(max_length=100, blank=True, null=True)
     descripcion        = models.CharField(max_length=150, blank=True, null=True)
@@ -111,35 +105,44 @@ class Materiaprima(models.Model):
     stock_act          = models.IntegerField(blank=True, null=True)
     stock_inf          = models.IntegerField(blank=True, null=True)
     precio             = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
-    fecha_creacion     = models.DateField(blank=True, null=True)
-    fecha_modificacion = models.DateField(blank=True, null=True)
-    estado             = models.CharField(max_length=20, blank=True, null=True, default="True")
+    fecha_creacion     = models.DateField(blank=True, null=True, auto_now_add=True)
+    fecha_modificacion = models.DateField(blank=True, null=True, auto_now=True)
+    estado             = models.CharField(max_length=20, blank=True, null=True, default="Activo")
 
     class Meta:
         db_table = "materia_prima"
+        
 
-
+#En la reunión de Discord se llego al acuerdo de que el mismo pedido, al estar en el estado entregado, pasa a ser la "Venta". Esto porque basicamente tienen los mismos atributos, y se puede filtrar por su estado simplemente.
 class Pedido(models.Model):
     id                 = models.AutoField(primary_key=True)
-    cliente            = models.CharField(max_length=255, blank=True, null=True)
+    cliente_id         = models.ForeignKey(Cliente, models.DO_NOTHING)
+    forma_pago         = models.CharField(max_length=20, blank=True, null=True)
+    observacion        = models.CharField(max_length=255, blank=True, null=True)
     total              = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
-    estado             = models.CharField(max_length=50, blank=True, null=True, default="True")
-    fecha_creacion     = models.DateField(blank=True, null=True)
-    fecha_modificacion = models.DateField(blank=True, null=True)
+    estado             = models.CharField(max_length=50, blank=True, null=True, default="Pendiente")
+    fecha_creacion     = models.DateField(blank=True, null=True, auto_now_add=True)
+    fecha_modificacion = models.DateField(blank=True, null=True, auto_now=True)
 
     class Meta:
-        db_table = "pedido"
+        db_table = "pedidos"
 
-class Venta(models.Model):
+
+#quedamos en que si el pago es en efectivo o transferencia de todas formas se genera una cuota. que despues se ve como 1/1
+class Cuotas(models.Model):
     id                 = models.AutoField(primary_key=True)
-    cliente            = models.CharField(max_length=255, blank=True, null=True)
+    pedido_id          = models.ForeignKey(Pedido, models.DO_NOTHING)
+    observacion        = models.CharField(max_length=255, blank=True, null=True)
     total              = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
-    cuotas             = models.CharField(max_length=255, blank=True, null=True)
-    fecha_creacion     = models.DateField(blank=True, null=True)
-    fecha_modificacion = models.DateField(blank=True, null=True)
+    estado             = models.CharField(max_length=50, blank=True, null=True, default="Pendiente")
+    fecha_pago         = models.DateField(blank=True, null=True)
+    fecha_vencimiento  = models.DateField(blank=True, null=True)
+    fecha_creacion     = models.DateField(blank=True, null=True, auto_now_add=True)
+    fecha_modificacion = models.DateField(blank=True, null=True, auto_now=True)
 
     class Meta:
-        db_table = "venta"
+        db_table = "cuotas"
+    
 
 
 class Producto(models.Model):
@@ -151,12 +154,17 @@ class Producto(models.Model):
     stock_act          = models.IntegerField(blank=True, null=True)
     stock_inf          = models.IntegerField(blank=True, null=True)
     precio             = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
-    fecha_creacion     = models.DateField(blank=True, null=True)
-    fecha_modificacion = models.DateField(blank=True, null=True)
+    fecha_creacion     = models.DateField(blank=True, null=True, auto_now_add=True)
+    fecha_modificacion = models.DateField(blank=True, null=True, auto_now=True)
     estado             = models.CharField(max_length=20, blank=True, null=True, default="True")
 
     class Meta:
-        db_table = "producto"
+        db_table = "productos"
+
+    def __str__(self):
+        return self.nombre
+
+    
 
 
 # class Producen(models.Model):
@@ -182,20 +190,24 @@ class Proveedor(models.Model):
     celular_alt        = models.IntegerField(blank=True, null=True)
     email              = models.CharField(max_length=60, blank=True, null=True)
     direccion          = models.CharField(max_length=150, blank=True, null=True)
-    fecha_creacion     = models.DateField(blank=True, null=True)
-    fecha_modificacion = models.DateField(blank=True, null=True)
+    fecha_creacion     = models.DateField(blank=True, null=True, auto_now_add=True)
+    fecha_modificacion = models.DateField(blank=True, null=True, auto_now=True)
     estado             = models.CharField(max_length=20, blank=True, null=True, default="True")
 
     class Meta:
-        db_table = "proveedor"
+        db_table = "proveedores"
 
+    def __str__(self):
+        return self.razon_social
+
+    
 
 class Proveen(models.Model):
     id               = models.AutoField(primary_key=True)
     proveedor_id     = models.ForeignKey(
         Proveedor, models.DO_NOTHING
-    )  # The composite primary key (proveedor_id, materia_prima_id) found, that is not supported. The first column is selected.
-    materia_prima_id = models.ForeignKey(Materiaprima, models.DO_NOTHING)
+    )  
+    materia_prima_id = models.ForeignKey(MateriaPrima, models.DO_NOTHING)
 
     class Meta:
         db_table = "proveen"
@@ -205,8 +217,8 @@ class Registra(models.Model):
     id          = models.AutoField(primary_key=True)
     empleado_id = models.ForeignKey(
         Empleado, models.DO_NOTHING
-    )  # The composite primary key (empleado_id, compra_id) found, that is not supported. The first column is selected.
-    compra_id   = models.ForeignKey(Compra, models.DO_NOTHING)
+    )  
+    pedido_id   = models.ForeignKey(Pedido, models.DO_NOTHING)
 
     class Meta:
         db_table = "registra"
