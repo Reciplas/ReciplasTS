@@ -116,7 +116,7 @@ class MateriaPrima(models.Model):
 #En la reunión de Discord se llego al acuerdo de que el mismo pedido, al estar en el estado entregado, pasa a ser la "Venta". Esto porque basicamente tienen los mismos atributos, y se puede filtrar por su estado simplemente.
 class Pedido(models.Model):
     id                 = models.AutoField(primary_key=True)
-    cliente_id         = models.ForeignKey(Cliente, models.DO_NOTHING)
+    cliente_id         = models.ForeignKey(Cliente, models.DO_NOTHING, db_column='cliente_id')
     forma_pago         = models.CharField(max_length=20, blank=True, null=True)
     observacion        = models.CharField(max_length=255, blank=True, null=True)
     total              = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)

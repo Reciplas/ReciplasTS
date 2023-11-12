@@ -32,7 +32,7 @@ urlpatterns = [
     path("pedidos/", views.PedidoView.as_view(), name="pedidos_listar"),
     path("pedidos/<int:id>", views.PedidoView.as_view(), name="pedidos"),
 
-    # path("ventas/", views.VentaView.as_view(), name="ventas_listar"),
-    # path("ventas/<int:id>", views.VentaView.as_view(), name="ventas"),
+    path("ventas/", views.VentaView.as_view(), name="ventas_listar"),
+    path("ventas/<int:id>", views.VentaView.as_view(), name="ventas"),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
