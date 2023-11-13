@@ -82,14 +82,14 @@ export function MenuLateral({ seccionActual }: { seccionActual: string }) {
         </Link>
 
         <Link
-          to="/Administracion/Usuarios"
+          to="/Administracion/Empleados"
           className={
             seccionActual === "Usuarios" ? "seccion-actual" : "icono-seccion"
           }>
           <div className="iconoMenu">
             <span className="material-symbols-outlined">person_add</span>
           </div>
-          <div className="seccionMenu">Usuarios</div>
+          <div className="seccionMenu">Empleados</div>
         </Link>
 
         <Link

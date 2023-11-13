@@ -239,20 +239,57 @@ class EmpleadoView(View):
 
     def get(self, request, id=0):
         if id > 0:
-            empleados = list(Empleado.objects.filter(id=id).values())
-            if len(empleados) > 0:
-                empleado = empleados[0]
-                datos = {"message": "Exito!", "empleado": empleado}
-            else:
-                datos = {"message": "empleado not found..."}
-            return JsonResponse(datos)
+            try:
+                empleado = Empleado.objects.get(id=id)
+                datos = {
+                    "ID": empleado.id,
+                    "Nombre": empleado.nombres,
+                    "Apellido": empleado.apellido,
+                    "DNI": empleado.dni,
+                    "Fecha de nacimiento": empleado.fec_nac,
+                    "Celular": empleado.celular,
+                    "Celular alt.": empleado.celular_alt,
+                    "Email": empleado.email,
+                    "Dirección": empleado.direccion,
+                    "Salario": empleado.salario,
+                    "Área": empleado.area,
+                    "Cargo": empleado.cargo,
+                    "Salario": empleado.salario,
+                    "Desde": empleado.desde,
+                    "Hasta": empleado.hasta,
+                    "Estado": empleado.estado,
+                    "Fecha creación": empleado.fecha_creacion,
+                    "fecha modificación": empleado.fecha_creacion
+                }
+            except Empleado.DoesNotExist:
+                datos = {"message": "Empleado not found..."}
+            return JsonResponse(datos, safe=False)
         else:
-            empleados = list(Empleado.objects.values())
-            if len(empleados) > 0:
-                datos = {"message": "Exito!", "empleados": empleados}
+            empleados = Empleado.objects.all()
+            if empleados:
+                datos = [{
+                    "ID": empleado.id,
+                    "Nombre": empleado.nombres,
+                    "Apellido": empleado.apellido,
+                    "DNI": empleado.dni,
+                    "Fecha de nacimiento": empleado.fec_nac,
+                    "Celular": empleado.celular,
+                    "Celular alt.": empleado.celular_alt,
+                    "Email": empleado.email,
+                    "Dirección": empleado.direccion,
+                    "Salario": empleado.salario,
+                    "Área": empleado.area,
+                    "Cargo": empleado.cargo,
+                    "Salario": empleado.salario,
+                    "Desde": empleado.desde,
+                    "Hasta": empleado.hasta,
+                    "Estado": empleado.estado,
+                    "Fecha creación": empleado.fecha_creacion,
+                    "fecha modificación": empleado.fecha_creacion
+                } for empleado in empleados]
             else:
                 datos = {"message": "empleados not found..."}
-            return JsonResponse(datos)
+            return JsonResponse(datos, safe=False)
 
     def post(self, request):
         try:

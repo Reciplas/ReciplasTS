@@ -5,7 +5,7 @@ import Login from "./Login";
 import AdmVentas from "./Administracion/Ventas";
 import AdmMP from "./Administracion/MateriaPrima";
 import AdmProductos from "./Administracion/Productos";
-import AdmUsuarios from "./Administracion/Usuarios";
+import AdmEmpleados from "./Administracion/Empleados";
 import AdmClientes from "./Administracion/Clientes";
 import AdmPerfil from "./Administracion/Perfil";
 import AdmProveedores from "./Administracion/Proveedores";
@@ -36,7 +36,7 @@ function App() {
         <Route path="/Administracion/Ventas" element={<AdmVentas />} />
         <Route path="/Administracion/MateriaPrima" element={<AdmMP />} />
         <Route path="/Administracion/Productos" element={<AdmProductos />} />
-        <Route path="/Administracion/Usuarios" element={<AdmUsuarios />} />
+        <Route path="/Administracion/Empleados" element={<AdmEmpleados />} />
         <Route path="/Administracion/Clientes" element={<AdmClientes />} />
         <Route
           path="/Administracion/Proveedores"
