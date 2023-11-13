@@ -21,7 +21,7 @@ class ClienteView(View):
                     "nombres": cliente.nombres,
                     "apellidos": cliente.apellidos,
                     "DNI": cliente.dni,
-                    "fecha de nac.": cliente.fec_nac,
+                    "fecha de nacimiento": cliente.fec_nac,
                     "celular": cliente.celular,
                     "celular alt": cliente.celular_alt,
                     "email": cliente.email,
