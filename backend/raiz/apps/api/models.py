@@ -11,7 +11,7 @@ from django.db import models
 class Cliente(models.Model):
     id                 = models.AutoField(primary_key=True)
     nombres            = models.CharField(max_length=80, blank=True, null=True)
-    apellido           = models.CharField(max_length=60, blank=True, null=True)
+    apellidos           = models.CharField(max_length=60, blank=True, null=True)
     dni                = models.IntegerField(blank=True, null=True)
     fec_nac            = models.DateField(blank=True, null=True)
     celular            = models.IntegerField(blank=True, null=True)
@@ -26,12 +26,12 @@ class Cliente(models.Model):
         db_table = "clientes"
 
     def __str__(self):
-        return self.apellido + ' ' + self.nombres
+        return self.apellidos + ' ' + self.nombres
 
 class Empleado(models.Model):
     id          = models.AutoField(primary_key=True)
     nombres     = models.CharField(max_length=80, blank=True, null=True)
-    apellido    = models.CharField(max_length=60, blank=True, null=True)
+    apellidos    = models.CharField(max_length=60, blank=True, null=True)
     dni         = models.IntegerField(blank=True, null=True)
     fec_nac     = models.DateField(blank=True, null=True)
     celular     = models.IntegerField(blank=True, null=True)
@@ -53,7 +53,7 @@ class Empleado(models.Model):
         db_table = "empleados"
 
     def __str__(self):
-        return self.apellido + ' ' + self.nombres
+        return self.apellidos + ' ' + self.nombres
 
 
 class Ingresan(models.Model):

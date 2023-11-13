@@ -18,12 +18,12 @@ class ClienteView(View):
                 cliente = Cliente.objects.get(id=id)
                 datos = {
                     "ID": cliente.id,
-                    "nombre": cliente.nombres,
-                    "apellido": cliente.apellido,
+                    "nombres": cliente.nombres,
+                    "apellidos": cliente.apellido,
                     "DNI": cliente.dni,
                     "fecha de nac.": cliente.fec_nac,
                     "celular": cliente.celular,
-                    "celular alt.": cliente.celular_alt,
+                    "celular alt": cliente.celular_alt,
                     "email": cliente.email,
                     "dirección": cliente.direccion,
                     "estado": cliente.estado,
@@ -38,12 +38,12 @@ class ClienteView(View):
             if clientes:
                 datos = [{
                     "ID": cliente.id,
-                    "nombre": cliente.nombres,
-                    "apellido": cliente.apellido,
+                    "nombres": cliente.nombres,
+                    "apellidos": cliente.apellidos,
                     "DNI": cliente.dni,
                     "fecha de nacimiento": cliente.fec_nac,
                     "celular": cliente.celular,
-                    "celular alt.": cliente.celular_alt,
+                    "celular alt": cliente.celular_alt,
                     "email": cliente.email,
                     "dirección": cliente.direccion,
                     "estado": cliente.estado,
@@ -131,16 +131,16 @@ class ProveedorView(View):
                 proveedor = Proveedor.objects.get(id=id)
                 datos = {
                     "ID": proveedor.id,
-                    "Razón Social": proveedor.razon_social,
-                    "Nombre de Fantasía": proveedor.nombre_fantasia,
-                    "DNI": proveedor.cuit,
-                    "Celular": proveedor.celular,
-                    "Celular alt.": proveedor.celular_alt,
-                    "Email": proveedor.email,
-                    "Dirección": proveedor.direccion,
-                    "Estado": proveedor.estado,
-                    "Fecha creación": proveedor.fecha_creacion,
-                    "Fecha modificación": proveedor.fecha_creacion
+                    "razón social": proveedor.razon_social,
+                    "nombre de fantasía": proveedor.nombre_fantasia,
+                    "CUIT": proveedor.cuit,
+                    "celular": proveedor.celular,
+                    "celular alt": proveedor.celular_alt,
+                    "email": proveedor.email,
+                    "dirección": proveedor.direccion,
+                    "estado": proveedor.estado,
+                    "fecha creación": proveedor.fecha_creacion,
+                    "fecha modificación": proveedor.fecha_creacion
                 }
             except Proveedor.DoesNotExist:
                 datos = {"message": "Proveedor not found..."}
@@ -150,16 +150,16 @@ class ProveedorView(View):
             if proveedores:
                datos = [{
                     "ID": proveedor.id,
-                    "Razón Social": proveedor.razon_social,
-                    "Nombre de Fantasía": proveedor.nombre_fantasia,
-                    "DNI": proveedor.cuit,
-                    "Celular": proveedor.celular,
-                    "Celular alt.": proveedor.celular_alt,
-                    "Email": proveedor.email,
-                    "Dirección": proveedor.direccion,
-                    "Estado": proveedor.estado,
-                    "Fecha creación": proveedor.fecha_creacion,
-                    "Fecha modificación": proveedor.fecha_creacion
+                    "razón social": proveedor.razon_social,
+                    "nombre de fantasía": proveedor.nombre_fantasia,
+                    "CUIT": proveedor.cuit,
+                    "celular": proveedor.celular,
+                    "celular alt": proveedor.celular_alt,
+                    "email": proveedor.email,
+                    "dirección": proveedor.direccion,
+                    "estado": proveedor.estado,
+                    "fecha creación": proveedor.fecha_creacion,
+                    "fecha modificación": proveedor.fecha_creacion
                 } for proveedor in proveedores]
             else:
                 datos = {"message": "proveedores not found..."}
@@ -243,22 +243,22 @@ class EmpleadoView(View):
                 empleado = Empleado.objects.get(id=id)
                 datos = {
                     "ID": empleado.id,
-                    "Nombre": empleado.nombres,
-                    "Apellido": empleado.apellido,
+                    "nombres": empleado.nombres,
+                    "apellidos": empleado.apellidos,
                     "DNI": empleado.dni,
-                    "Fecha de nacimiento": empleado.fec_nac,
-                    "Celular": empleado.celular,
-                    "Celular alt.": empleado.celular_alt,
-                    "Email": empleado.email,
-                    "Dirección": empleado.direccion,
-                    "Salario": empleado.salario,
-                    "Área": empleado.area,
-                    "Cargo": empleado.cargo,
-                    "Salario": empleado.salario,
-                    "Desde": empleado.desde,
-                    "Hasta": empleado.hasta,
-                    "Estado": empleado.estado,
-                    "Fecha creación": empleado.fecha_creacion,
+                    "fecha de nacimiento": empleado.fec_nac,
+                    "celular": empleado.celular,
+                    "celular alt": empleado.celular_alt,
+                    "email": empleado.email,
+                    "dirección": empleado.direccion,
+                    "salario": empleado.salario,
+                    "área": empleado.area,
+                    "cargo": empleado.cargo,
+                    "salario": empleado.salario,
+                    "desde": empleado.desde,
+                    "hasta": empleado.hasta,
+                    "estado": empleado.estado,
+                    "fecha creación": empleado.fecha_creacion,
                     "fecha modificación": empleado.fecha_creacion
                 }
             except Empleado.DoesNotExist:
@@ -269,22 +269,22 @@ class EmpleadoView(View):
             if empleados:
                 datos = [{
                     "ID": empleado.id,
-                    "Nombre": empleado.nombres,
-                    "Apellido": empleado.apellido,
+                    "nombres": empleado.nombres,
+                    "apellidos": empleado.apellidos,
                     "DNI": empleado.dni,
-                    "Fecha de nacimiento": empleado.fec_nac,
-                    "Celular": empleado.celular,
-                    "Celular alt.": empleado.celular_alt,
-                    "Email": empleado.email,
-                    "Dirección": empleado.direccion,
-                    "Salario": empleado.salario,
-                    "Área": empleado.area,
-                    "Cargo": empleado.cargo,
-                    "Salario": empleado.salario,
-                    "Desde": empleado.desde,
-                    "Hasta": empleado.hasta,
-                    "Estado": empleado.estado,
-                    "Fecha creación": empleado.fecha_creacion,
+                    "fecha de nacimiento": empleado.fec_nac,
+                    "celular": empleado.celular,
+                    "celular alt": empleado.celular_alt,
+                    "email": empleado.email,
+                    "dirección": empleado.direccion,
+                    "salario": empleado.salario,
+                    "área": empleado.area,
+                    "cargo": empleado.cargo,
+                    "salario": empleado.salario,
+                    "desde": empleado.desde,
+                    "hasta": empleado.hasta,
+                    "estado": empleado.estado,
+                    "fecha creación": empleado.fecha_creacion,
                     "fecha modificación": empleado.fecha_creacion
                 } for empleado in empleados]
             else:
@@ -374,12 +374,12 @@ class MateriaPrimaView(View):
                 materia_prima = MateriaPrima.objects.get(id=id)
                 datos = {
                     "ID": materia_prima.id,
-                    "Plástico": materia_prima.plastico,
-                    "Descripción": materia_prima.descripcion,
-                    "Presentación": materia_prima.presentacion,
-                    "Stock Actual": materia_prima.stock_act,
-                    "Stock Inferior": materia_prima.stock_inf,
-                    "Precio": materia_prima.precio,
+                    "plástico": materia_prima.plastico,
+                    "descripción": materia_prima.descripcion,
+                    "presentación": materia_prima.presentacion,
+                    "stock Actual": materia_prima.stock_act,
+                    "stock Inferior": materia_prima.stock_inf,
+                    "precio": materia_prima.precio,
                     "estado": materia_prima.estado,
                     "fecha creación": materia_prima.fecha_creacion,
                     "fecha modificación": materia_prima.fecha_creacion
@@ -392,12 +392,12 @@ class MateriaPrimaView(View):
             if materias_primas:
                 datos = [{
                     "ID": materia_prima.id,
-                    "Plástico": materia_prima.plastico,
-                    "Descripción": materia_prima.descripcion,
-                    "Presentación": materia_prima.presentacion,
-                    "Stock Actual": materia_prima.stock_act,
-                    "Stock Inferior": materia_prima.stock_inf,
-                    "Precio": materia_prima.precio,
+                    "plástico": materia_prima.plastico,
+                    "descripción": materia_prima.descripcion,
+                    "presentación": materia_prima.presentacion,
+                    "stock actual": materia_prima.stock_act,
+                    "stock inferior": materia_prima.stock_inf,
+                    "precio": materia_prima.precio,
                     "estado": materia_prima.estado,
                     "fecha creación": materia_prima.fecha_creacion,
                     "fecha modificación": materia_prima.fecha_creacion
@@ -485,13 +485,13 @@ class ProductoView(View):
                 producto = Producto.objects.get(id=id)
                 datos = {
                     "ID": producto.id,
-                    "Nombre": producto.nombre,
-                    "Descripción": producto.descripcion,
-                    "Presentación": producto.presentacion,
-                    "Lote": producto.lote,
-                    "Stock Actual": producto.stock_act,
-                    "Stock Inferior": producto.stock_inf,
-                    "Precio": producto.precio,
+                    "nombre": producto.nombre,
+                    "descripción": producto.descripcion,
+                    "presentación": producto.presentacion,
+                    "lote": producto.lote,
+                    "stock actual": producto.stock_act,
+                    "stock inferior": producto.stock_inf,
+                    "precio": producto.precio,
                     "estado": producto.estado,
                     "fecha creación": producto.fecha_creacion,
                     "fecha modificación": producto.fecha_creacion
@@ -504,13 +504,13 @@ class ProductoView(View):
             if productos:
                 datos = [{
                     "ID": producto.id,
-                    "Plástico": producto.nombre,
-                    "Descripción": producto.descripcion,
-                    "Presentación": producto.presentacion,
-                    "Lote": producto.lote,
-                    "Stock Actual": producto.stock_act,
-                    "Stock Inferior": producto.stock_inf,
-                    "Precio": producto.precio,
+                    "nombre": producto.nombre,
+                    "descripción": producto.descripcion,
+                    "presentación": producto.presentacion,
+                    "lote": producto.lote,
+                    "stock actual": producto.stock_act,
+                    "stock inferior": producto.stock_inf,
+                    "precio": producto.precio,
                     "estado": producto.estado,
                     "fecha creación": producto.fecha_creacion,
                     "fecha modificación": producto.fecha_creacion
@@ -596,9 +596,9 @@ class PedidoView(View):
                 'cliente_id').filter(id=id).first()
                 datos = {
                     "ID": pedido.id,
-                    "Apellidos": pedido.cliente_id.apellido,
-                    "Nombres": pedido.cliente_id.nombres,
-                    "forma pago": pedido.forma_pago,
+                    "apellidos": pedido.cliente_id.apellidos,
+                    "nombres": pedido.cliente_id.nombres,
+                    "forma de pago": pedido.forma_pago,
                     "observación": pedido.observacion,
                     "total": pedido.total,
                     "estado": pedido.estado,
@@ -615,8 +615,8 @@ class PedidoView(View):
                 # Accede al nombre del cliente a través de la relación
                 datos = [{
                     "ID": pedido.id,
-                    "Apellidos": pedido.cliente_id.apellido,
-                    "Nombres": pedido.cliente_id.nombres,
+                    "apellidos": pedido.cliente_id.apellidos,
+                    "nombres": pedido.cliente_id.nombres,
                     "forma de pago": pedido.forma_pago,
                     "observación": pedido.observacion,
                     "total": pedido.total,
@@ -691,9 +691,9 @@ class VentaView(View):
                 # Accede al nombre del cliente a través de la relación
                 datos = {
                     "ID": pedido.id,
-                    "Apellidos": pedido.cliente_id.apellido,
-                    "Nombres": pedido.cliente_id.nombres,
-                    "forma pago": pedido.forma_pago,
+                    "apellidos": pedido.cliente_id.apellidos,
+                    "nombres": pedido.cliente_id.nombres,
+                    "forma de pago": pedido.forma_pago,
                     "observación": pedido.observacion,
                     "total": pedido.total,
                     "estado": pedido.estado,
@@ -712,8 +712,8 @@ class VentaView(View):
                 # Accede al nombre del cliente a través de la relación
                 datos = [{
                     "ID": pedido.id,
-                    "Apellidos": pedido.cliente_id.apellido,
-                    "Nombres": pedido.cliente_id.nombres,
+                    "apellidos": pedido.cliente_id.apellidos,
+                    "nombres": pedido.cliente_id.nombres,
                     "forma de pago": pedido.forma_pago,
                     "observación": pedido.observacion,
                     "total": pedido.total,
