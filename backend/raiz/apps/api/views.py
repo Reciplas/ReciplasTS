@@ -610,7 +610,7 @@ class PedidoView(View):
             return JsonResponse(datos, safe=False)
             
         else:
-            pedidos = Pedido.objects.select_related('cliente_id').all()
+            pedidos = Pedido.objects.select_related('cliente_id').exclude(estado='Finalizado')
             if pedidos:
                 # Accede al nombre del cliente a través de la relación
                 datos = [{
