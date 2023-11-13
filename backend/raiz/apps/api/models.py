@@ -156,7 +156,7 @@ class Producto(models.Model):
     precio             = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
     fecha_creacion     = models.DateField(blank=True, null=True, auto_now_add=True)
     fecha_modificacion = models.DateField(blank=True, null=True, auto_now=True)
-    estado             = models.CharField(max_length=20, blank=True, null=True, default="True")
+    estado             = models.CharField(max_length=20, blank=True, null=True, default="Activo")
 
     class Meta:
         db_table = "productos"
