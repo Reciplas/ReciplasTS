@@ -724,3 +724,45 @@ class VentaView(View):
             else:
                 datos = {"message": "Pedidos no encontrados..."}
             return JsonResponse(datos, safe=False)
+        
+#________________________________________________________________
+class CuotasView(View):
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def get(self, request, id=0):
+        if id > 0:
+            try:
+                cuota = Cuotas.objects.get(id=id)
+                datos = {
+                    "ID": cuota.id,
+                    "ID pedido": cuota.pedido_id,
+                    "observacion": cuota.observacion,
+                    "total": cuota.total,
+                    "fecha de pago": cuota.fecha_pago,
+                    "fecha de vencimiento": cuota.fecha_vencimiento,
+                    "estado": cuota.estado,
+                    "fecha creación": cuota.fecha_creacion,
+                    "fecha modificación": cuota.fecha_creacion
+                }
+            except Cuotas.DoesNotExist:
+                datos = {"message": "Cuota not found..."}
+            return JsonResponse(datos, safe=False)
+        else:
+            cuotas = Cuotas.objects.all()
+            if cuotas:
+                datos = [{
+                    "ID": cuota.id,
+                    "ID pedido": cuota.pedido_id,
+                    "observacion": cuota.observacion,
+                    "total": cuota.total,
+                    "fecha de pago": cuota.fecha_pago,
+                    "fecha de vencimiento": cuota.fecha_vencimiento,
+                    "estado": cuota.estado,
+                    "fecha creación": cuota.fecha_creacion,
+                    "fecha modificación": cuota.fecha_creacion
+                } for cuota in cuotas]
+            else:
+                datos = {"message": "clientes not found..."}
+            return JsonResponse(datos, safe=False)
