@@ -19,7 +19,7 @@ class ClienteView(View):
                 datos = {
                     "ID": cliente.id,
                     "nombres": cliente.nombres,
-                    "apellidos": cliente.apellido,
+                    "apellidos": cliente.apellidos,
                     "DNI": cliente.dni,
                     "fecha de nac.": cliente.fec_nac,
                     "celular": cliente.celular,
