@@ -192,7 +192,7 @@ class Proveedor(models.Model):
     direccion          = models.CharField(max_length=150, blank=True, null=True)
     fecha_creacion     = models.DateField(blank=True, null=True, auto_now_add=True)
     fecha_modificacion = models.DateField(blank=True, null=True, auto_now=True)
-    estado             = models.CharField(max_length=20, blank=True, null=True, default="True")
+    estado             = models.CharField(max_length=20, blank=True, null=True, default="Activo")
 
     class Meta:
         db_table = "proveedores"

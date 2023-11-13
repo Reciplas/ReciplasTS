@@ -20,7 +20,7 @@ class ClienteView(View):
                     "ID": cliente.id,
                     "nombre": cliente.nombres,
                     "apellido": cliente.apellido,
-                    "D.N.I.": cliente.dni,
+                    "DNI": cliente.dni,
                     "fecha de nac.": cliente.fec_nac,
                     "celular": cliente.celular,
                     "celular alt.": cliente.celular_alt,
@@ -40,7 +40,7 @@ class ClienteView(View):
                     "ID": cliente.id,
                     "nombre": cliente.nombres,
                     "apellido": cliente.apellido,
-                    "D.N.I.": cliente.dni,
+                    "DNI": cliente.dni,
                     "fecha de nacimiento": cliente.fec_nac,
                     "celular": cliente.celular,
                     "celular alt.": cliente.celular_alt,
@@ -50,7 +50,6 @@ class ClienteView(View):
                     "fecha creación": cliente.fecha_creacion,
                     "fecha modificación": cliente.fecha_creacion
                     } for cliente in clientes]
-                # datos = clientes
             else:
                 datos = {"message": "clientes not found..."}
             return JsonResponse(datos, safe=False)
@@ -67,8 +66,6 @@ class ClienteView(View):
                 celular_alt=data.get("celular_alt", None),
                 email=data.get("email", ""),
                 direccion=data.get("direccion", ""),
-                # fecha_creacion      = data.get("fecha_creacion", None),
-                # fecha_modificacion  = data.get("fecha_modificacion", None),
                 estado=data.get("estado", ""),
             )
             nuevo_cliente.save()
@@ -78,13 +75,6 @@ class ClienteView(View):
                 {"error": "Error al analizar el cuerpo de la solicitud"}, status=400
             )
 
-    # def post(self, request):
-    #     # print(request.body)
-    #     jd = json.loads(request.body)
-    #     # print(jd)
-    #     Cliente.objects.create(name=jd['name'], website=jd['website'], foundation=jd['foundation'])
-    #     datos = {'message': "Exito!"}
-    #     return JsonResponse(datos)
 
     def put(self, request, id):
         try:
@@ -101,8 +91,6 @@ class ClienteView(View):
                     "celular_alt", cliente.celular_alt)
                 cliente.email = jd.get("email", cliente.email)
                 cliente.direccion = jd.get("direccion", cliente.direccion)
-                # cliente.fecha_creacion      = jd.get("fecha_creacion", cliente.fecha_creacion)
-                # cliente.fecha_modificacion  = jd.get("fecha_modificacion", cliente.fecha_modificacion)
                 cliente.estado = jd.get("estado", cliente.estado)
                 cliente.save()
                 datos = {"message": "Exito!"}
@@ -114,20 +102,6 @@ class ClienteView(View):
                 "message": str(e),
             }
         return JsonResponse(datos)
-
-    # def put(self, request, id):
-    #     jd = json.loads(request.body)
-    #     clientes = list(Cliente.objects.filter(id=id).values())
-    #     if len(clientes) > 0:
-    #         cliente = Cliente.objects.get(id=id)
-    #         cliente.name = jd['name']
-    #         cliente.website = jd['website']
-    #         cliente.foundation = jd['foundation']
-    #         cliente.save()
-    #         datos = {'message': "Exito!"}
-    #     else:
-    #         datos = {'message': "Cliente not found..."}
-    #     return JsonResponse(datos)
 
     def delete(self, request, id):
         try:
@@ -142,14 +116,7 @@ class ClienteView(View):
                      "message": str(e)}
         return JsonResponse(datos)
 
-    # def delete(self, request, id):
-    #     clientes = list(Cliente.objects.filter(id=id).values())
-    #     if len(clientes) > 0:
-    #         Cliente.objects.filter(id=id).delete()
-    #         datos = {'message': "Exito!"}
-    #     else:
-    #         datos = {'message': "Cliente not found..."}
-    #     return JsonResponse(datos)
+
 
 
 # ___________________________________________________________________________________________
@@ -160,20 +127,46 @@ class ProveedorView(View):
 
     def get(self, request, id=0):
         if id > 0:
-            proveedores = list(Proveedor.objects.filter(id=id).values())
-            if len(proveedores) > 0:
-                proveedor = proveedores[0]
-                datos = proveedor
-            else:
-                datos = {"message": "proveedor not found..."}
+            try:
+                proveedor = Proveedor.objects.get(id=id)
+                datos = {
+                    "ID": proveedor.id,
+                    "Razón Social": proveedor.razon_social,
+                    "Nombre de Fantasía": proveedor.nombre_fantasia,
+                    "DNI": proveedor.cuit,
+                    "Celular": proveedor.celular,
+                    "Celular alt.": proveedor.celular_alt,
+                    "Email": proveedor.email,
+                    "Dirección": proveedor.direccion,
+                    "Estado": proveedor.estado,
+                    "Fecha creación": proveedor.fecha_creacion,
+                    "Fecha modificación": proveedor.fecha_creacion
+                }
+            except Proveedor.DoesNotExist:
+                datos = {"message": "Proveedor not found..."}
             return JsonResponse(datos, safe=False)
         else:
-            proveedores = list(Proveedor.objects.values())
-            if len(proveedores) > 0:
-                datos = proveedores
+            proveedores = Proveedor.objects.all()
+            if proveedores:
+               datos = [{
+                    "ID": proveedor.id,
+                    "Razón Social": proveedor.razon_social,
+                    "Nombre de Fantasía": proveedor.nombre_fantasia,
+                    "DNI": proveedor.cuit,
+                    "Celular": proveedor.celular,
+                    "Celular alt.": proveedor.celular_alt,
+                    "Email": proveedor.email,
+                    "Dirección": proveedor.direccion,
+                    "Estado": proveedor.estado,
+                    "Fecha creación": proveedor.fecha_creacion,
+                    "Fecha modificación": proveedor.fecha_creacion
+                } for proveedor in proveedores]
             else:
                 datos = {"message": "proveedores not found..."}
             return JsonResponse(datos, safe=False)
+        
+
+
 
     def post(self, request):
         try:
@@ -186,8 +179,6 @@ class ProveedorView(View):
                 celular_alt=data.get("celular_alt", None),
                 email=data.get("email", ""),
                 direccion=data.get("direccion", ""),
-                # fecha_creacion      = data.get("fecha_creacion", None),
-                # fecha_modificacion  = data.get("fecha_modificacion", None),
                 estado=data.get("estado", ""),
             )
             nuevo_proveedor.save()
@@ -214,12 +205,6 @@ class ProveedorView(View):
                     "celular", proveedor.celular_alt)
                 proveedor.email = jd.get("email", proveedor.email)
                 proveedor.direccion = jd.get("direccion", proveedor.direccion)
-                # proveedor.fecha_creacion = jd.get(
-                #     "fecha_creacion", proveedor.fecha_creacion
-                # )
-                # proveedor.fecha_modificacion = jd.get(
-                #     "fecha_modificacion", proveedor.fecha_modificacion
-                # )
                 proveedor.estado = jd.get("estado", proveedor.estado)
                 proveedor.save()
                 datos = {"message": "Exito!"}
@@ -286,8 +271,6 @@ class EmpleadoView(View):
                 cargo=data.get("cargo", ""),
                 desde=data.get("desde", None),
                 hasta=data.get("hasta", None),
-                # fecha_creacion      = data.get("fecha_creacion", None),
-                # fecha_modificacion  = data.get("fecha_modificacion", None),
                 estado=data.get("estado", ""),
             )
             nuevo_empleado.save()
@@ -316,8 +299,6 @@ class EmpleadoView(View):
                 empleado.cargo = jd.get("cargo", empleado.cargo)
                 empleado.desde = jd.get("desde", empleado.desde)
                 empleado.hasta = jd.get("hasta", empleado.hasta)
-                # empleado.fecha_creacion     = jd.get("fecha_creacion", empleado.fecha_creacion)
-                # empleado.fecha_modificacion = jd.get("fecha_modificacion", empleado.fecha_modificacion)
                 empleado.estado = jd.get("estado", empleado.estado)
                 empleado.save()
                 datos = {"message": "Exito!"}
@@ -352,20 +333,42 @@ class MateriaPrimaView(View):
 
     def get(self, request, id=0):
         if id > 0:
-            materias_primas = list(MateriaPrima.objects.filter(id=id).values())
-            if len(materias_primas) > 0:
-                materia_prima = materias_primas[0]
-                datos = materia_prima
-            else:
-                datos = {"message": "materia_prima not found..."}
+            try:
+                materia_prima = MateriaPrima.objects.get(id=id)
+                datos = {
+                    "ID": materia_prima.id,
+                    "Plástico": materia_prima.plastico,
+                    "Descripción": materia_prima.descripcion,
+                    "Presentación": materia_prima.presentacion,
+                    "Stock Actual": materia_prima.stock_act,
+                    "Stock Inferior": materia_prima.stock_inf,
+                    "Precio": materia_prima.precio,
+                    "estado": materia_prima.estado,
+                    "fecha creación": materia_prima.fecha_creacion,
+                    "fecha modificación": materia_prima.fecha_creacion
+                }
+            except MateriaPrima.DoesNotExist:
+                datos = {"message": "Materia Prima not found..."}
             return JsonResponse(datos, safe=False)
         else:
-            materias_primas = list(MateriaPrima.objects.values())
-            if len(materias_primas) > 0:
-                datos = materias_primas
+            materias_primas = MateriaPrima.objects.all()
+            if materias_primas:
+                datos = [{
+                    "ID": materia_prima.id,
+                    "Plástico": materia_prima.plastico,
+                    "Descripción": materia_prima.descripcion,
+                    "Presentación": materia_prima.presentacion,
+                    "Stock Actual": materia_prima.stock_act,
+                    "Stock Inferior": materia_prima.stock_inf,
+                    "Precio": materia_prima.precio,
+                    "estado": materia_prima.estado,
+                    "fecha creación": materia_prima.fecha_creacion,
+                    "fecha modificación": materia_prima.fecha_creacion
+                } for materia_prima in materias_primas]
             else:
-                datos = {"message": "materias primas not found..."}
+                datos = {"message": "Materia Prima not found..."}
             return JsonResponse(datos, safe=False)
+
 
     def post(self, request):
         try:
@@ -377,8 +380,6 @@ class MateriaPrimaView(View):
                 stock_act=data.get("stock_act", None),
                 stock_inf=data.get("stock_inf", None),
                 precio=data.get("precio", None),
-                # fecha_creacion      = data.get("fecha_creacion", None),
-                # fecha_modificacion  = data.get("fecha_modificacion", None),
                 estado=data.get("estado", ""),
             )
             nueva_materia_prima.save()
@@ -407,8 +408,6 @@ class MateriaPrimaView(View):
                 materia_prima.stock_inf = jd.get(
                     "stock_inf", materia_prima.stock_inf)
                 materia_prima.precio = jd.get("precio", materia_prima.precio)
-                # materia_prima.fecha_creacion     = jd.get("fecha_creacion", materia_prima.fecha_creacion)
-                # materia_prima.fecha_modificacion = jd.get("fecha_modificacion", materia_prima.fecha_modificacion)
                 materia_prima.estado = jd.get("estado", materia_prima.estado)
                 materia_prima.save()
                 datos = {"message": "Exito!"}
@@ -445,20 +444,44 @@ class ProductoView(View):
 
     def get(self, request, id=0):
         if id > 0:
-            productos = list(Producto.objects.filter(id=id).values())
-            if len(productos) > 0:
-                producto = productos[0]
-                datos = {"message": "Exito!", "producto": producto}
-            else:
-                datos = {"message": "Producto no encontrados..."}
-            return JsonResponse(datos)
-        else:
-            productos = list(Producto.objects.values())
-            if len(productos) > 0:
-                datos = productos
-            else:
-                datos = {"message": "Productos no encontrados..."}
+            try:
+                producto = Producto.objects.get(id=id)
+                datos = {
+                    "ID": producto.id,
+                    "Nombre": producto.nombre,
+                    "Descripción": producto.descripcion,
+                    "Presentación": producto.presentacion,
+                    "Lote": producto.lote,
+                    "Stock Actual": producto.stock_act,
+                    "Stock Inferior": producto.stock_inf,
+                    "Precio": producto.precio,
+                    "estado": producto.estado,
+                    "fecha creación": producto.fecha_creacion,
+                    "fecha modificación": producto.fecha_creacion
+                }
+            except Producto.DoesNotExist:
+                datos = {"message": "Producto not found..."}
             return JsonResponse(datos, safe=False)
+        else:
+            productos = Producto.objects.all()
+            if productos:
+                datos = [{
+                    "ID": producto.id,
+                    "Plástico": producto.nombre,
+                    "Descripción": producto.descripcion,
+                    "Presentación": producto.presentacion,
+                    "Lote": producto.lote,
+                    "Stock Actual": producto.stock_act,
+                    "Stock Inferior": producto.stock_inf,
+                    "Precio": producto.precio,
+                    "estado": producto.estado,
+                    "fecha creación": producto.fecha_creacion,
+                    "fecha modificación": producto.fecha_creacion
+                } for producto in productos]
+            else:
+                datos = {"message": "Productos not found..."}
+            return JsonResponse(datos, safe=False)
+
 
     def post(self, request):
         try:
@@ -471,8 +494,6 @@ class ProductoView(View):
                 stock_act=data.get("stock_act", None),
                 stock_inf=data.get("stock_inf", None),
                 precio=data.get("precio", None),
-                # fecha_creacion      = data.get("fecha_creacion", None),
-                # fecha_modificacion  = data.get("fecha_modificacion", None),
                 estado=data.get("estado", ""),
             )
             nueva_producto.save()
@@ -497,8 +518,6 @@ class ProductoView(View):
                 producto.stock_act = jd.get("stock_act", producto.stock_act)
                 producto.stock_inf = jd.get("stock_inf", producto.stock_inf)
                 producto.precio = jd.get("precio", producto.precio)
-                # producto.fecha_creacion     = jd.get("fecha_creacion", producto.fecha_creacion)
-                # producto.fecha_modificacion = jd.get("fecha_modificacion", producto.fecha_modificacion)
                 producto.estado = jd.get("estado", producto.estado)
                 producto.save()
                 datos = {"message": "Exito!"}
@@ -534,17 +553,40 @@ class PedidoView(View):
 
     def get(self, request, id=0):
         if id > 0:
-            pedidos = list(Pedido.objects.filter(id=id).values())
-            if len(pedidos) > 0:
-                pedido = pedidos[0]
-                datos = {"message": "Exito!", "pedido": pedido}
-            else:
-                datos = {"message": "Pedido no encontrado..."}
-            return JsonResponse(datos)
+            try:
+                # Uso select_related para traer los datos relacionados del cliente, y que no muestre su ID.
+                pedido = Pedido.objects.select_related(
+                'cliente_id').filter(id=id).first()
+                datos = {
+                    "ID": pedido.id,
+                    "Apellidos": pedido.cliente_id.apellido,
+                    "Nombres": pedido.cliente_id.nombres,
+                    "forma pago": pedido.forma_pago,
+                    "observación": pedido.observacion,
+                    "total": pedido.total,
+                    "estado": pedido.estado,
+                    "fecha creación": pedido.fecha_creacion,
+                    "fecha modificación": pedido.fecha_creacion
+                    }
+            except Pedido.DoesNotExist:
+                datos = {"message": "Pedido not found..."}
+            return JsonResponse(datos, safe=False)
+            
         else:
-            pedidos = list(Pedido.objects.values())
-            if len(pedidos) > 0:
-                datos = pedidos
+            pedidos = Pedido.objects.select_related('cliente_id').all()
+            if pedidos:
+                # Accede al nombre del cliente a través de la relación
+                datos = [{
+                    "ID": pedido.id,
+                    "Apellidos": pedido.cliente_id.apellido,
+                    "Nombres": pedido.cliente_id.nombres,
+                    "forma de pago": pedido.forma_pago,
+                    "observación": pedido.observacion,
+                    "total": pedido.total,
+                    "estado": pedido.estado,
+                    "fecha creación": pedido.fecha_creacion,
+                    "fecha modificación": pedido.fecha_creacion
+                    } for pedido in pedidos]
             else:
                 datos = {"message": "Pedidos no encontrados..."}
             return JsonResponse(datos, safe=False)
@@ -558,8 +600,6 @@ class PedidoView(View):
                 cliente=data.get("cliente", ""),
                 total=data.get("total", ""),
                 estado=data.get("estado", ""),
-                # fecha_creacion      = data.get("fecha_creacion", None),
-                # fecha_modificacion  = data.get("fecha_modificacion", None),
             )
             nueva_pedido.save()
             return JsonResponse({"message": "Pedido creado con éxito"}, status=201)
@@ -574,8 +614,6 @@ class PedidoView(View):
             pedidos = list(Pedido.objects.filter(id=id).values())
             if len(pedidos) > 0:
                 pedido = Pedido.objects.get(id=id)
-                # pedido.fecha_creacion     = jd.get("fecha_creacion", pedido.fecha_creacion)
-                # pedido.fecha_modificacion = jd.get("fecha_modificacion", pedido.fecha_modificacion)
                 pedido.estado = jd.get("estado", pedido.estado)
                 pedido.save()
                 datos = {"message": "Exito!"}
@@ -602,29 +640,6 @@ class PedidoView(View):
 # ___________________________________________________________________________________________
 
 # Un pedido en estado "Finalziado" es una venta
-# class VentaView(View):
-#     @method_decorator(csrf_exempt)
-#     def dispatch(self, request, *args, **kwargs):
-#         return super().dispatch(request, *args, **kwargs)
-
-#     def get(self, request, id=0):
-#         if id > 0:
-#             pedidos = list(Pedido.objects.filter(id=id).values())
-#             if len(pedidos) > 0:
-#                 pedido = pedidos[0]
-#                 datos = {"message": "Exito!", "pedido": pedido}
-#             else:
-#                 datos = {"message": "Pedido no encontrado..."}
-#             return JsonResponse(datos)
-#         else:
-#             pedidos = list(Pedido.objects.filter(estado='Finalizado').values())
-#             if len(pedidos) > 0:
-#                 datos = pedidos
-#             else:
-#                 datos = {"message": "Pedidos no encontrados..."}
-#             return JsonResponse(datos, safe=False)
-
-
 class VentaView(View):
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
@@ -635,12 +650,12 @@ class VentaView(View):
             # Uso select_related para traer los datos relacionados del cliente, y que no muestre su ID.
             pedido = Pedido.objects.select_related(
                 'cliente_id').filter(id=id).first()
-
             if pedido:
                 # Accede al nombre del cliente a través de la relación
                 datos = {
                     "ID": pedido.id,
-                    "cliente": pedido.cliente_id.nombres,
+                    "Apellidos": pedido.cliente_id.apellido,
+                    "Nombres": pedido.cliente_id.nombres,
                     "forma pago": pedido.forma_pago,
                     "observación": pedido.observacion,
                     "total": pedido.total,
@@ -660,7 +675,8 @@ class VentaView(View):
                 # Accede al nombre del cliente a través de la relación
                 datos = [{
                     "ID": pedido.id,
-                    "cliente": pedido.cliente_id.nombres,
+                    "Apellidos": pedido.cliente_id.apellido,
+                    "Nombres": pedido.cliente_id.nombres,
                     "forma de pago": pedido.forma_pago,
                     "observación": pedido.observacion,
                     "total": pedido.total,
