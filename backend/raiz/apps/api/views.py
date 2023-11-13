@@ -59,7 +59,7 @@ class ClienteView(View):
             data = json.loads(request.body)
             nuevo_cliente = Cliente(
                 nombres=data.get("nombres", ""),
-                apellido=data.get("apellido", ""),
+                apellidos=data.get("apellidos", ""),
                 dni=data.get("dni", None),
                 fec_nac=data.get("fec_nac", None),
                 celular=data.get("celular", None),
@@ -83,7 +83,7 @@ class ClienteView(View):
             if len(clientes) > 0:
                 cliente = Cliente.objects.get(id=id)
                 cliente.nombres = jd.get("nombres", cliente.nombres)
-                cliente.apellido = jd.get("apellido", cliente.apellido)
+                cliente.apellidos = jd.get("apellidos", cliente.apellidos)
                 cliente.dni = jd.get("dni", cliente.dni)
                 cliente.fec_nac = jd.get("fec_nac", cliente.fec_nac)
                 cliente.celular = jd.get("celular", cliente.celular)
@@ -296,7 +296,7 @@ class EmpleadoView(View):
             data = json.loads(request.body)
             nuevo_empleado = Empleado(
                 nombres=data.get("nombres", ""),
-                apellido=data.get("apellido", ""),
+                apellidos=data.get("apellidos", ""),
                 dni=data.get("dni", None),
                 fec_nac=data.get("fec_nac", None),
                 celular=data.get("celular", None),
@@ -324,7 +324,7 @@ class EmpleadoView(View):
             if len(empleados) > 0:
                 empleado = Empleado.objects.get(id=id)
                 empleado.nombres = jd.get("nombres", empleado.nombres)
-                empleado.apellido = jd.get("apellido", empleado.apellido)
+                empleado.apellidos = jd.get("apellidos", empleado.apellidos)
                 empleado.dni = jd.get("dni", empleado.dni)
                 empleado.fec_nac = jd.get("fec_nac", empleado.fec_nac)
                 empleado.celular = jd.get("celular", empleado.celular)
