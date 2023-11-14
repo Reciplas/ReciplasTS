@@ -32,6 +32,9 @@ urlpatterns = [
     path("pedidos/", views.PedidoView.as_view(), name="pedidos_listar"),
     path("pedidos/<int:id>", views.PedidoView.as_view(), name="pedidos"),
 
+    path("linea_pedidos/", views.LineaPedidoView.as_view(), name="linea_pedido_listar"),
+    path("linea_pedidos/<int:pedido_id>", views.LineaPedidoView.as_view(), name="linea_pedido"),
+
     path("ventas/", views.VentaView.as_view(), name="ventas_listar"),
     path("ventas/<int:id>", views.VentaView.as_view(), name="ventas"),
 

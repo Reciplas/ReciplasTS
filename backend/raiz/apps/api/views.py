@@ -770,3 +770,82 @@ class CuotasView(View):
             return JsonResponse(datos, safe=False)
 
 
+#________________________________________________________________
+class LineaPedidoView(View):
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def get(self, request, pedido_id=0):
+        if pedido_id > 0:
+            try:
+                lineas_pedido = (LineaPedido.objects.filter(pedido_id=pedido_id))
+                if lineas_pedido.exists():
+                    datos = [{
+                        "ID": linea.id,
+                        "ID pedido": linea.pedido_id.id,
+                        "producto_id": linea.producto_id.id,
+                        "cantidad": linea.cantidad,
+                        "precio": linea.precio,
+                        "subtotal": linea.subtotal,
+                    } for linea in lineas_pedido]
+                else:
+                    datos = {"message": f"No se encontraron líneas de pedido para el Pedido con ID {pedido_id}."}
+            except LineaPedido.DoesNotExist:
+                datos = {"message": "Error al obtener las líneas de pedido."}
+            return JsonResponse(datos, safe=False)
+        else:
+            datos = {"message": "Se requiere un ID de pedido válido."}
+            return JsonResponse(datos, status=400)
+
+
+    def post(self, request):
+        try:
+            data = json.loads(request.body)
+
+            # Obtener el objeto Pedido correspondiente al ID proporcionado
+            pedido_id = data.get("pedido_id", None)
+            pedido = Pedido.objects.get(id=pedido_id) if pedido_id else None
+
+            # Obtener el objeto Pedido correspondiente al ID proporcionado
+            producto_id = data.get("producto_id", None)
+            producto = Producto.objects.get(id=producto_id) if producto_id else None
+
+            nueva_linea_pedido = LineaPedido(
+                pedido_id=pedido,
+                producto_id=producto,
+                cantidad=data.get("cantidad", None),
+                precio=data.get("precio", None),
+                subtotal=data.get("subtotal", None),
+            )
+            nueva_linea_pedido.save()
+            return JsonResponse({"message": "Línea de pedido creada con éxito"}, status=201)
+        except json.JSONDecodeError as e:
+            return JsonResponse(
+                {"error": "Error al analizar el cuerpo de la solicitud"}, status=400
+            )
+
+    def put(self, request, id):
+        try:
+            data = json.loads(request.body)
+            linea_pedido = LineaPedido.objects.get(id=id)
+            # Actualizar los campos según sea necesario
+            linea_pedido.cantidad = data.get("cantidad", linea_pedido.cantidad)
+            linea_pedido.precio = data.get("precio", linea_pedido.precio)
+            linea_pedido.subtotal = data.get("subtotal", linea_pedido.subtotal)
+            linea_pedido.save()
+            return JsonResponse({"message": "Línea de pedido actualizada con éxito"})
+        except LineaPedido.DoesNotExist:
+            return JsonResponse({"error": "Línea de pedido no encontrada"}, status=404)
+        except json.JSONDecodeError as e:
+            return JsonResponse(
+                {"error": "Error al analizar el cuerpo de la solicitud"}, status=400
+            )
+
+    def delete(self, request, id):
+        try:
+            linea_pedido = LineaPedido.objects.get(id=id)
+            linea_pedido.delete()
+            return JsonResponse({"message": "Línea de pedido eliminada con éxito"})
+        except LineaPedido.DoesNotExist:
+            return JsonResponse({"error": "Línea de pedido no encontrada"}, status=404)
