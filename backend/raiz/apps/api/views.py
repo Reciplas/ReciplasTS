@@ -631,12 +631,15 @@ class PedidoView(View):
     def post(self, request):
         try:
             data = json.loads(request.body)
+            # Obtener el objeto Cliente correspondiente al ID proporcionado
+            cliente_id = data.get("cliente_id", None)
+            cliente = Cliente.objects.get(id=cliente_id) if cliente_id else None
+
             nueva_pedido = Pedido(
-                # empleado_id         = data.get("empleado_id", ""),
-                # compra_id           = data.get("compra_id", ""),
-                cliente=data.get("cliente", ""),
-                total=data.get("total", ""),
-                estado=data.get("estado", ""),
+                cliente_id=cliente,  # Asignar la instancia de Cliente, no el ID
+                forma_pago=data.get("forma_pago", ""),
+                observacion=data.get("observacion", ""),
+                total=data.get("total", None),
             )
             nueva_pedido.save()
             return JsonResponse({"message": "Pedido creado con éxito"}, status=201)
