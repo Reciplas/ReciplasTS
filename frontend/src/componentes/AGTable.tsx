@@ -1,6 +1,8 @@
 import { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import { AgGridReact } from "ag-grid-react";
 import { ColDef } from "ag-grid-community";
+import { Label } from "../componentes/TextLabel";
+import { InputTypeText } from "../componentes/InputField";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 
@@ -57,14 +59,14 @@ export function AGCliente({ endpointPath }: { endpointPath: string }) {
   const gridRef = useRef<AgGridReact | null>(null);
   const [rowData, setRowData] = useState();
   const [columnDefs, setColumnDefs] = useState<ColDef[]>([
-    { field: "dni", filter: "agNumberColumnFilter", suppressSizeToFit: true },
+    { field: "DNI", filter: "agNumberColumnFilter", width: 150 },
     {
       field: "nombres",
       filter: "agTextColumnFilter",
       suppressSizeToFit: true,
     },
     {
-      field: "apellido",
+      field: "apellidos",
       filter: "agTextColumnFilter",
       suppressSizeToFit: true,
     },
@@ -93,7 +95,7 @@ export function AGCliente({ endpointPath }: { endpointPath: string }) {
 
   return (
     <div>
-      <div className="ag-theme-alpine" style={{ height: 400, width: 600 }}>
+      <div className="ag-theme-alpine" style={{ height: 262, width: 572 }}>
         <AgGridReact
           //   onCellClicked={cellClickedListener} Deberia escuchar el click para agregar el nombre del cliente al pedido
           ref={gridRef}
@@ -101,20 +103,32 @@ export function AGCliente({ endpointPath }: { endpointPath: string }) {
           columnDefs={columnDefs}
           defaultColDef={defaultColDef}
           animateRows={true}
-          pagination={true}
+          pagination={false}
           paginationPageSize={25}
+          rowSelection="single"
         />
       </div>
     </div>
   );
 }
 
-export function AGProducto({ endpointPath }: { endpointPath: string }) {
+export function AGProducto({
+  endpointPath,
+  productoSeleccionado,
+}: {
+  endpointPath: string;
+  productoSeleccionado: any;
+}) {
   const gridRef = useRef<AgGridReact | null>(null);
   const [rowData, setRowData] = useState();
   const [columnDefs, setColumnDefs] = useState<ColDef[]>([
     {
       field: "nombre",
+      width: 290,
+    },
+    {
+      field: "precio",
+      hide: true,
     },
   ]);
 
@@ -127,9 +141,9 @@ export function AGProducto({ endpointPath }: { endpointPath: string }) {
     []
   );
 
-  //   const cellClickedListener = useCallBack((e) => {
-  //     console.log("data", e);
-  //   });
+  const cellClickedListener = useCallback((p: any) => {
+    productoSeleccionado(p.data.nombre, p.data.precio);
+  }, []);
 
   useEffect(() => {
     fetch(endpointPath)
@@ -141,7 +155,7 @@ export function AGProducto({ endpointPath }: { endpointPath: string }) {
 
   return (
     <div>
-      <div className="ag-theme-alpine" style={{ height: 300, width: 600 }}>
+      <div className="ag-theme-alpine" style={{ height: 262, width: 312 }}>
         <AgGridReact
           //   onCellClicked={cellClickedListener} Deberia escuchar el click para agregar el nombre del cliente al pedido
           ref={gridRef}
@@ -149,8 +163,9 @@ export function AGProducto({ endpointPath }: { endpointPath: string }) {
           columnDefs={columnDefs}
           defaultColDef={defaultColDef}
           animateRows={true}
-          pagination={true}
-          paginationPageSize={1}
+          paginationPageSize={5}
+          rowSelection="single"
+          onCellClicked={cellClickedListener}
         />
       </div>
     </div>
