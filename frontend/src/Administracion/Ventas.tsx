@@ -26,7 +26,7 @@ function Ventas() {
 
         <div className="flex justify-between">
           <div className="flex gap-[8px] ">
-            <Btn estilo="btnImprimir" valor="Generar Informe" />
+            <Btn tipo="button" estilo="btnImprimir" valor="Generar Informe" />
           </div>
         </div>
       </div>

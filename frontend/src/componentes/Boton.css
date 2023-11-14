@@ -125,14 +125,20 @@ select {
   transition: all 0.2s;
 }
 
-.btnImprimir:hover {
+.btnAgregar {
+  transition: all 0.2s;
+}
+
+.btnImprimir:hover,
+.btnAgregar:hover {
   background: var(--c2);
   color: var(--c4);
   border: solid 1px var(--c4);
   transition: all 0.2s;
 }
 
-.btnImprimir:active {
+.btnImprimir:active,
+.btnAgregar:active {
   transform: translateY(-3px);
 }
 

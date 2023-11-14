@@ -25,8 +25,8 @@ function MateriaPrima() {
 
         <div className="flex justify-between">
           <div className="flex gap-2">
-            <Btn estilo="btnImprimir" valor="Generar Informe" />
-            <Btn estilo="btnImprimir" valor="Agregar" />
+            <Btn tipo="button" estilo="btnImprimir" valor="Generar Informe" />
+            <Btn tipo="button" estilo="btnImprimir" valor="Agregar" />
           </div>
         </div>
       </div>

@@ -63,13 +63,21 @@ export function Filtro({
   );
 }
 
-export function Btn({ estilo, valor }: { estilo: string; valor: string }) {
+export function Btn({
+  tipo,
+  estilo,
+  valor,
+}: {
+  tipo: string;
+  estilo: string;
+  valor: string;
+}) {
   // Este Boton es la plantilla de un boton para utilizar en la seccion de filtros arriba de una tabla, el boton abrira un popup para elegir la opcion
   const items = ["Fecha", "ID", "Total"];
 
   return (
     <div className="relative ">
-      <input type="button" value={valor} className={estilo} />
+      <input type={tipo} value={valor} className={estilo} />
     </div>
   );
 }

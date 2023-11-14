@@ -1,11 +1,11 @@
 table {
-  font-size: 15px;
-  table-layout: fixed;
   border-collapse: collapse;
   width: 100%;
-  min-width: 1200px;
   padding: 20px;
   text-align: left;
+  max-height: 600px;
+  overflow-y: hidden;
+  font-size: 14px;
 }
 
 .tablaChiquita {
@@ -19,32 +19,52 @@ table {
 }
 
 thead {
-  background-image: var(--c2);
+  background-color: #f8f8f8;
 }
 
 td {
-  padding: 12px 15px;
+  padding: 8px 15px;
+}
+
+td {
+  border-top: 1px solid #d7dade;
+  border-bottom: 1px solid #d7dade;
 }
 
 th {
-  font-weight: 900;
-  padding: 12px 15px;
-  text-transform: uppercase;
+  font-weight: 600;
+  padding: 12px;
+  border-top: 2px solid #b4bac3;
+  border-bottom: 2px solid #b4bac3;
+  width: 100px;
 }
 
-tbody tr {
-  max-height: 80px;
-  height: 50px;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--c6);
+td:first-child,
+th:first-child {
+  border-left: 2px solid #b4bac3;
+}
+td:last-child,
+th:last-child {
+  border-right: 2px solid #b4bac3;
+}
+
+tbody tr:last-child td {
+  border-bottom: 2px solid #b4bac3;
 }
 
 tbody tr:nth-child(even) {
-  background-color: var(--c7);
+  background-color: #fcfcfc;
+}
+tbody tr:nth-child(odd) {
+  background-color: #ffffff;
 }
 
 tbody tr:hover {
-  background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
+  background-color: #e8f4fe;
+}
+
+tbody {
+  overflow-y: hidden;
 }
 
 .id,

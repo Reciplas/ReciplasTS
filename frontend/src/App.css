@@ -23,7 +23,7 @@ body {
   --c11: #f5f9fa;
   --c12: #d8dbdc;
   --c13: #1b8d73;
-  --c14: #fdfbfb;
+  --c14: hwb(0 99% 1%);
 }
 
 .Link {

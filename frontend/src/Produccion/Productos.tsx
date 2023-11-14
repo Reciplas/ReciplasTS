@@ -20,8 +20,8 @@ function Productos() {
 
         <div className="flex justify-between">
           <div className="flex gap-2">
-            <Btn estilo="btnImprimir" valor="Agregar" />
-            <Btn estilo="btnImprimir" valor="Gernerar Informe" />
+            <Btn tipo="button" estilo="btnImprimir" valor="Agregar" />
+            <Btn tipo="button" estilo="btnImprimir" valor="Gernerar Informe" />
           </div>
         </div>
       </div>

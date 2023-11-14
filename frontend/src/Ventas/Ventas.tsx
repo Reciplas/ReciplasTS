@@ -14,14 +14,14 @@ function Ventas() {
         <Header perfil="Tomas Gúzman" area="Ventas" fotoDe="canelaTriste" />
         <div className="titulo-principal">
           <h1>Listado de ventas</h1>
-       </div>
+        </div>
 
         <AGTable endpointPath={"http://127.0.0.1:8000/api/ventas/"} />
 
-       <div className="flex justify-between">
+        <div className="flex justify-between">
           <div className="flex gap-2">
-            <Btn estilo="btnImprimir" valor="Nueva Venta" />
-            <Btn estilo="btnImprimir" valor="Generar Informe" />
+            <Btn tipo="button" estilo="btnImprimir" valor="Nueva Venta" />
+            <Btn tipo="button" estilo="btnImprimir" valor="Generar Informe" />
           </div>
         </div>
       </div>

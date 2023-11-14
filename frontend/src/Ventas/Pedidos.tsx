@@ -21,7 +21,7 @@ function Pedidos() {
         <div className="flex justify-between">
           <div className="flex gap-[8px]">
             <Link to="/Ventas/NuevoPedido" className={"btnImpimir"}>
-              <Btn estilo="btnImprimir" valor="Nuevo Pedido" />
+              <Btn tipo="button" estilo="btnImprimir" valor="Nuevo Pedido" />
             </Link>
           </div>
         </div>

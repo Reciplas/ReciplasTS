@@ -23,7 +23,7 @@ function Empleados() {
 
         <div className="flex justify-between">
           <div className="flex gap-2">
-            <Btn estilo="btnImprimir" valor="Añadir Proveedor" />
+            <Btn tipo="button" estilo="btnImprimir" valor="Añadir Proveedor" />
           </div>
         </div>
       </div>

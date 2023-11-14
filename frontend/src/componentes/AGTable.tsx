@@ -55,7 +55,13 @@ export function AGTable({ endpointPath }: { endpointPath: string }) {
   );
 }
 
-export function AGCliente({ endpointPath }: { endpointPath: string }) {
+export function AGCliente({
+  endpointPath,
+  clienteSeleccionado,
+}: {
+  endpointPath: string;
+  clienteSeleccionado: any;
+}) {
   const gridRef = useRef<AgGridReact | null>(null);
   const [rowData, setRowData] = useState();
   const [columnDefs, setColumnDefs] = useState<ColDef[]>([
@@ -93,9 +99,12 @@ export function AGCliente({ endpointPath }: { endpointPath: string }) {
       });
   }, [endpointPath]);
 
+  const cellClickedListener = useCallback((p: any) => {
+    clienteSeleccionado(p.data.nombres, p.data.apellidos);
+  }, []);
   return (
     <div>
-      <div className="ag-theme-alpine" style={{ height: 262, width: 572 }}>
+      <div className="ag-theme-alpine" style={{ height: 219, width: 572 }}>
         <AgGridReact
           //   onCellClicked={cellClickedListener} Deberia escuchar el click para agregar el nombre del cliente al pedido
           ref={gridRef}
@@ -106,6 +115,7 @@ export function AGCliente({ endpointPath }: { endpointPath: string }) {
           pagination={false}
           paginationPageSize={25}
           rowSelection="single"
+          onCellClicked={cellClickedListener}
         />
       </div>
     </div>
@@ -124,7 +134,7 @@ export function AGProducto({
   const [columnDefs, setColumnDefs] = useState<ColDef[]>([
     {
       field: "nombre",
-      width: 290,
+      width: 240,
     },
     {
       field: "precio",
@@ -155,9 +165,8 @@ export function AGProducto({
 
   return (
     <div>
-      <div className="ag-theme-alpine" style={{ height: 262, width: 312 }}>
+      <div className="ag-theme-alpine" style={{ height: 262, width: 262 }}>
         <AgGridReact
-          //   onCellClicked={cellClickedListener} Deberia escuchar el click para agregar el nombre del cliente al pedido
           ref={gridRef}
           rowData={rowData}
           columnDefs={columnDefs}

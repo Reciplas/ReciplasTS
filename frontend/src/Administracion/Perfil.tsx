@@ -24,7 +24,7 @@ function Perfil() {
         <form>
           <div className="flex items-center gap-[20px]">
             <h1 className="text-[50px]">Tu perfil </h1>
-            <Btn estilo="btnImprimir" valor="Editar" />
+            <Btn tipo="button" estilo="btnImprimir" valor="Editar" />
           </div>
 
           <div className="flex flex-col gap-[20px] border-b-2 border-b-solid border-b-bordes-input pb-[20px]   ">
@@ -50,7 +50,11 @@ function Perfil() {
                     <InputTypeText texto="Administración@reciplas.com" />
                   </div>
                 </div>
-                <Btn estilo="btnImprimir" valor="Cambiar contraseña" />
+                <Btn
+                  tipo="button"
+                  estilo="btnImprimir"
+                  valor="Cambiar contraseña"
+                />
               </div>
             </div>
           </div>

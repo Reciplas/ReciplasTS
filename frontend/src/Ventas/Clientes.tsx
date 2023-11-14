@@ -20,8 +20,8 @@ function Clientes() {
 
         <div className="flex justify-between">
           <div className="flex gap-[8px]">
-            <Btn estilo="btnImprimir" valor="Añadir Cliente" />
-            <Btn estilo="btnImprimir" valor="Gernerar Informe" />
+            <Btn tipo="button" estilo="btnImprimir" valor="Añadir Cliente" />
+            <Btn tipo="button" estilo="btnImprimir" valor="Gernerar Informe" />
           </div>
         </div>
       </div>
