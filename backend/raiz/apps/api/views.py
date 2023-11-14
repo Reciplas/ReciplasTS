@@ -79,8 +79,8 @@ class ClienteView(View):
     def put(self, request, id):
         try:
             jd = json.loads(request.body)
-            clientes = list(Cliente.objects.filter(id=id).values())
-            if len(clientes) > 0:
+            cliente = Cliente.objects.filter(id=id).first()
+            if cliente:
                 cliente = Cliente.objects.get(id=id)
                 cliente.nombres = jd.get("nombres", cliente.nombres)
                 cliente.apellidos = jd.get("apellidos", cliente.apellidos)
@@ -105,9 +105,9 @@ class ClienteView(View):
 
     def delete(self, request, id):
         try:
-            clientes = list(Cliente.objects.filter(id=id).values())
-            if len(clientes) > 0:
-                Cliente.objects.filter(id=id).delete()
+            cliente = Cliente.objects.filter(id=id).first()
+            if cliente:
+                cliente.delete()
                 datos = {"message": "Cliente eliminado con éxito"}
             else:
                 datos = {"message": "Cliente no encontrado..."}
@@ -191,8 +191,8 @@ class ProveedorView(View):
     def put(self, request, id):
         try:
             jd = json.loads(request.body)
-            proveedores = list(Proveedor.objects.filter(id=id).values())
-            if len(proveedores) > 0:
+            proveedor = Proveedor.objects.filter(id=id).first()
+            if proveedor:
                 proveedor = Proveedor.objects.get(id=id)
                 proveedor.razon_social = jd.get(
                     "razon_social", proveedor.razon_social)
@@ -219,9 +219,9 @@ class ProveedorView(View):
 
     def delete(self, request, id):
         try:
-            proveedores = list(Proveedor.objects.filter(id=id).values())
-            if len(proveedores) > 0:
-                Proveedor.objects.filter(id=id).delete()
+            proveedor = Proveedor.objects.filter(id=id).first()
+            if proveedor:
+                proveedor.delete()
                 datos = {"message": "Proveedor eliminado con éxito"}
             else:
                 datos = {"message": "Proveedor no encontrado..."}
@@ -320,9 +320,8 @@ class EmpleadoView(View):
     def put(self, request, id):
         try:
             jd = json.loads(request.body)
-            empleados = list(Empleado.objects.filter(id=id).values())
-            if len(empleados) > 0:
-                empleado = Empleado.objects.get(id=id)
+            empleado = Empleado.objects.filter(id=id).first()
+            if empleado:
                 empleado.nombres = jd.get("nombres", empleado.nombres)
                 empleado.apellidos = jd.get("apellidos", empleado.apellidos)
                 empleado.dni = jd.get("dni", empleado.dni)
@@ -350,9 +349,9 @@ class EmpleadoView(View):
 
     def delete(self, request, id):
         try:
-            empleados = list(Empleado.objects.filter(id=id).values())
-            if len(empleados) > 0:
-                Empleado.objects.filter(id=id).delete()
+            empleado = Empleado.objects.filter(id=id).first()
+            if empleado:
+                empleado.delete()
                 datos = {"message": "Empleado eliminado con éxito"}
             else:
                 datos = {"message": "Empleado no encontrado..."}
@@ -431,9 +430,8 @@ class MateriaPrimaView(View):
     def put(self, request, id):
         try:
             jd = json.loads(request.body)
-            materias_primas = list(MateriaPrima.objects.filter(id=id).values())
-            if len(materias_primas) > 0:
-                materia_prima = MateriaPrima.objects.get(id=id)
+            materia_prima = MateriaPrima.objects.filter(id=id).first()
+            if materia_prima:
                 materia_prima.plastico = jd.get(
                     "plastico", materia_prima.plastico)
                 materia_prima.descripcion = jd.get(
@@ -459,9 +457,9 @@ class MateriaPrimaView(View):
 
     def delete(self, request, id):
         try:
-            materias_primas = list(MateriaPrima.objects.filter(id=id).values())
-            if len(materias_primas) > 0:
-                MateriaPrima.objects.filter(id=id).delete()
+            materia_prima = MateriaPrima.objects.filter(id=id).first()
+            if materia_prima:
+                materia_prima.delete()
                 datos = {"message": "Materia prima eliminada con éxito"}
             else:
                 datos = {"message": "Materia prima no encontrada..."}
@@ -543,9 +541,8 @@ class ProductoView(View):
     def put(self, request, id):
         try:
             jd = json.loads(request.body)
-            productos = list(Producto.objects.filter(id=id).values())
-            if len(productos) > 0:
-                producto = Producto.objects.get(id=id)
+            producto = empleado
+            if producto:
                 producto.nombre = jd.get("nombre", producto.nombre)
                 producto.descripcion = jd.get(
                     "descripcion", producto.descripcion)
@@ -569,9 +566,9 @@ class ProductoView(View):
 
     def delete(self, request, id):
         try:
-            productos = list(Producto.objects.filter(id=id).values())
-            if len(productos) > 0:
-                Producto.objects.filter(id=id).delete()
+            producto = Producto.objects.filter(id=id).first()
+            if producto:
+                producto.delete()
                 datos = {"message": "Producto eliminado con éxito"}
             else:
                 datos = {"message": "Producto no encontrado..."}
@@ -651,9 +648,11 @@ class PedidoView(View):
     def put(self, request, id):
         try:
             jd = json.loads(request.body)
-            pedidos = list(Pedido.objects.filter(id=id).values())
-            if len(pedidos) > 0:
-                pedido = Pedido.objects.get(id=id)
+            pedido = Pedido.objects.filter(id=id).first()
+            if pedido:
+                pedido.forma_pago = jd.get("forma_pago", pedido.forma_pago)
+                pedido.observacion = jd.get("observacion", pedido.observacion)
+                pedido.total = jd.get("total", pedido.total)
                 pedido.estado = jd.get("estado", pedido.estado)
                 pedido.save()
                 datos = {"message": "Exito!"}
@@ -668,9 +667,9 @@ class PedidoView(View):
 
     def delete(self, request, id):
         try:
-            pedidos = list(Pedido.objects.filter(id=id).values())
-            if len(pedidos) > 0:
-                Pedido.objects.filter(id=id).delete()
+            pedido = Pedido.objects.filter(id=id).first()
+            if pedido:
+                pedido.delete()
                 datos = {"message": "Pedido eliminado con éxito"}
             else:
                 datos = {"message": "Pedido no encontrado..."}
@@ -769,3 +768,5 @@ class CuotasView(View):
             else:
                 datos = {"message": "clientes not found..."}
             return JsonResponse(datos, safe=False)
+
+
