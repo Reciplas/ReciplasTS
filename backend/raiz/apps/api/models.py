@@ -86,9 +86,9 @@ class Ingresos(models.Model):
 class LineaPedido(models.Model):
     id          = models.AutoField(primary_key=True)
     pedido_id   = models.ForeignKey(
-        "Pedido", models.CASCADE
+        "Pedido", models.CASCADE, db_column='pedido_id'
     )  
-    producto_id = models.ForeignKey("Producto", models.DO_NOTHING)
+    producto_id = models.ForeignKey("Producto", models.DO_NOTHING, db_column='producto_id')
     cantidad    = models.IntegerField(blank=True, null=True)
     precio      = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
     subtotal    = models.DecimalField(max_digits=13, decimal_places=2, blank=True, null=True)

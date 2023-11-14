@@ -79,8 +79,8 @@ class ClienteView(View):
     def put(self, request, id):
         try:
             jd = json.loads(request.body)
-            clientes = list(Cliente.objects.filter(id=id).values())
-            if len(clientes) > 0:
+            cliente = Cliente.objects.filter(id=id).first()
+            if cliente:
                 cliente = Cliente.objects.get(id=id)
                 cliente.nombres = jd.get("nombres", cliente.nombres)
                 cliente.apellidos = jd.get("apellidos", cliente.apellidos)
@@ -105,9 +105,9 @@ class ClienteView(View):
 
     def delete(self, request, id):
         try:
-            clientes = list(Cliente.objects.filter(id=id).values())
-            if len(clientes) > 0:
-                Cliente.objects.filter(id=id).delete()
+            cliente = Cliente.objects.filter(id=id).first()
+            if cliente:
+                cliente.delete()
                 datos = {"message": "Cliente eliminado con éxito"}
             else:
                 datos = {"message": "Cliente no encontrado..."}
@@ -191,8 +191,8 @@ class ProveedorView(View):
     def put(self, request, id):
         try:
             jd = json.loads(request.body)
-            proveedores = list(Proveedor.objects.filter(id=id).values())
-            if len(proveedores) > 0:
+            proveedor = Proveedor.objects.filter(id=id).first()
+            if proveedor:
                 proveedor = Proveedor.objects.get(id=id)
                 proveedor.razon_social = jd.get(
                     "razon_social", proveedor.razon_social)
@@ -219,9 +219,9 @@ class ProveedorView(View):
 
     def delete(self, request, id):
         try:
-            proveedores = list(Proveedor.objects.filter(id=id).values())
-            if len(proveedores) > 0:
-                Proveedor.objects.filter(id=id).delete()
+            proveedor = Proveedor.objects.filter(id=id).first()
+            if proveedor:
+                proveedor.delete()
                 datos = {"message": "Proveedor eliminado con éxito"}
             else:
                 datos = {"message": "Proveedor no encontrado..."}
@@ -320,9 +320,8 @@ class EmpleadoView(View):
     def put(self, request, id):
         try:
             jd = json.loads(request.body)
-            empleados = list(Empleado.objects.filter(id=id).values())
-            if len(empleados) > 0:
-                empleado = Empleado.objects.get(id=id)
+            empleado = Empleado.objects.filter(id=id).first()
+            if empleado:
                 empleado.nombres = jd.get("nombres", empleado.nombres)
                 empleado.apellidos = jd.get("apellidos", empleado.apellidos)
                 empleado.dni = jd.get("dni", empleado.dni)
@@ -350,9 +349,9 @@ class EmpleadoView(View):
 
     def delete(self, request, id):
         try:
-            empleados = list(Empleado.objects.filter(id=id).values())
-            if len(empleados) > 0:
-                Empleado.objects.filter(id=id).delete()
+            empleado = Empleado.objects.filter(id=id).first()
+            if empleado:
+                empleado.delete()
                 datos = {"message": "Empleado eliminado con éxito"}
             else:
                 datos = {"message": "Empleado no encontrado..."}
@@ -431,9 +430,8 @@ class MateriaPrimaView(View):
     def put(self, request, id):
         try:
             jd = json.loads(request.body)
-            materias_primas = list(MateriaPrima.objects.filter(id=id).values())
-            if len(materias_primas) > 0:
-                materia_prima = MateriaPrima.objects.get(id=id)
+            materia_prima = MateriaPrima.objects.filter(id=id).first()
+            if materia_prima:
                 materia_prima.plastico = jd.get(
                     "plastico", materia_prima.plastico)
                 materia_prima.descripcion = jd.get(
@@ -459,9 +457,9 @@ class MateriaPrimaView(View):
 
     def delete(self, request, id):
         try:
-            materias_primas = list(MateriaPrima.objects.filter(id=id).values())
-            if len(materias_primas) > 0:
-                MateriaPrima.objects.filter(id=id).delete()
+            materia_prima = MateriaPrima.objects.filter(id=id).first()
+            if materia_prima:
+                materia_prima.delete()
                 datos = {"message": "Materia prima eliminada con éxito"}
             else:
                 datos = {"message": "Materia prima no encontrada..."}
@@ -543,9 +541,8 @@ class ProductoView(View):
     def put(self, request, id):
         try:
             jd = json.loads(request.body)
-            productos = list(Producto.objects.filter(id=id).values())
-            if len(productos) > 0:
-                producto = Producto.objects.get(id=id)
+            producto = empleado
+            if producto:
                 producto.nombre = jd.get("nombre", producto.nombre)
                 producto.descripcion = jd.get(
                     "descripcion", producto.descripcion)
@@ -569,9 +566,9 @@ class ProductoView(View):
 
     def delete(self, request, id):
         try:
-            productos = list(Producto.objects.filter(id=id).values())
-            if len(productos) > 0:
-                Producto.objects.filter(id=id).delete()
+            producto = Producto.objects.filter(id=id).first()
+            if producto:
+                producto.delete()
                 datos = {"message": "Producto eliminado con éxito"}
             else:
                 datos = {"message": "Producto no encontrado..."}
@@ -631,12 +628,15 @@ class PedidoView(View):
     def post(self, request):
         try:
             data = json.loads(request.body)
+            # Obtener el objeto Cliente correspondiente al ID proporcionado
+            cliente_id = data.get("cliente_id", None)
+            cliente = Cliente.objects.get(id=cliente_id) if cliente_id else None
+
             nueva_pedido = Pedido(
-                # empleado_id         = data.get("empleado_id", ""),
-                # compra_id           = data.get("compra_id", ""),
-                cliente=data.get("cliente", ""),
-                total=data.get("total", ""),
-                estado=data.get("estado", ""),
+                cliente_id=cliente,  # Asignar la instancia de Cliente, no el ID
+                forma_pago=data.get("forma_pago", ""),
+                observacion=data.get("observacion", ""),
+                total=data.get("total", None),
             )
             nueva_pedido.save()
             return JsonResponse({"message": "Pedido creado con éxito"}, status=201)
@@ -648,9 +648,11 @@ class PedidoView(View):
     def put(self, request, id):
         try:
             jd = json.loads(request.body)
-            pedidos = list(Pedido.objects.filter(id=id).values())
-            if len(pedidos) > 0:
-                pedido = Pedido.objects.get(id=id)
+            pedido = Pedido.objects.filter(id=id).first()
+            if pedido:
+                pedido.forma_pago = jd.get("forma_pago", pedido.forma_pago)
+                pedido.observacion = jd.get("observacion", pedido.observacion)
+                pedido.total = jd.get("total", pedido.total)
                 pedido.estado = jd.get("estado", pedido.estado)
                 pedido.save()
                 datos = {"message": "Exito!"}
@@ -665,9 +667,9 @@ class PedidoView(View):
 
     def delete(self, request, id):
         try:
-            pedidos = list(Pedido.objects.filter(id=id).values())
-            if len(pedidos) > 0:
-                Pedido.objects.filter(id=id).delete()
+            pedido = Pedido.objects.filter(id=id).first()
+            if pedido:
+                pedido.delete()
                 datos = {"message": "Pedido eliminado con éxito"}
             else:
                 datos = {"message": "Pedido no encontrado..."}
@@ -766,3 +768,84 @@ class CuotasView(View):
             else:
                 datos = {"message": "clientes not found..."}
             return JsonResponse(datos, safe=False)
+
+
+#________________________________________________________________
+class LineaPedidoView(View):
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def get(self, request, pedido_id=0):
+        if pedido_id > 0:
+            try:
+                lineas_pedido = (LineaPedido.objects.filter(pedido_id=pedido_id))
+                if lineas_pedido.exists():
+                    datos = [{
+                        "ID": linea.id,
+                        "ID pedido": linea.pedido_id.id,
+                        "producto_id": linea.producto_id.id,
+                        "cantidad": linea.cantidad,
+                        "precio": linea.precio,
+                        "subtotal": linea.subtotal,
+                    } for linea in lineas_pedido]
+                else:
+                    datos = {"message": f"No se encontraron líneas de pedido para el Pedido con ID {pedido_id}."}
+            except LineaPedido.DoesNotExist:
+                datos = {"message": "Error al obtener las líneas de pedido."}
+            return JsonResponse(datos, safe=False)
+        else:
+            datos = {"message": "Se requiere un ID de pedido válido."}
+            return JsonResponse(datos, status=400)
+
+
+    def post(self, request):
+        try:
+            data = json.loads(request.body)
+
+            # Obtener el objeto Pedido correspondiente al ID proporcionado
+            pedido_id = data.get("pedido_id", None)
+            pedido = Pedido.objects.get(id=pedido_id) if pedido_id else None
+
+            # Obtener el objeto Pedido correspondiente al ID proporcionado
+            producto_id = data.get("producto_id", None)
+            producto = Producto.objects.get(id=producto_id) if producto_id else None
+
+            nueva_linea_pedido = LineaPedido(
+                pedido_id=pedido,
+                producto_id=producto,
+                cantidad=data.get("cantidad", None),
+                precio=data.get("precio", None),
+                subtotal=data.get("subtotal", None),
+            )
+            nueva_linea_pedido.save()
+            return JsonResponse({"message": "Línea de pedido creada con éxito"}, status=201)
+        except json.JSONDecodeError as e:
+            return JsonResponse(
+                {"error": "Error al analizar el cuerpo de la solicitud"}, status=400
+            )
+
+    def put(self, request, id):
+        try:
+            data = json.loads(request.body)
+            linea_pedido = LineaPedido.objects.get(id=id)
+            # Actualizar los campos según sea necesario
+            linea_pedido.cantidad = data.get("cantidad", linea_pedido.cantidad)
+            linea_pedido.precio = data.get("precio", linea_pedido.precio)
+            linea_pedido.subtotal = data.get("subtotal", linea_pedido.subtotal)
+            linea_pedido.save()
+            return JsonResponse({"message": "Línea de pedido actualizada con éxito"})
+        except LineaPedido.DoesNotExist:
+            return JsonResponse({"error": "Línea de pedido no encontrada"}, status=404)
+        except json.JSONDecodeError as e:
+            return JsonResponse(
+                {"error": "Error al analizar el cuerpo de la solicitud"}, status=400
+            )
+
+    def delete(self, request, id):
+        try:
+            linea_pedido = LineaPedido.objects.get(id=id)
+            linea_pedido.delete()
+            return JsonResponse({"message": "Línea de pedido eliminada con éxito"})
+        except LineaPedido.DoesNotExist:
+            return JsonResponse({"error": "Línea de pedido no encontrada"}, status=404)
