@@ -541,7 +541,7 @@ class ProductoView(View):
     def put(self, request, id):
         try:
             jd = json.loads(request.body)
-            producto = empleado
+            producto = Producto.objects.filter(id=id).first()
             if producto:
                 producto.nombre = jd.get("nombre", producto.nombre)
                 producto.descripcion = jd.get(

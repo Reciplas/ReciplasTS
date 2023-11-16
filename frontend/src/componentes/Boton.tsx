@@ -15,7 +15,7 @@ export function BtnIcon({
   estilo: string;
 }) {
   return (
-    <button className={estilo} onClick={accion}>
+    <button type="button" className={estilo} onClick={accion}>
       {texto && <span>{texto}</span>}
       <span className="material-symbols-outlined">{icono}</span>
     </button>

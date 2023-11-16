@@ -65,6 +65,7 @@ export function AGCliente({
   const gridRef = useRef<AgGridReact | null>(null);
   const [rowData, setRowData] = useState();
   const [columnDefs, setColumnDefs] = useState<ColDef[]>([
+    { field: "ID", filter: "agNumberColumnFilter", width: 100 },
     { field: "DNI", filter: "agNumberColumnFilter", width: 150 },
     {
       field: "nombres",
@@ -100,7 +101,7 @@ export function AGCliente({
   }, [endpointPath]);
 
   const cellClickedListener = useCallback((p: any) => {
-    clienteSeleccionado(p.data.nombres, p.data.apellidos);
+    clienteSeleccionado(p.data.ID, p.data.nombres, p.data.apellidos);
   }, []);
   return (
     <div>

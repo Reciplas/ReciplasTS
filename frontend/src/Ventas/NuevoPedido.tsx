@@ -6,10 +6,12 @@ import { Link } from "react-router-dom";
 import { LabelObligatorio, Label } from "../componentes/TextLabel";
 import { InputTypeText } from "../componentes/InputField";
 import { Btn, BtnIcon } from "../componentes/Boton";
+import "../componentes/Boton.css";
 import { AGCliente, AGTable, AGProducto } from "../componentes/AGTable";
 import { useCallback, useEffect, useState } from "react";
 
 import "../componentes/Tabla.css";
+
 interface Producto {
   nombre: string;
   precio: string;
@@ -19,21 +21,32 @@ interface Producto {
 
 function NuevoPedido() {
   const seccionActual = "Pedidos";
+  // const {
+  //   formState: { errors },
+  //   handleSubmit,
+  // } = useForm();
 
   const handleProductSelected = (productName: any, productPrice: any) => {
     setSelectedProductName(productName);
     setSelectedProductPrice(productPrice);
   };
+  const [idCliente, setIdCliente] = useState(1);
+  const [nombreCliente, setNombreCliente] = useState("");
+  const [apeCliente, setApeCliente] = useState("");
 
-  const handleCliente = (nombre: string, apellido: string) => {
+  const handleCliente = (ID: number, nombre: string, apellido: string) => {
     setNombreCliente(nombre);
     setApeCliente(apellido);
+    setIdCliente(ID);
+    console.log(idCliente);
   };
+
+  useEffect(() => {
+    console.log("idCliente actualizado:", idCliente);
+  }, [idCliente]);
 
   const [lnPedido, setLnPedido] = useState<Producto[]>([]);
 
-  const [nombreCliente, setNombreCliente] = useState("");
-  const [apeCliente, setApeCliente] = useState("");
   // Nombre del producto
   const [selectedProductName, setSelectedProductName] = useState("");
 
@@ -62,7 +75,6 @@ function NuevoPedido() {
     const nuevoSubt = cantidad * selectedProductPrice;
     setSubtotal(Number(nuevoSubt.toFixed(2)));
     setTotal(Number((total + subtotal).toFixed(2)));
-    console.log(subtotal);
 
     agregarProducto();
   };
@@ -99,32 +111,35 @@ function NuevoPedido() {
     setLnPedido(nuevaLista);
   };
 
-  const handleSubmit = async (event: any) => {
-    event.preventDefault();
+  // const handleSubmit = async (event: any) => {
+  //   event.preventDefault();
 
-    try {
-      const response = await fetch("http://127.0.0.1:8000/api/clientes/", {
-        method: "Post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          nombreCliente,
-          apeCliente,
-          cuotas: cuotasSeleccionadas,
-          total,
-        }),
-      });
+  //   try {
+  //     const response = await fetch("http://127.0.0.1:8000/api/clientes/", {
+  //       method: "post",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         apeCliente,
+  //         nombreCliente,
 
-      if (response.ok) {
-        console.log("Datos enviados exitosamente");
-      } else {
-        console.error("Error al enviar datos");
-      }
-    } catch (error) {
-      console.error("Error en la solicitud:", error);
-    }
-  };
+  //         observacion,
+
+  //         cuotas: cuotasSeleccionadas,
+  //         total,
+  //       }),
+  //     });
+
+  //     if (response.ok) {
+  //       console.log("Datos enviados exitosamente");
+  //     } else {
+  //       console.error("Error al enviar datos");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error en la solicitud:", error);
+  //   }
+  // };
 
   const [radioSeleccionado, setRadioSeleccionado] = useState(false);
 
@@ -145,9 +160,50 @@ function NuevoPedido() {
     setCuotasSeleccionadas(event.target.value);
   };
 
-  const [descripcion, setDescripcion] = useState("");
-  const handleDescripcionChange = (event: any) => {
-    setDescripcion(event.target.value);
+  const [observacion, setObservacion] = useState("");
+  const handleObservacionChange = (event: any) => {
+    setObservacion(event.target.value);
+  };
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      // cliente_id: 2,
+      forma_pago: "Efectivo",
+      // Cuotas: "1",
+      observacion: "",
+      // LineaPedido: {
+      //   Producto: "Botella",
+      //   Precio: "0",
+      //   Cantidad: "1",
+      //   Subtotal: "0",
+      // },
+    },
+  });
+
+  const onSubmit = async (formData: any) => {
+    // data.preventDefault();
+    try {
+      let config = {
+        method: "post",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          cliente_id: idCliente,
+          forma_pago: formData.forma_pago,
+          observacion: formData.observacion,
+          total: total,
+        }),
+      };
+      let res = await fetch("http://127.0.0.1:8000/api/pedidos/", config);
+      let json = await res.json();
+
+      console.log(json);
+    } catch (error) {}
   };
 
   return (
@@ -164,7 +220,7 @@ function NuevoPedido() {
           </div>
         </div>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex gap-[40px]">
             {/* Cargar pedido */}
             <div className="flex gap-[20px] flex-col flex-wrap">
@@ -182,6 +238,8 @@ function NuevoPedido() {
                     value={nombreCliente + " " + apeCliente}
                     readOnly
                   />
+                  <input type="text" defaultValue="Ruperto" hidden />
+                  <input type="text" defaultValue="Abella" hidden />
                 </div>
 
                 {/* Seleccionar forma de pago y cuotas */}
@@ -190,9 +248,9 @@ function NuevoPedido() {
                   <div className="flex gap-[10px]">
                     <input
                       type="radio"
-                      name="grupo"
                       id="opcion1"
-                      value="opcion1"
+                      value="Efectivo"
+                      // {...register("FormaDePago")}
                       checked={!radioSeleccionado}
                       onChange={handleRadioChange}
                       defaultChecked
@@ -204,9 +262,9 @@ function NuevoPedido() {
                     <div className="flex gap-[10px]">
                       <input
                         type="radio"
-                        name="grupo"
+                        {...register("forma_pago")}
                         id="opcion2"
-                        value="opcion2"
+                        value="Tarjeta"
                         checked={radioSeleccionado}
                         onChange={handleRadioChange}
                       />
@@ -214,6 +272,7 @@ function NuevoPedido() {
                     </div>
                     <Label texto="Cuotas" estilo="" />
                     <select
+                      // {...register("Cuotas")}
                       className={`w-[50px] border-solid border-2 rounded-[5px] px-[10px] border-bordes-input overflow-hidden ${
                         radioSeleccionado ? "editable" : ""
                       }`}
@@ -222,7 +281,8 @@ function NuevoPedido() {
                         backgroundColor: radioSeleccionado ? "white" : "",
                       }}
                       value={cuotasSeleccionadas}
-                      onChange={handleCuotasChange}>
+                      onChange={handleCuotasChange}
+                      defaultValue="1">
                       <option value="1">1</option>
                       <option value="3">3</option>
                       <option value="6">6</option>
@@ -276,13 +336,13 @@ function NuevoPedido() {
                   </div>
                 </div>
               </div>
-
+              <Label texto="Obeservación" estilo="" />
               <textarea
                 className="w-full border-solid border rounded-[5px] px-[10px] border-bordes-input overflow-hidden 
-                h-[200px] focus:border-green focus:border-solid focus:border-2 focus:outline-none p-[5px] resize-none"
-                placeholder="Descripción"
-                value={descripcion}
-                onChange={handleDescripcionChange}
+                h-auto focus:border-green focus:border-solid focus:border-2 focus:outline-none p-[5px] resize-none"
+                // value={observacion}
+                // onChange={handleObservacionChange}
+                {...register("observacion")}
               />
             </div>
 
@@ -330,7 +390,16 @@ function NuevoPedido() {
                   readOnly
                 />
               </div>
-              <Btn tipo="submit" estilo="btnImprimir" valor="Guardar Pedido" />
+              {/* <Btn tipo="submit" estilo="btnImprimir" valor="Guardar Pedido" /> */}
+
+              <input
+                type="submit"
+                value="Guardar Pedido"
+                className="btnImprimir"
+                onClick={() => {
+                  console.log("----->>> Guardado");
+                }}
+              />
             </div>
           </div>
         </form>
