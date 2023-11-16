@@ -596,6 +596,7 @@ class PedidoView(View):
                     "apellidos": pedido.cliente_id.apellidos,
                     "nombres": pedido.cliente_id.nombres,
                     "forma de pago": pedido.forma_pago,
+                    "cuotas": pedido.cuotas,
                     "observación": pedido.observacion,
                     "total": pedido.total,
                     "estado": pedido.estado,
@@ -615,6 +616,7 @@ class PedidoView(View):
                     "apellidos": pedido.cliente_id.apellidos,
                     "nombres": pedido.cliente_id.nombres,
                     "forma de pago": pedido.forma_pago,
+                    "cuotas": pedido.cuotas,
                     "observación": pedido.observacion,
                     "total": pedido.total,
                     "estado": pedido.estado,
@@ -632,9 +634,12 @@ class PedidoView(View):
             cliente_id = data.get("cliente_id", None)
             cliente = Cliente.objects.get(id=cliente_id) if cliente_id else None
 
+            cuotas_cant = data.get("cuotas_cant", "")
+
             nueva_pedido = Pedido(
                 cliente_id=cliente,  # Asignar la instancia de Cliente, no el ID
                 forma_pago=data.get("forma_pago", ""),
+                cuotas="1/" + cuotas_cant, 
                 observacion=data.get("observacion", ""),
                 total=data.get("total", None),
             )
@@ -651,6 +656,7 @@ class PedidoView(View):
             pedido = Pedido.objects.filter(id=id).first()
             if pedido:
                 pedido.forma_pago = jd.get("forma_pago", pedido.forma_pago)
+                pedido.cuotas = jd.get("cuotas", pedido.cuotas)
                 pedido.observacion = jd.get("observacion", pedido.observacion)
                 pedido.total = jd.get("total", pedido.total)
                 pedido.estado = jd.get("estado", pedido.estado)
@@ -696,6 +702,7 @@ class VentaView(View):
                     "apellidos": pedido.cliente_id.apellidos,
                     "nombres": pedido.cliente_id.nombres,
                     "forma de pago": pedido.forma_pago,
+                    "cuotas": pedido.cuotas,
                     "observación": pedido.observacion,
                     "total": pedido.total,
                     "estado": pedido.estado,
@@ -717,6 +724,7 @@ class VentaView(View):
                     "apellidos": pedido.cliente_id.apellidos,
                     "nombres": pedido.cliente_id.nombres,
                     "forma de pago": pedido.forma_pago,
+                    "cuotas": pedido.cuotas,
                     "observación": pedido.observacion,
                     "total": pedido.total,
                     "estado": pedido.estado,
@@ -728,46 +736,46 @@ class VentaView(View):
             return JsonResponse(datos, safe=False)
         
 #________________________________________________________________
-class CuotasView(View):
-    @method_decorator(csrf_exempt)
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
+# class CuotasView(View):
+#     @method_decorator(csrf_exempt)
+#     def dispatch(self, request, *args, **kwargs):
+#         return super().dispatch(request, *args, **kwargs)
 
-    def get(self, request, id=0):
-        if id > 0:
-            try:
-                cuota = Cuotas.objects.get(id=id)
-                datos = {
-                    "ID": cuota.id,
-                    "ID pedido": cuota.pedido_id,
-                    "observacion": cuota.observacion,
-                    "total": cuota.total,
-                    "fecha de pago": cuota.fecha_pago,
-                    "fecha de vencimiento": cuota.fecha_vencimiento,
-                    "estado": cuota.estado,
-                    "fecha creación": cuota.fecha_creacion,
-                    "fecha modificación": cuota.fecha_creacion
-                }
-            except Cuotas.DoesNotExist:
-                datos = {"message": "Cuota not found..."}
-            return JsonResponse(datos, safe=False)
-        else:
-            cuotas = Cuotas.objects.all()
-            if cuotas:
-                datos = [{
-                    "ID": cuota.id,
-                    "ID pedido": cuota.pedido_id,
-                    "observacion": cuota.observacion,
-                    "total": cuota.total,
-                    "fecha de pago": cuota.fecha_pago,
-                    "fecha de vencimiento": cuota.fecha_vencimiento,
-                    "estado": cuota.estado,
-                    "fecha creación": cuota.fecha_creacion,
-                    "fecha modificación": cuota.fecha_creacion
-                } for cuota in cuotas]
-            else:
-                datos = {"message": "clientes not found..."}
-            return JsonResponse(datos, safe=False)
+#     def get(self, request, id=0):
+#         if id > 0:
+#             try:
+#                 cuota = Cuotas.objects.get(id=id)
+#                 datos = {
+#                     "ID": cuota.id,
+#                     "ID pedido": cuota.pedido_id,
+#                     "observacion": cuota.observacion,
+#                     "total": cuota.total,
+#                     "fecha de pago": cuota.fecha_pago,
+#                     "fecha de vencimiento": cuota.fecha_vencimiento,
+#                     "estado": cuota.estado,
+#                     "fecha creación": cuota.fecha_creacion,
+#                     "fecha modificación": cuota.fecha_creacion
+#                 }
+#             except Cuotas.DoesNotExist:
+#                 datos = {"message": "Cuota not found..."}
+#             return JsonResponse(datos, safe=False)
+#         else:
+#             cuotas = Cuotas.objects.all()
+#             if cuotas:
+#                 datos = [{
+#                     "ID": cuota.id,
+#                     "ID pedido": cuota.pedido_id,
+#                     "observacion": cuota.observacion,
+#                     "total": cuota.total,
+#                     "fecha de pago": cuota.fecha_pago,
+#                     "fecha de vencimiento": cuota.fecha_vencimiento,
+#                     "estado": cuota.estado,
+#                     "fecha creación": cuota.fecha_creacion,
+#                     "fecha modificación": cuota.fecha_creacion
+#                 } for cuota in cuotas]
+#             else:
+#                 datos = {"message": "clientes not found..."}
+#             return JsonResponse(datos, safe=False)
 
 
 #________________________________________________________________

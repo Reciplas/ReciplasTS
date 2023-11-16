@@ -118,6 +118,7 @@ class Pedido(models.Model):
     id                 = models.AutoField(primary_key=True)
     cliente_id         = models.ForeignKey(Cliente, models.DO_NOTHING, db_column='cliente_id')
     forma_pago         = models.CharField(max_length=20, blank=True, null=True)
+    cuotas             = models.CharField(max_length=7, blank=True, null=True)
     observacion        = models.CharField(max_length=255, blank=True, null=True)
     total              = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
     estado             = models.CharField(max_length=50, blank=True, null=True, default="Pendiente")
@@ -129,19 +130,19 @@ class Pedido(models.Model):
 
 
 #quedamos en que si el pago es en efectivo o transferencia de todas formas se genera una cuota. que despues se ve como 1/1
-class Cuotas(models.Model):
-    id                 = models.AutoField(primary_key=True)
-    pedido_id          = models.ForeignKey(Pedido, models.DO_NOTHING)
-    observacion        = models.CharField(max_length=255, blank=True, null=True)
-    total              = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
-    estado             = models.CharField(max_length=50, blank=True, null=True, default="Pendiente")
-    fecha_pago         = models.DateField(blank=True, null=True)
-    fecha_vencimiento  = models.DateField(blank=True, null=True)
-    fecha_creacion     = models.DateField(blank=True, null=True, auto_now_add=True)
-    fecha_modificacion = models.DateField(blank=True, null=True, auto_now=True)
+# class Cuotas(models.Model):
+#     id                 = models.AutoField(primary_key=True)
+#     pedido_id          = models.ForeignKey(Pedido, models.DO_NOTHING, related_name='cuotas_rel')
+#     observacion        = models.CharField(max_length=255, blank=True, null=True)
+#     total              = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
+#     estado             = models.CharField(max_length=50, blank=True, null=True, default="Pendiente")
+#     fecha_pago         = models.DateField(blank=True, null=True)
+#     fecha_vencimiento  = models.DateField(blank=True, null=True)
+#     fecha_creacion     = models.DateField(blank=True, null=True, auto_now_add=True)
+#     fecha_modificacion = models.DateField(blank=True, null=True, auto_now=True)
 
-    class Meta:
-        db_table = "cuotas"
+#     class Meta:
+#         db_table = "cuotas"
     
 
 
