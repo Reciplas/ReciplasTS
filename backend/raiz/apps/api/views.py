@@ -486,7 +486,7 @@ class ProductoView(View):
                     "nombre": producto.nombre,
                     "descripción": producto.descripcion,
                     "presentación": producto.presentacion,
-                    "lote": producto.lote,
+                    "código de barra": producto.cod_barra,
                     "stock actual": producto.stock_act,
                     "stock inferior": producto.stock_inf,
                     "precio": producto.precio,
@@ -505,7 +505,7 @@ class ProductoView(View):
                     "nombre": producto.nombre,
                     "descripción": producto.descripcion,
                     "presentación": producto.presentacion,
-                    "lote": producto.lote,
+                    "código de barra": producto.cod_barra,
                     "stock actual": producto.stock_act,
                     "stock inferior": producto.stock_inf,
                     "precio": producto.precio,
@@ -525,7 +525,7 @@ class ProductoView(View):
                 nombre=data.get("nombre", ""),
                 descripcion=data.get("descripcion", ""),
                 presentacion=data.get("presentacion", ""),
-                lote=data.get("lote", None),
+                cod_barra=data.get("cod_barra", None),
                 stock_act=data.get("stock_act", None),
                 stock_inf=data.get("stock_inf", None),
                 precio=data.get("precio", None),
@@ -548,7 +548,7 @@ class ProductoView(View):
                     "descripcion", producto.descripcion)
                 producto.presentacion = jd.get(
                     "presentacion", producto.presentacion)
-                producto.lote = jd.get("lote", producto.lote)
+                producto.cod_barra = jd.get("cod_barra", producto.cod_barra)
                 producto.stock_act = jd.get("stock_act", producto.stock_act)
                 producto.stock_inf = jd.get("stock_inf", producto.stock_inf)
                 producto.precio = jd.get("precio", producto.precio)

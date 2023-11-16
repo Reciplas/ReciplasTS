@@ -2,25 +2,32 @@ from faker import Faker
 import random
 import sqlite3
 import os
-
+from datetime import datetime, timedelta
 
 fake = Faker('es_ES')
+fecha_actual = datetime.now()
 
 data = []
 
-for i in range(1, 500):
-    nombres = fake.first_name()
-    apellido = fake.last_name()
-    dni = random.randint(10000000, 99999999)
-    fec_nac = fake.date_of_birth(minimum_age=18, maximum_age=65)
-    celular = random.randint(600000000, 699999999)
-    celular_alt = random.randint(600000000, 699999999)
-    email = fake.email()
-    direccion = fake.address()
-    fecha_creacion = fake.date_time_this_decade()
-    fecha_modificacion = fake.date_time_this_decade()
-    estado='True'
-    data.append((nombres, apellido, dni, fec_nac, celular, celular_alt, email, direccion, fecha_creacion, fecha_modificacion, estado))
+for i in range(1, 300):
+    dias=365
+    cant=random.randint(0, 5)
+    for j in cant:
+        fecha = (fecha_actual - timedelta(days=dias)).strftime("%Y-%m-%d")
+        nombres = fake.first_name()
+        apellido = fake.last_name()
+        dni = random.randint(10000000, 55000000)
+        fec_nac = fake.date_of_birth(minimum_age=18, maximum_age=65)
+        celular = random.randint(3624000000, 3624999999)
+        celular_alt = random.randint(3624000000, 3624999999)
+        email = fake.email()
+        direccion = fake.address()
+        fecha_creacion = fecha
+        fecha_modificacion = fecha
+        estado='Activo'
+        data.append((nombres, apellido, dni, fec_nac, celular, celular_alt, email, direccion, fecha_creacion, fecha_modificacion, estado))
+
+    dias-=1
 
 
 
@@ -37,7 +44,7 @@ cursor = conn.cursor()
 
 try:
     cursor.executemany('''
-        INSERT INTO cliente(nombres, apellido, dni, fec_nac, celular, celular_alt, email, direccion, fecha_creacion, fecha_modificacion, estado)
+        INSERT INTO clientes(nombres, apellido, dni, fec_nac, celular, celular_alt, email, direccion, fecha_creacion, fecha_modificacion, estado)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ''', data)
     conn.commit()

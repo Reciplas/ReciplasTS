@@ -1,13 +1,12 @@
 from decimal import Decimal
-from mysql.connector import Error
-import mysql.connector
+
 from faker import Faker
 import random
 from datetime import date, timedelta
 import sqlite3
 import os
 fake = Faker('es_ES')
-
+from datetime import datetime, timedelta
 tipos_de_plastico = ['PEBD', 'PS', 'PVC', 'PET', 'PP']
 
 data = []
@@ -134,22 +133,25 @@ productos = [
     }
 ]
 
-
+fecha_actual = datetime.now()
 tipos_de_presentacion = ['Caja de carton', 'Bolsa', 'Caja de madera', 'Simple']
 for producto in productos:
+    dias=365
+    fecha = (fecha_actual - timedelta(days=dias)).strftime("%Y-%m-%d")
     nombre = producto['nombre']
     descripcion = producto['descripcion']
     presentacion = random.choice(tipos_de_presentacion)
-    lote = random.randint(100, 20000)
+    cod_barra = random.randint(77000000000, 779999999999)
     stock_act = random.randint(1, 1000)
     # Asegurarse de que stock_inf esté entre 20 y 50
     stock_inf = random.randint(20, 50)
     precio = round(float(Decimal(random.uniform(2000, 80000))), 2)
-    fecha_creacion = fake.date_time_this_decade()
-    fecha_modificacion = fake.date_time_this_decade()
-    estado = 'True'
-    data.append((nombre, descripcion, presentacion, lote, stock_act, stock_inf, precio, fecha_creacion, fecha_modificacion, estado))
+    fecha_creacion = fecha
+    fecha_modificacion = fecha
+    estado = 'Activo'
+    data.append((nombre, descripcion, presentacion, cod_barra, stock_act, stock_inf, precio, fecha_creacion, fecha_modificacion, estado))
 
+    dias-= random.randint(5, 30)
 # Especifica la ruta completa del archivo de la base de datos
 base_de_datos = os.path.join(
     'C:/Users/gonza/OneDrive - Facultad Regional Resistencia/6.PROYECTOS/ReciplasTS/backend/raiz/resiplas',
@@ -164,7 +166,7 @@ cursor = conn.cursor()
 
 try:
     cursor.executemany('''
-        INSERT INTO producto(nombre, descripcion, presentacion, lote, stock_act, stock_inf, precio, fecha_creacion, fecha_modificacion, estado)
+        INSERT INTO productos(nombre, descripcion, presentacion, cod_barra, stock_act, stock_inf, precio, fecha_creacion, fecha_modificacion, estado)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ''', data)
     conn.commit()

@@ -151,7 +151,7 @@ class Producto(models.Model):
     nombre             = models.CharField(max_length=100, blank=True, null=True)
     descripcion        = models.CharField(max_length=150, blank=True, null=True)
     presentacion       = models.CharField(max_length=100, blank=True, null=True)
-    lote               = models.IntegerField(blank=True, null=True)
+    cod_barra          = models.IntegerField(blank=True, null=True)
     stock_act          = models.IntegerField(blank=True, null=True)
     stock_inf          = models.IntegerField(blank=True, null=True)
     precio             = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
