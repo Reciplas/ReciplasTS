@@ -264,7 +264,12 @@ function NuevoPedido() {
                     <div className="flex flex-col gap-[10px]">
                       <Label texto="DNI" estilo="" />
                       <div className="flex gap-[10px] ">
-                        <InputTypeText texto={clienteSeleccionado.DNI} />
+                        <input
+                          className="w-[100%] border-solid border-2 rounded-[5px] px-[5px] py-[5px] border-[#D7DADB] overflow-hidden  "
+                          type="text"
+                          readOnly
+                          value={clienteSeleccionado.DNI}
+                        />
                         <BtnIcon
                           icono="person_add"
                           accion={() => {
