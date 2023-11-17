@@ -21,14 +21,14 @@ class ClienteView(View):
                     "nombres": cliente.nombres,
                     "apellidos": cliente.apellidos,
                     "DNI": cliente.dni,
-                    "fecha de nacimiento": cliente.fec_nac,
+                    "fecha_de_nacimiento": cliente.fec_nac,
                     "celular": cliente.celular,
-                    "celular alt": cliente.celular_alt,
+                    "celular_alt": cliente.celular_alt,
                     "email": cliente.email,
                     "dirección": cliente.direccion,
                     "estado": cliente.estado,
-                    "fecha creación": cliente.fecha_creacion,
-                    "fecha modificación": cliente.fecha_creacion
+                    "fecha_creación": cliente.fecha_creacion,
+                    "fecha_modificación": cliente.fecha_creacion
                 }
             except Cliente.DoesNotExist:
                 datos = {"message": "Cliente not found..."}
