@@ -14,11 +14,14 @@ import "../componentes/Tabla.css";
 import Select from "react-select";
 
 import axios from "axios";
+import Productos from "./Productos";
+import { setTokenSourceMapRange } from "typescript";
 
 interface Producto {
+  // ID: number;
   nombre: string;
-  precio: string;
-  cant: string;
+  precio: number;
+  cant: number;
   subtot: string;
 }
 
@@ -33,6 +36,21 @@ function NuevoPedido() {
   const seccionActual = "Pedidos";
 
   const [datos, setData] = useState<Cliente[]>([]);
+
+  const [datosProducto, setDatosProducto] = useState<Producto[]>([]);
+  useEffect(() => {
+    // Realizar la solicitud GET a la API
+    axios
+      .get<Producto[]>("http://127.0.0.1:8000/api/productos/")
+      .then((response) => {
+        // Actualizar el estado con los datos obtenidos
+        setDatosProducto(response.data);
+      })
+      .catch((error) => {
+        console.error("Error al obtener datos:", error);
+      });
+  }, []);
+
   const [clienteSeleccionado, setClienteSeleccionado] =
     useState<Cliente | null>(null);
   const [error, setError] = useState(null);
@@ -55,29 +73,22 @@ function NuevoPedido() {
     label: `${cliente.nombres} ${cliente.apellidos}`,
   }));
 
+  const opcionesProductos = datosProducto.map((producto) => ({
+    value: producto,
+    label: `${producto.nombre}`,
+  }));
+
   const handleClienteChange = (selectedOption: any) => {
     setClienteSeleccionado(selectedOption.value);
     setID(selectedOption.value.ID);
     console.log("ID SELEC:", ID);
   };
 
-  const handleProductSelected = (productName: any, productPrice: any) => {
-    setSelectedProductName(productName);
-    setSelectedProductPrice(productPrice);
-  };
-  const [idCliente, setIdCliente] = useState(1);
-  const [nombreCliente, setNombreCliente] = useState("");
-  const [apeCliente, setApeCliente] = useState("");
-
-  useEffect(() => {
-    console.log("idCliente actualizado:", idCliente);
-  }, [idCliente]);
-
   const [lnPedido, setLnPedido] = useState<Producto[]>([]);
 
   // Nombre del producto
-  const [selectedProductName, setSelectedProductName] = useState("");
-
+  const [producto, setProducto] = useState<Producto | null>(null);
+  const [precio, setPrecio] = useState(0);
   // Precio del producto
   const [selectedProductPrice, setSelectedProductPrice] = useState(0);
 
@@ -117,8 +128,8 @@ function NuevoPedido() {
   };
 
   const calcularSubtotal = () => {
-    console.log(cantidad, selectedProductPrice);
-    const nuevoSubt = cantidad * selectedProductPrice;
+    console.log(cantidad, precio);
+    const nuevoSubt = cantidad * precio;
     setSubtotal(Number(nuevoSubt.toFixed(2)));
     setTotal(Number((total + subtotal).toFixed(2)));
 
@@ -126,23 +137,36 @@ function NuevoPedido() {
   };
   useEffect(() => {
     // Calcula el subtotal cada vez que cambian los valores
-    setSubtotal(cantidad * selectedProductPrice);
-  }, [cantidad, selectedProductPrice]);
+    setSubtotal(cantidad * precio);
+  }, [cantidad, precio]);
 
   const agregarProducto = () => {
     const nuevoProducto: Producto = {
-      nombre: selectedProductName,
-      precio: selectedProductPrice.toString(),
-      cant: cantidad.toString(),
+      // ID: nuevoProducto.ID,
+      nombre: nomProd,
+      precio: precio,
+      cant: cantidad,
       subtot: subtotal.toString(),
     };
-
     setLnPedido([...lnPedido, nuevoProducto]);
 
+    const resetear: Producto = {
+      // ID: nuevoProducto.ID,
+      nombre: "",
+      precio: 0,
+      cant: 0,
+      subtot: "",
+    };
     // Reiniciar los estados para la próxima entrada
-    setSelectedProductName("");
-    setSelectedProductPrice(0);
-    setCantidad(0);
+    setProducto(resetear);
+  };
+
+  const [nomProd, setNomProd] = useState("");
+
+  const handleProductoChange = (selectedOption: any) => {
+    setProducto(selectedOption.value);
+    setNomProd(selectedOption.value.nombre);
+    setPrecio(selectedOption.value.precio);
   };
 
   const eliminarProducto = (index: number) => {
@@ -176,8 +200,6 @@ function NuevoPedido() {
     // Lógica para manejar el cambio en la lista desplegable de cuotas
     setCuotasSeleccionadas(event.target.value);
   };
-
-  const [observacion, setObservacion] = useState("");
 
   const {
     register,
@@ -249,54 +271,57 @@ function NuevoPedido() {
             <div className="flex gap-[40px]">
               {/* Cargar pedido */}
               <div className="flex gap-[20px] flex-col flex-wrap">
-                {/* Seleccionar Cliente y forma de pago*/}
+                {/* Seleccionar Cliente*/}
 
-                <div className="flex  gap-[10px]">
-                  <div className="flex flex-col gap-[10px]">
-                    <Label texto="Cliente" estilo="" />
-                    <Select
-                      options={options}
-                      onChange={handleClienteChange}
-                      styles={customStyles}
-                    />
+                <div className="flex  gap-[20px]">
+                  <div className="flex gap-[10px]">
+                    <div className="flex flex-col gap-[10px]">
+                      <Label texto="Cliente" estilo="" />
+                      <Select
+                        options={options}
+                        onChange={handleClienteChange}
+                        styles={customStyles}
+                      />
+                    </div>
+                    {/* Establecer el dni */}
+                    {clienteSeleccionado ? (
+                      <div className="flex flex-col gap-[10px] ">
+                        <Label texto="DNI" estilo="" />
+                        <div className="flex gap-[10px] ">
+                          <input
+                            className=" border-solid border-2 rounded-[5px] px-[10px] py-[8px] border-[#D7DADB] overflow-hidden  min-w-[150px] "
+                            type="text"
+                            readOnly
+                            value={clienteSeleccionado.DNI}
+                          />
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="flex flex-col gap-[10px]">
+                        <Label texto="DNI" estilo="" />
+                        <div className="flex gap-[10px] min-w-[150px]">
+                          <input
+                            className=" border-solid border-2 rounded-[5px] px-[10px] py-[8px] border-[#D7DADB] overflow-hidden  min-w-[150px] "
+                            type="text"
+                            readOnly
+                            value=""
+                          />
+                        </div>
+                      </div>
+                    )}
+                    <div className="h-[75px] items-end flex">
+                      <BtnIcon
+                        icono="person_add"
+                        accion={() => {
+                          console.log("Agregar cliente");
+                        }}
+                        texto=""
+                        estilo="bg-[--c5] text-[--c6] h-[40px] w-[40px] justify-center items-center pt-1 rounded-[5px] btnAgregar "
+                      />
+                    </div>
                   </div>
 
-                  {clienteSeleccionado ? (
-                    <div className="flex flex-col gap-[10px]">
-                      <Label texto="DNI" estilo="" />
-                      <div className="flex gap-[10px] ">
-                        <input
-                          className="w-[100%] border-solid border-2 rounded-[5px] px-[5px] py-[5px] border-[#D7DADB] overflow-hidden  "
-                          type="text"
-                          readOnly
-                          value={clienteSeleccionado.DNI}
-                        />
-                        <BtnIcon
-                          icono="person_add"
-                          accion={() => {
-                            console.log("Agregar cliente");
-                          }}
-                          texto=""
-                          estilo="bg-[--c5] text-[--c6] h-[50px] w-[50px] justify-center items-center pt-1 rounded-[5px] btnAgregar "
-                        />
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="flex flex-col gap-[10px]">
-                      <Label texto="DNI" estilo="" />
-                      <div className="flex gap-[10px]">
-                        <InputTypeText texto="" />
-                        <BtnIcon
-                          icono="person_add"
-                          accion={() => {
-                            console.log("Agregar cliente");
-                          }}
-                          texto=""
-                          estilo="bg-[--c5] text-[--c6] h-[40px] w-[50px] justify-center pt-1 rounded-[5px] btnAgregar "
-                        />
-                      </div>
-                    </div>
-                  )}
+                  {/* Tipo de comprobante */}
                   <div className="flex flex-col gap-[10px]">
                     <Label texto="Tipo de Comprobante" estilo="" />
                     <Select
@@ -308,78 +333,82 @@ function NuevoPedido() {
                       )}
                     />
                   </div>
+
+                  {/* Seleccionar forma de pago  */}
+                  <div className="flex flex-col gap-[20px]">
+                    <Label texto="Forma de Pago" estilo="" />
+                    <div className="flex gap-[10px] ">
+                      <div className="flex gap-[10px] ">
+                        <input
+                          type="radio"
+                          id="opcion1"
+                          value="Efectivo"
+                          // {...register("FormaDePago")}
+                          checked={!radioSeleccionado}
+                          onChange={handleRadioChange}
+                          defaultChecked
+                        />
+                        <label htmlFor="opcion1">Efectivo</label>
+                      </div>
+                      <div className="flex flex-col gap-[5px]">
+                        <div className="flex gap-[10px]">
+                          <input
+                            type="radio"
+                            {...register("forma_pago")}
+                            id="opcion2"
+                            value="Tarjeta"
+                            checked={radioSeleccionado}
+                            onChange={handleRadioChange}
+                          />
+                          <label htmlFor="opcion2">Tarjeta</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Cuotas*/}
+
+                  <div className="flex flex-col gap-[10px]">
+                    <Label texto="Cuotas" estilo="" />
+                    <select
+                      // {...register("Cuotas")}
+                      className={`w-[50px] border-solid border-2 rounded-[5px] px-[10px] border-bordes-input overflow-hidden ${
+                        radioSeleccionado ? "editable" : ""
+                      }`}
+                      disabled={!radioSeleccionado}
+                      style={{
+                        backgroundColor: radioSeleccionado ? "white" : "",
+                      }}
+                      value={cuotasSeleccionadas}
+                      onChange={handleCuotasChange}
+                      defaultValue="1">
+                      <option value="1">1</option>
+                      <option value="3">3</option>
+                      <option value="6">6</option>
+                      <option value="12">12</option>
+                    </select>
+                  </div>
                 </div>
 
                 {/* Añadir ln pedido */}
                 <div className="flex  gap-[20px]">
-                  {/* Seleccionar forma de pago y cuotas */}
-                  <div className="flex flex-col gap-[10px]">
-                    <Label texto="Forma de Pago" estilo="" />
-                    <div className="flex gap-[10px]">
-                      <input
-                        type="radio"
-                        id="opcion1"
-                        value="Efectivo"
-                        // {...register("FormaDePago")}
-                        checked={!radioSeleccionado}
-                        onChange={handleRadioChange}
-                        defaultChecked
-                      />
-                      <label htmlFor="opcion1">Efectivo</label>
-                    </div>
-
-                    <div className="flex flex-col gap-[5px]">
-                      <div className="flex gap-[10px]">
-                        <input
-                          type="radio"
-                          {...register("forma_pago")}
-                          id="opcion2"
-                          value="Tarjeta"
-                          checked={radioSeleccionado}
-                          onChange={handleRadioChange}
-                        />
-                        <label htmlFor="opcion2">Tarjeta</label>
-                      </div>
-                      <Label texto="Cuotas" estilo="" />
-                      <select
-                        // {...register("Cuotas")}
-                        className={`w-[50px] border-solid border-2 rounded-[5px] px-[10px] border-bordes-input overflow-hidden ${
-                          radioSeleccionado ? "editable" : ""
-                        }`}
-                        disabled={!radioSeleccionado}
-                        style={{
-                          backgroundColor: radioSeleccionado ? "white" : "",
-                        }}
-                        value={cuotasSeleccionadas}
-                        onChange={handleCuotasChange}
-                        defaultValue="1">
-                        <option value="1">1</option>
-                        <option value="3">3</option>
-                        <option value="6">6</option>
-                        <option value="12">12</option>
-                      </select>
-                    </div>
-                  </div>
-                  {/* Seleccionar producto  */}
-                  <div className="flex flex-col gap-[10px] ">
-                    <Label texto="Cargar Producto" estilo="" />
-                    <AGProducto
-                      endpointPath={"http://127.0.0.1:8000/api/productos/"}
-                      productoSeleccionado={handleProductSelected}
-                    />
-                  </div>
                   {/* Añadir linea pedido */}
                   <div className="flex gap-[10px]">
                     <div className="flex flex-col gap-[10px]">
                       <Label texto="Producto" estilo="" />
-                      <InputTypeText texto={selectedProductName} />
+                      <Select
+                        options={opcionesProductos}
+                        onChange={handleProductoChange}
+                        styles={customStyles}
+                      />
+                      {/* <InputTypeText texto={selectedProductName} /> */}
                     </div>
 
                     <div className="flex flex-col gap-[10px]">
                       <Label texto="Precio Unitario" estilo="" />
                       <input
                         className="w-[120px] border-solid border-2 rounded-[5px] px-[10px] border-bordes-input overflow-hidden"
-                        value={selectedProductPrice}
+                        value={precio}
                       />
                     </div>
 
@@ -421,8 +450,8 @@ function NuevoPedido() {
                     <tr>
                       <th className="w-[20px]"></th>
                       <th>Producto</th>
-                      <th>Cantidad</th>
                       <th>Precio</th>
+                      <th>Cantidad</th>
                       <th>Subtotal</th>
                       <th className="w-[20px]"></th>
                     </tr>
