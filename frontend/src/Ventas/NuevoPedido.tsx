@@ -16,6 +16,7 @@ import Select from "react-select";
 import axios from "axios";
 import Productos from "./Productos";
 import { setTokenSourceMapRange } from "typescript";
+import { PopUpError } from "../componentes/Popup";
 
 interface Producto {
   // ID: number;
@@ -141,31 +142,41 @@ function NuevoPedido() {
     setSubtotal(cantidad * precio);
   }, [cantidad, precio]);
 
+  const [popUpError, setPopUpError] = useState(false);
   const agregarProducto = () => {
     let nuevaCantidad = cantidad;
+
     if (cantidad < 1) {
       nuevaCantidad = 1;
       setCantidad(1);
     }
 
-    const nuevoProducto: Producto = {
-      // ID: nuevoProducto.ID,
-      nombre: nomProd,
-      precio: precio,
-      cant: nuevaCantidad,
-      subtot: subtotal.toString(),
-    };
-    setLnPedido([...lnPedido, nuevoProducto]);
+    if (nomProd === "") {
+      setPopUpError(true);
+      setTimeout(function () {
+        setPopUpError(false);
+      }, 3000); // 10000 milisegundos = 10 segundos
+      console.log("che pone un producto bobooo");
+    } else {
+      const nuevoProducto: Producto = {
+        // ID: nuevoProducto.ID,
+        nombre: nomProd,
+        precio: precio,
+        cant: nuevaCantidad,
+        subtot: subtotal.toString(),
+      };
+      setLnPedido([...lnPedido, nuevoProducto]);
 
-    const resetear: Producto = {
-      // ID: nuevoProducto.ID,
-      nombre: "",
-      precio: 0,
-      cant: 0,
-      subtot: "",
-    };
-    // Reiniciar los estados para la próxima entrada
-    setProducto(resetear);
+      const resetear: Producto = {
+        // ID: nuevoProducto.ID,
+        nombre: "",
+        precio: 0,
+        cant: 0,
+        subtot: "",
+      };
+      // Reiniciar los estados para la próxima entrada
+      setProducto(resetear);
+    }
   };
 
   const [nomProd, setNomProd] = useState("");
@@ -257,6 +268,7 @@ function NuevoPedido() {
   return (
     <div className="App">
       <MLventas seccionActual={seccionActual} />
+      <PopUpError estado={popUpError} />
       <div className="contenedor-principal">
         <Header perfil="Tomas Gúzman" area="Ventas" fotoDe="canelaTriste" />
 

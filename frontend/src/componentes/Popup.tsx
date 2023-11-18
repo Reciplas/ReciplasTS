@@ -1,5 +1,23 @@
+import { useState } from "react";
 import { BtnIcon } from "./Boton";
 import { Label } from "./TextLabel";
+
+export function PopUpError({ estado }: { estado: boolean }) {
+  return (
+    <>
+      <div className="border-solid border-2 rounded-[5px] border-bordes-input bg-white-1 fixed top-[-140px] left-1/2 transform -translate-x-1/2 z-50 animate-slide-down">
+        <div
+          className={`bg-white border-solid border-2 rounded-[5px] border-bordes-input bg-[#FF0000] p-4 shadow transition-transform duration-2000 ease-in-out transform ${
+            estado ? "translate-y-40" : "translate-y-0"
+          }`}>
+          <strong className=" text-[#ffffff]">
+            Error: ingrese un producto válido
+          </strong>
+        </div>
+      </div>
+    </>
+  );
+}
 
 export function Popup({
   opciones,
