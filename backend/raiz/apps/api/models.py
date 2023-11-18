@@ -117,6 +117,7 @@ class MateriaPrima(models.Model):
 class Pedido(models.Model):
     id                 = models.AutoField(primary_key=True)
     cliente_id         = models.ForeignKey(Cliente, models.DO_NOTHING, db_column='cliente_id')
+    tipo_comprobante   = models.CharField(max_length=30, blank=True, null=True)
     forma_pago         = models.CharField(max_length=20, blank=True, null=True)
     cuotas             = models.CharField(max_length=7, blank=True, null=True)
     observacion        = models.CharField(max_length=255, blank=True, null=True)

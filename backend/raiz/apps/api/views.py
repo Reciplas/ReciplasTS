@@ -595,6 +595,7 @@ class PedidoView(View):
                     "ID": pedido.id,
                     "apellidos": pedido.cliente_id.apellidos,
                     "nombres": pedido.cliente_id.nombres,
+                    "tipo": pedido.tipo_comprobante,
                     "forma de pago": pedido.forma_pago,
                     "cuotas": pedido.cuotas,
                     "observación": pedido.observacion,
@@ -615,6 +616,7 @@ class PedidoView(View):
                     "ID": pedido.id,
                     "apellidos": pedido.cliente_id.apellidos,
                     "nombres": pedido.cliente_id.nombres,
+                    "tipo": pedido.tipo_comprobante,
                     "forma de pago": pedido.forma_pago,
                     "cuotas": pedido.cuotas,
                     "observación": pedido.observacion,
@@ -638,6 +640,7 @@ class PedidoView(View):
 
             nueva_pedido = Pedido(
                 cliente_id=cliente,  # Asignar la instancia de Cliente, no el ID
+                tipo_comprobante=data.get("tipo_comprobante", ""),
                 forma_pago=data.get("forma_pago", ""),
                 cuotas="1/" + cuotas_cant, 
                 observacion=data.get("observacion", ""),
