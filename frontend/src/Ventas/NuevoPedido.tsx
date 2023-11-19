@@ -153,10 +153,10 @@ function NuevoPedido() {
 
     if (nomProd === "") {
       setPopUpError(true);
+      setPopUpErrorMsj("Error: Ingrese un producto válido");
       setTimeout(function () {
         setPopUpError(false);
-      }, 3000); // 10000 milisegundos = 10 segundos
-      console.log("che pone un producto bobooo");
+      }, 3000); // 3000 milisegundos = 3 segundos
     } else {
       const nuevoProducto: Producto = {
         // ID: nuevoProducto.ID,
@@ -232,6 +232,8 @@ function NuevoPedido() {
     },
   });
 
+  const [popUpErrorMsj, setPopUpErrorMsj] = useState("");
+
   const onSubmit = async (formData: any) => {
     try {
       let config = {
@@ -239,6 +241,7 @@ function NuevoPedido() {
         headers: {
           "Content-type": "application/json",
         },
+
         body: JSON.stringify({
           cliente_id: ID,
           forma_pago: formData.forma_pago,
@@ -268,7 +271,7 @@ function NuevoPedido() {
   return (
     <div className="App">
       <MLventas seccionActual={seccionActual} />
-      <PopUpError estado={popUpError} />
+      <PopUpError estado={popUpError} msj={popUpErrorMsj} />
       <div className="contenedor-principal">
         <Header perfil="Tomas Gúzman" area="Ventas" fotoDe="canelaTriste" />
 
@@ -305,6 +308,7 @@ function NuevoPedido() {
                         options={options}
                         onChange={handleClienteChange}
                         styles={customStyles}
+                        required
                       />
                     </div>
                     {/* Establecer el dni */}
@@ -349,6 +353,7 @@ function NuevoPedido() {
                     <Label texto="Tipo de Comprobante" estilo="" />
                     <Select
                       options={comprobantes}
+                      required
                       onChange={handleComprobanteChange}
                       styles={customStyles}
                       value={comprobantes.find(
@@ -460,10 +465,10 @@ function NuevoPedido() {
                 </div>
 
                 {/* Lineas de pedido */}
-                <div className="flex gap-[20px] flex-wrap flex-col">
-                  <Label texto="Pedido" estilo="" />
+                <Label texto="Pedido" estilo="" />
+                <div className="flex gap-[20px] flex-col h-[26vh] overflow-y-auto border-2 border-[--c9]">
                   <table>
-                    <thead>
+                    <thead className="sticky top-0 ">
                       <tr>
                         <th className="w-[5%]"></th>
                         <th className="w-[5%]">ID</th>
@@ -494,24 +499,24 @@ function NuevoPedido() {
                       ))}
                     </tbody>
                   </table>
-                  <div className="flex gap-[10px]  items-center">
-                    <div className="flex gap-[10px] flex-col w-full h-[40px]">
-                      <textarea
-                        className="w-full border-solid border rounded-[5px] px-[10px] border-bordes-input overflow-hidden 
+                </div>
+                <div className="flex gap-[10px]  items-center">
+                  <div className="flex gap-[10px] flex-col w-full h-[40px]">
+                    <textarea
+                      className="w-full border-solid border rounded-[5px] px-[10px] border-bordes-input overflow-hidden 
                  focus:border-green focus:border-solid focus:border-2 focus:outline-none p-[5px] resize-none"
-                        placeholder="Observación"
-                        {...register("observacion")}
-                      />
-                    </div>
-                    <div className="flex gap-[20px] items-center">
-                      <Label texto="Total" estilo="text-2xl" />
-                      <input
-                        type="number"
-                        className="w-[160px] border-solid border-2 rounded-[5px] px-[10px] border-bordes-input overflow-hidden"
-                        value={total}
-                        readOnly
-                      />
-                    </div>
+                      placeholder="Observación"
+                      {...register("observacion")}
+                    />
+                  </div>
+                  <div className="flex gap-[20px] items-center">
+                    <Label texto="Total" estilo="text-2xl" />
+                    <input
+                      type="number"
+                      className="w-[160px] border-solid border-2 rounded-[5px] px-[10px] border-bordes-input overflow-hidden"
+                      value={total}
+                      readOnly
+                    />
                   </div>
                 </div>
               </div>
