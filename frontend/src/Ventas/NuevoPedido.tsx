@@ -54,7 +54,6 @@ function NuevoPedido() {
 
   const [clienteSeleccionado, setClienteSeleccionado] =
     useState<Cliente | null>(null);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     // Realizar la solicitud GET a la API
@@ -69,7 +68,37 @@ function NuevoPedido() {
       });
   }, []);
 
+  const [idPedido, setIdPedido] = useState(1);
+
+  useEffect(() => {
+    const obtenerPedidos = async () => {
+      try {
+        // Realizar la solicitud GET a la API utilizando Axios
+        const response = await axios.get("http://127.0.0.1:8000/api/pedidos/");
+
+        // Obtener la lista de IDs de todos los pedidos
+        const listaIds = response.data.map((pedido: any) => pedido.ID);
+
+        // Encontrar el ID más grande usando Math.max
+        const maxId = Math.max(...listaIds);
+
+        // Guardar el ID más grande en el estado
+        setIdPedido(maxId);
+      } catch (error) {
+        console.error("Error al obtener los pedidos:", error);
+      }
+    };
+
+    // Llamar a la función para obtener los pedidos
+    obtenerPedidos();
+  }, []);
+
   const options = datos.map((cliente) => ({
+    value: cliente,
+    label: `${cliente.nombres} ${cliente.apellidos}`,
+  }));
+
+  const maximo = datos.map((cliente) => ({
     value: cliente,
     label: `${cliente.nombres} ${cliente.apellidos}`,
   }));
@@ -78,17 +107,17 @@ function NuevoPedido() {
     value: producto,
     label: `${producto.nombre}`,
   }));
+  const [idCliente, setID] = useState(0);
 
   const handleClienteChange = (selectedOption: any) => {
     setClienteSeleccionado(selectedOption.value);
     setID(selectedOption.value.ID);
-    console.log("ID SELEC:", ID);
   };
 
   const [lnPedido, setLnPedido] = useState<Producto[]>([]);
 
   // Nombre del producto
-  const [producto, setProducto] = useState<Producto | null>(null);
+  const [idProducto, setProducto] = useState("");
   const [precio, setPrecio] = useState(0);
   // Precio del producto
   const [selectedProductPrice, setSelectedProductPrice] = useState(0);
@@ -100,8 +129,6 @@ function NuevoPedido() {
   const [total, setTotal] = useState<number>(0);
 
   const [tipoComprobantes, setTipoComprobante] = useState("");
-
-  const [ID, setID] = useState(0);
 
   const comprobantes = [
     { value: "Responsable inscripto", label: "Responsable inscripto" },
@@ -134,55 +161,48 @@ function NuevoPedido() {
     const nuevoSubt = cantidad * precio;
     setSubtotal(Number(nuevoSubt.toFixed(2)));
     setTotal(Number((total + subtotal).toFixed(2)));
-
-    agregarProducto();
   };
+
   useEffect(() => {
     // Calcula el subtotal cada vez que cambian los valores
     setSubtotal(cantidad * precio);
   }, [cantidad, precio]);
 
   const [popUpError, setPopUpError] = useState(false);
+
   const agregarProducto = () => {
     let nuevaCantidad = cantidad;
+    let nuevoSubtotal = subtotal;
 
     if (cantidad < 1) {
       nuevaCantidad = 1;
+      nuevoSubtotal = precio;
       setCantidad(1);
     }
 
-    if (nomProd === "") {
-      setPopUpError(true);
-      setTimeout(function () {
-        setPopUpError(false);
-      }, 3000); // 10000 milisegundos = 10 segundos
-      console.log("che pone un producto bobooo");
-    } else {
-      const nuevoProducto: Producto = {
-        // ID: nuevoProducto.ID,
-        nombre: nomProd,
-        precio: precio,
-        cant: nuevaCantidad,
-        subtot: subtotal.toString(),
-      };
-      setLnPedido([...lnPedido, nuevoProducto]);
+    const nuevoProducto: Producto = {
+      // ID: nuevoProducto.ID,
+      nombre: nomProd,
+      precio: precio,
+      cant: nuevaCantidad,
+      subtot: nuevoSubtotal.toString(),
+    };
+    setLnPedido([...lnPedido, nuevoProducto]);
 
-      const resetear: Producto = {
-        // ID: nuevoProducto.ID,
-        nombre: "",
-        precio: 0,
-        cant: 0,
-        subtot: "",
-      };
-      // Reiniciar los estados para la próxima entrada
-      setProducto(resetear);
-    }
+    const resetear: Producto = {
+      // ID: nuevoProducto.ID,
+      nombre: "",
+      precio: 0,
+      cant: 0,
+      subtot: "",
+    };
+    // Reiniciar los estados para la próxima entrada
   };
 
   const [nomProd, setNomProd] = useState("");
 
   const handleProductoChange = (selectedOption: any) => {
-    setProducto(selectedOption.value);
+    setProducto(selectedOption.value.ID);
     setNomProd(selectedOption.value.nombre);
     setPrecio(selectedOption.value.precio);
   };
@@ -220,17 +240,22 @@ function NuevoPedido() {
     setCuotasSeleccionadas(event.target.value);
   };
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
+  const { register: register1, handleSubmit: handleSubmit1 } = useForm({
     defaultValues: {
       forma_pago: "Efectivo",
       observacion: "",
       cuotas: "1",
     },
   });
+
+  const { register: register2, handleSubmit: handleSubmit2 } = useForm({
+    defaultValues: {
+      cantidad: 1,
+      subtotal: "",
+    },
+  });
+
+  const [popUpErrorMsj, setPopUpErrorMsj] = useState("");
 
   const onSubmit = async (formData: any) => {
     try {
@@ -239,8 +264,10 @@ function NuevoPedido() {
         headers: {
           "Content-type": "application/json",
         },
+
         body: JSON.stringify({
-          cliente_id: ID,
+          cliente_id: idCliente,
+          tipo_comprobante: tipoComprobantes,
           forma_pago: formData.forma_pago,
           observacion: formData.observacion,
           cuotas: formData.cuotas,
@@ -251,7 +278,47 @@ function NuevoPedido() {
       let json = await res.json();
 
       console.log(json);
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     } catch (error) {}
+  };
+
+  const onSubmit2 = async () => {
+    try {
+      let config = {
+        method: "post",
+        headers: {
+          "Content-type": "application/json",
+        },
+
+        body: JSON.stringify({
+          pedido_id: idPedido,
+          producto_id: idProducto,
+          cantidad: cantidad,
+          precio: precio,
+          subtotal: subtotal,
+        }),
+      };
+      let res = await fetch("http://127.0.0.1:8000/api/linea_pedidos/", config);
+      let json = await res.json();
+
+      agregarProducto();
+      console.log(json);
+    } catch (error) {
+      console.log(
+        "Error \n pedido_id",
+        idPedido,
+        "\n producto_id",
+        idProducto,
+        "\n cantidad",
+        cantidad,
+        "\n precio",
+        precio,
+        "\n subtotal",
+        subtotal
+      );
+    }
   };
 
   const customStyles = {
@@ -268,151 +335,153 @@ function NuevoPedido() {
   return (
     <div className="App">
       <MLventas seccionActual={seccionActual} />
-      <PopUpError estado={popUpError} />
+      <PopUpError estado={popUpError} msj={popUpErrorMsj} />
       <div className="contenedor-principal">
         <Header perfil="Tomas Gúzman" area="Ventas" fotoDe="canelaTriste" />
-
         <div className="flex justify-center ">
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="flex w-[70%] flex-col gap-[20px]">
-            <div className="flex justify-between w-full">
-              <div className="flex">
-                <Link to="/Ventas/Pedidos">
-                  <h1>Pedido</h1>
-                </Link>
-                <h1>/Nuevo Pedido</h1>
+          <div className=" w-[70%] flex-col gap-[20px] flex">
+            <form onSubmit={handleSubmit1(onSubmit)}>
+              <div className="flex justify-between ">
+                <div className="flex">
+                  <Link to="/Ventas/Pedidos">
+                    <h1>Pedido</h1>
+                  </Link>
+                  <h1>/Nuevo Pedido</h1>
+                </div>
+                <input
+                  type="submit"
+                  value="Guardar Pedido"
+                  className="btnImprimir"
+                />
               </div>
-              <input
-                type="submit"
-                value="Guardar Pedido"
-                className="btnImprimir"
-              />
-            </div>
 
-            {/* Cargar pedido */}
-            <div className="flex gap-[20px] flex-col flex-wrap">
-              {/* Seleccionar Cliente y tipo comprobante*/}
+              {/* Cargar pedido */}
+              <div className="flex gap-[20px] flex-col flex-wrap">
+                {/* Seleccionar Cliente y tipo comprobante*/}
 
-              <div className="flex flex-col flex-wrap gap-[20px] bg-[#fff] shadow rounded-[5px] py-[15px] px-[25px]">
-                <Label texto="Datos del Pedido" estilo="text-2xl" />
+                <div className="flex flex-col flex-wrap gap-[20px] bg-[#fff] shadow rounded-[5px] py-[15px] px-[25px]">
+                  <Label texto="Datos del Pedido" estilo="text-2xl" />
 
-                <div className="flex justify-between">
-                  <div className="flex gap-[15px]">
-                    <div className="flex flex-col gap-[10px]">
-                      <Label texto="Cliente" estilo="" />
-                      <Select
-                        options={options}
-                        onChange={handleClienteChange}
-                        styles={customStyles}
-                      />
-                    </div>
-                    {/* Establecer el dni */}
-                    {clienteSeleccionado ? (
-                      <div className="flex flex-col gap-[10px] ">
-                        <Label texto="DNI" estilo="" />
-                        <div className="flex gap-[10px] ">
-                          <input
-                            className=" border-solid border-2 rounded-[5px] px-[10px] py-[8px] border-[#D7DADB] overflow-hidden w-[120px] "
-                            type="text"
-                            readOnly
-                            value={clienteSeleccionado.DNI}
-                          />
-                        </div>
-                      </div>
-                    ) : (
+                  <div className="flex justify-between">
+                    <div className="flex gap-[15px]">
                       <div className="flex flex-col gap-[10px]">
-                        <Label texto="DNI" estilo="" />
-                        <div className="flex gap-[10px] ">
-                          <input
-                            className=" border-solid border-2 rounded-[5px] px-[10px] py-[8px] border-[#D7DADB] overflow-hidden  w-[120px] "
-                            type="text"
-                            readOnly
-                            value=""
-                          />
-                        </div>
+                        <Label texto="Cliente" estilo="" />
+                        <Select
+                          options={options}
+                          onChange={handleClienteChange}
+                          styles={customStyles}
+                          required
+                        />
                       </div>
-                    )}
-                    <div className="h-[75px] items-end flex">
-                      <BtnIcon
-                        icono="person_add"
-                        accion={() => {
-                          console.log("Agregar cliente");
-                        }}
-                        texto=""
-                        estilo="bg-[--c5] text-[--c6] h-[40px] w-[40px] justify-center items-center pt-1 rounded-[5px] btnAgregar "
+                      {/* Establecer el dni */}
+                      {clienteSeleccionado ? (
+                        <div className="flex flex-col gap-[10px] ">
+                          <Label texto="DNI" estilo="" />
+                          <div className="flex gap-[10px] ">
+                            <input
+                              className=" border-solid border-2 rounded-[5px] px-[10px] py-[8px] border-[#D7DADB] overflow-hidden w-[120px] "
+                              type="text"
+                              readOnly
+                              value={clienteSeleccionado.DNI}
+                            />
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="flex flex-col gap-[10px]">
+                          <Label texto="DNI" estilo="" />
+                          <div className="flex gap-[10px] ">
+                            <input
+                              className=" border-solid border-2 rounded-[5px] px-[10px] py-[8px] border-[#D7DADB] overflow-hidden  w-[120px] "
+                              type="text"
+                              readOnly
+                              value=""
+                            />
+                          </div>
+                        </div>
+                      )}
+                      <div className="h-[75px] items-end flex">
+                        <BtnIcon
+                          icono="person_add"
+                          accion={() => {
+                            console.log("Agregar cliente");
+                          }}
+                          texto=""
+                          estilo="bg-[--c5] text-[--c6] h-[40px] w-[40px] justify-center items-center pt-1 rounded-[5px] btnAgregar "
+                        />
+                      </div>
+                    </div>
+                    {/* Tipo de comprobante */}
+                    <div className="flex flex-col gap-[10px]">
+                      <Label texto="Tipo de Comprobante" estilo="" />
+                      <Select
+                        options={comprobantes}
+                        required
+                        onChange={handleComprobanteChange}
+                        styles={customStyles}
+                        value={comprobantes.find(
+                          (option) => option.value === tipoComprobantes
+                        )}
                       />
                     </div>
-                  </div>
-                  {/* Tipo de comprobante */}
-                  <div className="flex flex-col gap-[10px]">
-                    <Label texto="Tipo de Comprobante" estilo="" />
-                    <Select
-                      options={comprobantes}
-                      onChange={handleComprobanteChange}
-                      styles={customStyles}
-                      value={comprobantes.find(
-                        (option) => option.value === tipoComprobantes
-                      )}
-                    />
-                  </div>
-                  {/* Seleccionar forma de pago  */}
-                  <div className="flex gap-[20px]">
-                    <div className="flex flex-col gap-[20px]">
-                      <Label texto="Forma de Pago" estilo="" />
-                      <div className="flex gap-[10px] ">
+                    {/* Seleccionar forma de pago  */}
+                    <div className="flex gap-[20px]">
+                      <div className="flex flex-col gap-[20px]">
+                        <Label texto="Forma de Pago" estilo="" />
                         <div className="flex gap-[10px] ">
-                          <input
-                            type="radio"
-                            id="opcion1"
-                            value="Efectivo"
-                            // {...register("FormaDePago")}
-                            checked={!radioSeleccionado}
-                            onChange={handleRadioChange}
-                            defaultChecked
-                          />
-                          <label htmlFor="opcion1">Efectivo</label>
-                        </div>
-                        <div className="flex flex-col gap-[5px]">
-                          <div className="flex gap-[10px]">
+                          <div className="flex gap-[10px] ">
                             <input
                               type="radio"
-                              {...register("forma_pago")}
-                              id="opcion2"
-                              value="Tarjeta"
-                              checked={radioSeleccionado}
+                              id="opcion1"
+                              value="Efectivo"
+                              // {...register("FormaDePago")}
+                              checked={!radioSeleccionado}
                               onChange={handleRadioChange}
+                              defaultChecked
                             />
-                            <label htmlFor="opcion2">Tarjeta</label>
+                            <label htmlFor="opcion1">Efectivo</label>
+                          </div>
+                          <div className="flex flex-col gap-[5px]">
+                            <div className="flex gap-[10px]">
+                              <input
+                                type="radio"
+                                {...register1("forma_pago")}
+                                id="opcion2"
+                                value="Tarjeta"
+                                checked={radioSeleccionado}
+                                onChange={handleRadioChange}
+                              />
+                              <label htmlFor="opcion2">Tarjeta</label>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    {/* Cuotas*/}
-                    <div className="flex flex-col gap-[10px]">
-                      <Label texto="Cuotas" estilo="" />
-                      <select
-                        className={`w-[50px] border-solid border-2 rounded-[5px] px-[10px] border-bordes-input overflow-hidden ${
-                          radioSeleccionado ? "editable" : ""
-                        }`}
-                        disabled={!radioSeleccionado}
-                        style={{
-                          backgroundColor: radioSeleccionado ? "white" : "",
-                        }}
-                        value={cuotasSeleccionadas}
-                        {...register("cuotas")}
-                        onChange={handleCuotasChange}
-                        defaultValue="1">
-                        <option value="1">1</option>
-                        <option value="3">3</option>
-                        <option value="6">6</option>
-                        <option value="12">12</option>
-                      </select>
+                      {/* Cuotas*/}
+                      <div className="flex flex-col gap-[10px]">
+                        <Label texto="Cuotas" estilo="" />
+                        <select
+                          className={`w-[50px] border-solid border-2 rounded-[5px] px-[10px] border-bordes-input overflow-hidden ${
+                            radioSeleccionado ? "editable" : ""
+                          }`}
+                          disabled={!radioSeleccionado}
+                          style={{
+                            backgroundColor: radioSeleccionado ? "white" : "",
+                          }}
+                          value={cuotasSeleccionadas}
+                          {...register1("cuotas")}
+                          onChange={handleCuotasChange}
+                          defaultValue="1">
+                          <option value="1">1</option>
+                          <option value="3">3</option>
+                          <option value="6">6</option>
+                          <option value="12">12</option>
+                        </select>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-
+            </form>
+            <form onSubmit={handleSubmit2(onSubmit2)}>
               {/* Añadir ln pedido */}
               <div className="flex gap-[20px] flex-col bg-[#fff] shadow rounded-[5px] py-[15px] px-[25px]">
                 <Label texto="Detalles del Pedido" estilo="text-2xl" />
@@ -425,6 +494,7 @@ function NuevoPedido() {
                         options={opcionesProductos}
                         onChange={handleProductoChange}
                         styles={customStyles}
+                        required
                       />
                     </div>
 
@@ -446,24 +516,26 @@ function NuevoPedido() {
                           type="number"
                           value={cantidad === 0 ? "" : cantidad}
                           onChange={handleCantidadChange}
+                          required
                         />
-
-                        <BtnIcon
-                          icono="add"
-                          accion={calcularSubtotal}
-                          texto=""
-                          estilo="bg-[--c5] text-[--c6] h-[40px] w-[40px] justify-center pt-1 rounded-[5px] btnAgregar"
-                        />
+                        <button
+                          className="bg-[--c5] text-[--c6] h-[40px] w-[40px] justify-center pt-1 rounded-[5px] btnAgregar"
+                          type="submit"
+                          onClick={calcularSubtotal}>
+                          <span className="material-symbols-outlined hover:text-[--c5]">
+                            add
+                          </span>
+                        </button>
                       </div>
                     </div>
                   </div>
                 </div>
 
                 {/* Lineas de pedido */}
-                <div className="flex gap-[20px] flex-wrap flex-col">
-                  <Label texto="Pedido" estilo="" />
+                <Label texto="Pedido" estilo="" />
+                <div className="flex gap-[20px] flex-col h-[26vh] overflow-y-auto border-2 border-[--c9]">
                   <table>
-                    <thead>
+                    <thead className="sticky top-0 ">
                       <tr>
                         <th className="w-[5%]"></th>
                         <th className="w-[5%]">ID</th>
@@ -494,29 +566,29 @@ function NuevoPedido() {
                       ))}
                     </tbody>
                   </table>
-                  <div className="flex gap-[10px]  items-center">
-                    <div className="flex gap-[10px] flex-col w-full h-[40px]">
-                      <textarea
-                        className="w-full border-solid border rounded-[5px] px-[10px] border-bordes-input overflow-hidden 
+                </div>
+                <div className="flex gap-[10px]  items-center">
+                  <div className="flex gap-[10px] flex-col w-full h-[40px]">
+                    <textarea
+                      className="w-full border-solid border rounded-[5px] px-[10px] border-bordes-input overflow-hidden 
                  focus:border-green focus:border-solid focus:border-2 focus:outline-none p-[5px] resize-none"
-                        placeholder="Observación"
-                        {...register("observacion")}
-                      />
-                    </div>
-                    <div className="flex gap-[20px] items-center">
-                      <Label texto="Total" estilo="text-2xl" />
-                      <input
-                        type="number"
-                        className="w-[160px] border-solid border-2 rounded-[5px] px-[10px] border-bordes-input overflow-hidden"
-                        value={total}
-                        readOnly
-                      />
-                    </div>
+                      placeholder="Observación"
+                      {...register1("observacion")}
+                    />
+                  </div>
+                  <div className="flex gap-[20px] items-center">
+                    <Label texto="Total" estilo="text-2xl" />
+                    <input
+                      type="number"
+                      className="w-[160px] border-solid border-2 rounded-[5px] px-[10px] border-bordes-input overflow-hidden"
+                      value={total}
+                      readOnly
+                    />
                   </div>
                 </div>
               </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     </div>
