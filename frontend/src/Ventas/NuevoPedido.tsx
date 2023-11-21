@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import "../componentes/Tabla.css";
 import Select from "react-select";
 import axios from "axios";
-import { PopUpError, PopUpExito } from "../componentes/Popup";
+import { AgregarCliente, PopUpExito } from "../componentes/Popup";
 
 interface Producto {
   producto_id: number;
@@ -42,6 +42,8 @@ function NuevoPedido() {
       overflow: "hidden",
     }),
   };
+
+  const [popAgregarCliente, setPopAgregarCliente] = useState(false);
 
   const [datos, setData] = useState<Cliente[]>([]);
 
@@ -279,13 +281,6 @@ function NuevoPedido() {
     },
   });
 
-  const { register: register2, handleSubmit: handleSubmit2 } = useForm({
-    defaultValues: {
-      cantidad: 1,
-      subtotal: "",
-    },
-  });
-
   const asociarLineasDeProductos = async (pedidoId: number) => {
     try {
       // Realizar una solicitud POST para asociar cada línea de producto al pedido
@@ -308,6 +303,10 @@ function NuevoPedido() {
     <div className="App">
       <MLventas seccionActual={seccionActual} />
       <PopUpExito estado={popUpExito} msj={"¡Pedido guardado con exito!"} />
+      <AgregarCliente
+        estado={popAgregarCliente}
+        cambiarEstado={setPopAgregarCliente}
+      />
       <div className="contenedor-principal">
         <Header perfil="Tomas Gúzman" area="Ventas" fotoDe="canelaTriste" />
         <div className="flex justify-center ">
@@ -375,7 +374,7 @@ function NuevoPedido() {
                         <BtnIcon
                           icono="person_add"
                           accion={() => {
-                            console.log("Agregar cliente");
+                            setPopAgregarCliente(!popAgregarCliente);
                           }}
                           texto=""
                           estilo="bg-[--c5] text-[--c6] h-[40px] w-[40px] justify-center items-center pt-1 rounded-[5px] btnAgregar "
@@ -405,7 +404,6 @@ function NuevoPedido() {
                               type="radio"
                               id="opcion1"
                               value="Efectivo"
-                              // {...register("FormaDePago")}
                               checked={!radioSeleccionado}
                               onChange={handleRadioChange}
                               defaultChecked
