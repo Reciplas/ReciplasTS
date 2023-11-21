@@ -17,6 +17,21 @@ export function PopUpError({ estado, msj }: { estado: boolean; msj: string }) {
   );
 }
 
+export function PopUpExito({ estado, msj }: { estado: boolean; msj: string }) {
+  return (
+    <>
+      <div className="border-solid border-2 rounded-[5px] border-bordes-input bg-white-1 fixed top-[-140px] left-1/2 transform -translate-x-1/2 z-50 animate-slide-down">
+        <div
+          className={`bg-[--c5]  rounded-[5px] p-4 shadow-xl transition-transform duration-2000 ease-in-out transform ${
+            estado ? "translate-y-40" : "translate-y-0"
+          }`}>
+          <strong className=" text-[#ffffff]">{msj}</strong>
+        </div>
+      </div>
+    </>
+  );
+}
+
 export function Popup({
   opciones,
   estado,

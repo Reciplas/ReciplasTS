@@ -4,26 +4,20 @@ import Header from "../componentes/Header";
 import { MLventas } from "../componentes/MenuLateral";
 import { Link } from "react-router-dom";
 import { Label } from "../componentes/TextLabel";
-import { InputTypeText } from "../componentes/InputField";
 import { BtnIcon } from "../componentes/Boton";
 import "../componentes/Boton.css";
-import { AGProducto } from "../componentes/AGTable";
 import { useEffect, useState } from "react";
-
 import "../componentes/Tabla.css";
 import Select from "react-select";
-
 import axios from "axios";
-import Productos from "./Productos";
-import { setTokenSourceMapRange } from "typescript";
-import { PopUpError } from "../componentes/Popup";
+import { PopUpError, PopUpExito } from "../componentes/Popup";
 
 interface Producto {
-  // ID: number;
+  producto_id: number;
   nombre: string;
   precio: number;
-  cant: number;
-  subtot: string;
+  cantidad: number;
+  subtotal: number;
 }
 
 interface Cliente {
@@ -34,93 +28,37 @@ interface Cliente {
 }
 
 function NuevoPedido() {
+  // variables
+
   const seccionActual = "Pedidos";
+
+  const customStyles = {
+    control: (provided: any, state: any) => ({
+      ...provided,
+      width: "300px",
+      border: "2px solid #D7DADB",
+      borderRadius: "5px",
+      padding: "2px 0",
+      overflow: "hidden",
+    }),
+  };
 
   const [datos, setData] = useState<Cliente[]>([]);
 
   const [datosProducto, setDatosProducto] = useState<Producto[]>([]);
-  useEffect(() => {
-    // Realizar la solicitud GET a la API
-    axios
-      .get<Producto[]>("http://127.0.0.1:8000/api/productos/")
-      .then((response) => {
-        // Actualizar el estado con los datos obtenidos
-        setDatosProducto(response.data);
-      })
-      .catch((error) => {
-        console.error("Error al obtener datos:", error);
-      });
-  }, []);
 
   const [clienteSeleccionado, setClienteSeleccionado] =
     useState<Cliente | null>(null);
 
-  useEffect(() => {
-    // Realizar la solicitud GET a la API
-    axios
-      .get<Cliente[]>("http://127.0.0.1:8000/api/clientes/")
-      .then((response) => {
-        // Actualizar el estado con los datos obtenidos
-        setData(response.data);
-      })
-      .catch((error) => {
-        console.error("Error al obtener datos:", error);
-      });
-  }, []);
-
   const [idPedido, setIdPedido] = useState(1);
 
-  useEffect(() => {
-    const obtenerPedidos = async () => {
-      try {
-        // Realizar la solicitud GET a la API utilizando Axios
-        const response = await axios.get("http://127.0.0.1:8000/api/pedidos/");
-
-        // Obtener la lista de IDs de todos los pedidos
-        const listaIds = response.data.map((pedido: any) => pedido.ID);
-
-        // Encontrar el ID más grande usando Math.max
-        const maxId = Math.max(...listaIds);
-
-        // Guardar el ID más grande en el estado
-        setIdPedido(maxId);
-      } catch (error) {
-        console.error("Error al obtener los pedidos:", error);
-      }
-    };
-
-    // Llamar a la función para obtener los pedidos
-    obtenerPedidos();
-  }, []);
-
-  const options = datos.map((cliente) => ({
-    value: cliente,
-    label: `${cliente.nombres} ${cliente.apellidos}`,
-  }));
-
-  const maximo = datos.map((cliente) => ({
-    value: cliente,
-    label: `${cliente.nombres} ${cliente.apellidos}`,
-  }));
-
-  const opcionesProductos = datosProducto.map((producto) => ({
-    value: producto,
-    label: `${producto.nombre}`,
-  }));
   const [idCliente, setID] = useState(0);
-
-  const handleClienteChange = (selectedOption: any) => {
-    setClienteSeleccionado(selectedOption.value);
-    setID(selectedOption.value.ID);
-  };
 
   const [lnPedido, setLnPedido] = useState<Producto[]>([]);
 
-  // Nombre del producto
-  const [idProducto, setProducto] = useState("");
+  const [idProducto, setProducto] = useState(null);
+
   const [precio, setPrecio] = useState(0);
-  // Precio del producto
-  const [selectedProductPrice, setSelectedProductPrice] = useState(0);
 
   const [cantidad, setCantidad] = useState(1);
 
@@ -130,14 +68,22 @@ function NuevoPedido() {
 
   const [tipoComprobantes, setTipoComprobante] = useState("");
 
-  const comprobantes = [
-    { value: "Responsable inscripto", label: "Responsable inscripto" },
-    { value: "Consumidor final", label: "Consumidor final" },
-    {
-      value: "Responsable monotributo",
-      label: "Responsable monotributo",
-    },
-  ];
+  const [popUpExito, setPopUpExito] = useState(false);
+
+  const [nomProd, setNomProd] = useState("");
+
+  const [radioSeleccionado, setRadioSeleccionado] = useState(false);
+
+  const [cuotasSeleccionadas, setCuotasSeleccionadas] = useState(1);
+
+  const [popUpErrorMsj, setPopUpErrorMsj] = useState("");
+
+  // funciones para manejar el cambio
+
+  const handleClienteChange = (selectedOption: any) => {
+    setClienteSeleccionado(selectedOption.value);
+    setID(selectedOption.value.ID);
+  };
 
   const handleCantidadChange = (event: any) => {
     // Obtener el nuevo valor del input
@@ -156,71 +102,11 @@ function NuevoPedido() {
     console.log(selectedOption.value);
   };
 
-  const calcularSubtotal = () => {
-    console.log(cantidad, precio);
-    const nuevoSubt = cantidad * precio;
-    setSubtotal(Number(nuevoSubt.toFixed(2)));
-    setTotal(Number((total + subtotal).toFixed(2)));
-  };
-
-  useEffect(() => {
-    // Calcula el subtotal cada vez que cambian los valores
-    setSubtotal(cantidad * precio);
-  }, [cantidad, precio]);
-
-  const [popUpError, setPopUpError] = useState(false);
-
-  const agregarProducto = () => {
-    let nuevaCantidad = cantidad;
-    let nuevoSubtotal = subtotal;
-
-    if (cantidad < 1) {
-      nuevaCantidad = 1;
-      nuevoSubtotal = precio;
-      setCantidad(1);
-    }
-
-    const nuevoProducto: Producto = {
-      // ID: nuevoProducto.ID,
-      nombre: nomProd,
-      precio: precio,
-      cant: nuevaCantidad,
-      subtot: nuevoSubtotal.toString(),
-    };
-    setLnPedido([...lnPedido, nuevoProducto]);
-
-    const resetear: Producto = {
-      // ID: nuevoProducto.ID,
-      nombre: "",
-      precio: 0,
-      cant: 0,
-      subtot: "",
-    };
-    // Reiniciar los estados para la próxima entrada
-  };
-
-  const [nomProd, setNomProd] = useState("");
-
   const handleProductoChange = (selectedOption: any) => {
     setProducto(selectedOption.value.ID);
     setNomProd(selectedOption.value.nombre);
     setPrecio(selectedOption.value.precio);
   };
-
-  const eliminarProducto = (index: number) => {
-    const productoEliminado = lnPedido[index];
-
-    const nuevaLista = [...lnPedido];
-    nuevaLista.splice(index, 1);
-    console.log(productoEliminado.subtot);
-    // Resta el subtotal del producto eliminado al total
-    setTotal(Number((total - parseFloat(productoEliminado.subtot)).toFixed(2)));
-    console.log(productoEliminado.subtot);
-    // Actualiza la lista de productos
-    setLnPedido(nuevaLista);
-  };
-
-  const [radioSeleccionado, setRadioSeleccionado] = useState(false);
 
   const handleRadioChange = () => {
     // Lógica para manejar el cambio de selección del botón de radio
@@ -232,12 +118,157 @@ function NuevoPedido() {
     }
   };
 
-  const [cuotasSeleccionadas, setCuotasSeleccionadas] = useState(1);
-
   const handleCuotasChange = (event: any) => {
-    // Lógica para manejar el cambio en la lista desplegable de cuotas
-
     setCuotasSeleccionadas(event.target.value);
+  };
+
+  // gets de la BD
+
+  useEffect(() => {
+    // Realizar la solicitud GET a la API
+    axios
+      .get<Producto[]>("http://127.0.0.1:8000/api/productos/")
+      .then((response) => {
+        // Actualizar el estado con los datos obtenidos
+        setDatosProducto(response.data);
+      })
+      .catch((error) => {
+        console.error("Error al obtener datos:", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    // Realizar la solicitud GET a la API
+    axios
+      .get<Cliente[]>("http://127.0.0.1:8000/api/clientes/")
+      .then((response) => {
+        // Actualizar el estado con los datos obtenidos
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error al obtener datos:", error);
+      });
+  }, []);
+
+  const obtenerPedidos = async () => {
+    try {
+      // Realizar la solicitud GET a la API utilizando Axios
+      const response = await axios.get("http://127.0.0.1:8000/api/pedidos/");
+
+      // Obtener la lista de IDs de todos los pedidos
+      const listaIds = response.data.map((pedido: any) => pedido.ID);
+
+      // Encontrar el ID más grande usando Math.max
+      const maxId = Math.max(...listaIds);
+
+      // Guardar el ID más grande en el estado
+      setIdPedido(maxId);
+    } catch (error) {
+      console.error("Error al obtener los pedidos:", error);
+    }
+  };
+
+  useEffect(() => {
+    // Calcula el subtotal cada vez que cambian los valores
+    setSubtotal(cantidad * precio);
+  }, [cantidad, precio]);
+
+  // post de la BD
+
+  const onSubmit = async (formData: any) => {
+    try {
+      const response = await axios.post("http://127.0.0.1:8000/api/pedidos/", {
+        cliente_id: idCliente,
+        tipo_comprobante: tipoComprobantes,
+        forma_pago: formData.forma_pago,
+        observacion: formData.observacion,
+        cuotas: formData.cuotas,
+        total: total,
+      });
+
+      obtenerPedidos();
+      asociarLineasDeProductos(idPedido);
+      console.log(response);
+      // Mostrar el popup
+      setPopUpExito(!popUpExito);
+
+      // Primer timeout para ocultar el popup después de 500 milisegundos
+      setTimeout(() => {
+        setPopUpExito((prevPopUpExito) => !prevPopUpExito);
+      }, 1100);
+
+      // Segundo timeout para recargar la página después de 2000 milisegundos (2 segundos)
+      setTimeout(() => {
+        window.location.reload();
+      }, 1110);
+    } catch (error) {
+      // Manejar errores aquí
+      console.error("Error al enviar el formulario:", error);
+    }
+  };
+
+  //Otras funciones
+
+  const options = datos.map((cliente) => ({
+    value: cliente,
+    label: `${cliente.nombres} ${cliente.apellidos}`,
+  }));
+
+  const opcionesProductos = datosProducto.map((producto) => ({
+    value: producto,
+    label: `${producto.nombre}`,
+  }));
+
+  const comprobantes = [
+    { value: "Responsable inscripto", label: "Responsable inscripto" },
+    { value: "Consumidor final", label: "Consumidor final" },
+    {
+      value: "Responsable monotributo",
+      label: "Responsable monotributo",
+    },
+  ];
+
+  const calcularSubtotal = () => {
+    const nuevoSubt = cantidad * precio;
+    setSubtotal(Number(nuevoSubt.toFixed(2)));
+    setTotal(Number((total + subtotal).toFixed(2)));
+    agregarProducto();
+  };
+
+  const agregarProducto = () => {
+    let nuevaCantidad = cantidad;
+    let nuevoSubtotal = subtotal;
+
+    if (cantidad < 1) {
+      nuevaCantidad = 1;
+      nuevoSubtotal = precio;
+      setCantidad(1);
+    }
+
+    const listaProductos: Producto = {
+      producto_id: Number(idProducto),
+      nombre: nomProd,
+      cantidad: nuevaCantidad,
+      precio: precio,
+      subtotal: nuevoSubtotal,
+    };
+
+    setLnPedido([...lnPedido, listaProductos]);
+
+    setCantidad(1);
+  };
+
+  const eliminarProducto = (index: number) => {
+    const productoEliminado = lnPedido[index];
+
+    const nuevaLista = [...lnPedido];
+    nuevaLista.splice(index, 1);
+    console.log(productoEliminado.subtotal);
+    // Resta el subtotal del producto eliminado al total
+    setTotal(Number((total - productoEliminado.subtotal).toFixed(2)));
+    console.log(productoEliminado.subtotal);
+    // Actualiza la lista de productos
+    setLnPedido(nuevaLista);
   };
 
   const { register: register1, handleSubmit: handleSubmit1 } = useForm({
@@ -255,87 +286,28 @@ function NuevoPedido() {
     },
   });
 
-  const [popUpErrorMsj, setPopUpErrorMsj] = useState("");
-
-  const onSubmit = async (formData: any) => {
+  const asociarLineasDeProductos = async (pedidoId: number) => {
     try {
-      let config = {
-        method: "post",
-        headers: {
-          "Content-type": "application/json",
-        },
-
-        body: JSON.stringify({
-          cliente_id: idCliente,
-          tipo_comprobante: tipoComprobantes,
-          forma_pago: formData.forma_pago,
-          observacion: formData.observacion,
-          cuotas: formData.cuotas,
-          total: total,
-        }),
-      };
-      let res = await fetch("http://127.0.0.1:8000/api/pedidos/", config);
-      let json = await res.json();
-
-      console.log(json);
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
-    } catch (error) {}
-  };
-
-  const onSubmit2 = async () => {
-    try {
-      let config = {
-        method: "post",
-        headers: {
-          "Content-type": "application/json",
-        },
-
-        body: JSON.stringify({
-          pedido_id: idPedido,
-          producto_id: idProducto,
-          cantidad: cantidad,
-          precio: precio,
-          subtotal: subtotal,
-        }),
-      };
-      let res = await fetch("http://127.0.0.1:8000/api/linea_pedidos/", config);
-      let json = await res.json();
-
-      agregarProducto();
-      console.log(json);
+      // Realizar una solicitud POST para asociar cada línea de producto al pedido
+      for (const producto of lnPedido) {
+        const resp = await axios.post(
+          "http://127.0.0.1:8000/api/linea_pedidos/",
+          {
+            ...producto,
+            pedido_id: pedidoId,
+          }
+        );
+        console.log(resp);
+      }
     } catch (error) {
-      console.log(
-        "Error \n pedido_id",
-        idPedido,
-        "\n producto_id",
-        idProducto,
-        "\n cantidad",
-        cantidad,
-        "\n precio",
-        precio,
-        "\n subtotal",
-        subtotal
-      );
+      console.error("Error al asociar las líneas de productos:", error);
     }
-  };
-
-  const customStyles = {
-    control: (provided: any, state: any) => ({
-      ...provided,
-      width: "300px",
-      border: "2px solid #D7DADB",
-      borderRadius: "5px",
-      padding: "2px 0",
-      overflow: "hidden",
-    }),
   };
 
   return (
     <div className="App">
       <MLventas seccionActual={seccionActual} />
-      <PopUpError estado={popUpError} msj={popUpErrorMsj} />
+      <PopUpExito estado={popUpExito} msj={"¡Pedido guardado con exito!"} />
       <div className="contenedor-principal">
         <Header perfil="Tomas Gúzman" area="Ventas" fotoDe="canelaTriste" />
         <div className="flex justify-center ">
@@ -479,111 +451,109 @@ function NuevoPedido() {
                     </div>
                   </div>
                 </div>
-              </div>
-            </form>
-            <form onSubmit={handleSubmit2(onSubmit2)}>
-              {/* Añadir ln pedido */}
-              <div className="flex gap-[20px] flex-col bg-[#fff] shadow rounded-[5px] py-[15px] px-[25px]">
-                <Label texto="Detalles del Pedido" estilo="text-2xl" />
-                <div className="flex gap-[20px] flex-wrap">
-                  {/* Añadir Producto */}
-                  <div className="flex gap-[15px]">
-                    <div className="flex flex-col gap-[10px]">
-                      <Label texto="Producto" estilo="" />
-                      <Select
-                        options={opcionesProductos}
-                        onChange={handleProductoChange}
-                        styles={customStyles}
-                        required
-                      />
-                    </div>
-
-                    {/* Precio unitario del producto, se añade automaticamente */}
-                    <div className="flex flex-col gap-[10px]">
-                      <Label texto="Precio Unitario" estilo="" />
-                      <input
-                        className="w-[120px] border-solid border-2 rounded-[5px] px-[10px] border-bordes-input overflow-hidden"
-                        value={precio}
-                      />
-                    </div>
-
-                    {/* Añadir cantidad */}
-                    <div className="flex flex-col gap-[10px]">
-                      <Label texto="Cantidad" estilo="" />
-                      <div className="flex gap-[10px]">
-                        <input
-                          className="w-[120px] border-solid border-2 rounded-[5px] px-[10px] border-bordes-input overflow-hidden bg-[#fff]"
-                          type="number"
-                          value={cantidad === 0 ? "" : cantidad}
-                          onChange={handleCantidadChange}
+                {/* Añadir ln pedido */}
+                <div className="flex gap-[20px] flex-col bg-[#fff] shadow rounded-[5px] py-[15px] px-[25px]">
+                  <Label texto="Detalles del Pedido" estilo="text-2xl" />
+                  <div className="flex gap-[20px] flex-wrap">
+                    {/* Añadir Producto */}
+                    <div className="flex gap-[15px]">
+                      <div className="flex flex-col gap-[10px]">
+                        <Label texto="Producto" estilo="" />
+                        <Select
+                          options={opcionesProductos}
+                          onChange={handleProductoChange}
+                          styles={customStyles}
                           required
                         />
-                        <button
-                          className="bg-[--c5] text-[--c6] h-[40px] w-[40px] justify-center pt-1 rounded-[5px] btnAgregar"
-                          type="submit"
-                          onClick={calcularSubtotal}>
-                          <span className="material-symbols-outlined hover:text-[--c5]">
-                            add
-                          </span>
-                        </button>
+                      </div>
+
+                      {/* Precio unitario del producto, se añade automaticamente */}
+                      <div className="flex flex-col gap-[10px]">
+                        <Label texto="Precio Unitario" estilo="" />
+                        <input
+                          className="w-[120px] border-solid border-2 rounded-[5px] px-[10px] border-bordes-input overflow-hidden"
+                          value={precio}
+                        />
+                      </div>
+
+                      {/* Añadir cantidad */}
+                      <div className="flex flex-col gap-[10px]">
+                        <Label texto="Cantidad" estilo="" />
+                        <div className="flex gap-[10px]">
+                          <input
+                            className="w-[120px] border-solid border-2 rounded-[5px] px-[10px] border-bordes-input overflow-hidden bg-[#fff]"
+                            type="number"
+                            value={cantidad === 0 ? "" : cantidad}
+                            onChange={handleCantidadChange}
+                            required
+                          />
+                          <button
+                            className="bg-[--c5] text-[--c6] h-[40px] w-[40px] justify-center pt-1 rounded-[5px] btnAgregar"
+                            type="button"
+                            onClick={calcularSubtotal}>
+                            <span className="material-symbols-outlined hover:text-[--c5]">
+                              add
+                            </span>
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                {/* Lineas de pedido */}
-                <Label texto="Pedido" estilo="" />
-                <div className="flex gap-[20px] flex-col h-[26vh] overflow-y-auto border-2 border-[--c9]">
-                  <table>
-                    <thead className="sticky top-0 ">
-                      <tr>
-                        <th className="w-[5%]"></th>
-                        <th className="w-[5%]">ID</th>
-                        <th className="w-[45%]">Producto</th>
-                        <th className="w-[15%]">Precio</th>
-                        <th className="w-[15%]">Cantidad</th>
-                        <th className="w-[15%]">Subtotal</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {lnPedido.map((producto, index) => (
-                        <tr key={index}>
-                          <td className="text-center">
-                            <button
-                              type="button"
-                              onClick={() => eliminarProducto(index)}>
-                              <span className="material-symbols-outlined hover:text-[--c5]">
-                                delete
-                              </span>
-                            </button>
-                          </td>
-                          <td>{index + 1}</td>
-                          <td>{producto.nombre}</td>
-                          <td>{producto.precio}</td>
-                          <td>{producto.cant}</td>
-                          <td>{producto.subtot}</td>
+                  {/* Lineas de pedido */}
+                  <Label texto="Pedido" estilo="" />
+                  <div className="flex gap-[20px] flex-col h-[26vh] overflow-y-auto border-2 border-[--c9]">
+                    <table>
+                      <thead className="sticky top-0 ">
+                        <tr>
+                          <th className="w-[5%]"></th>
+                          <th className="w-[5%]">ID</th>
+                          <th className="w-[45%]">Producto</th>
+                          <th className="w-[15%]">Precio</th>
+                          <th className="w-[15%]">Cantidad</th>
+                          <th className="w-[15%]">Subtotal</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-                <div className="flex gap-[10px]  items-center">
-                  <div className="flex gap-[10px] flex-col w-full h-[40px]">
-                    <textarea
-                      className="w-full border-solid border rounded-[5px] px-[10px] border-bordes-input overflow-hidden 
-                 focus:border-green focus:border-solid focus:border-2 focus:outline-none p-[5px] resize-none"
-                      placeholder="Observación"
-                      {...register1("observacion")}
-                    />
+                      </thead>
+                      <tbody>
+                        {lnPedido.map((producto, index) => (
+                          <tr key={index}>
+                            <td className="text-center">
+                              <button
+                                type="button"
+                                onClick={() => eliminarProducto(index)}>
+                                <span className="material-symbols-outlined hover:text-[--c5]">
+                                  delete
+                                </span>
+                              </button>
+                            </td>
+                            <td>{index + 1}</td>
+                            <td>{producto.nombre}</td>
+                            <td>{producto.precio}</td>
+                            <td>{producto.cantidad}</td>
+                            <td>{producto.subtotal}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
                   </div>
-                  <div className="flex gap-[20px] items-center">
-                    <Label texto="Total" estilo="text-2xl" />
-                    <input
-                      type="number"
-                      className="w-[160px] border-solid border-2 rounded-[5px] px-[10px] border-bordes-input overflow-hidden"
-                      value={total}
-                      readOnly
-                    />
+                  <div className="flex gap-[10px]  items-center">
+                    <div className="flex gap-[10px] flex-col w-full h-[40px]">
+                      <textarea
+                        className="w-full border-solid border rounded-[5px] px-[10px] border-bordes-input overflow-hidden 
+                 focus:border-green focus:border-solid focus:border-2 focus:outline-none p-[5px] resize-none"
+                        placeholder="Observación"
+                        {...register1("observacion")}
+                      />
+                    </div>
+                    <div className="flex gap-[20px] items-center">
+                      <Label texto="Total" estilo="text-2xl" />
+                      <input
+                        type="number"
+                        className="w-[160px] border-solid border-2 rounded-[5px] px-[10px] border-bordes-input overflow-hidden"
+                        value={total}
+                        readOnly
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
