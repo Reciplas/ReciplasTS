@@ -125,6 +125,26 @@ select {
   transition: all 0.2s;
 }
 
+.btnImprimir2 {
+  display: flex;
+  align-items: center;
+
+  text-transform: uppercase;
+  width: fit-content;
+  height: fit-content;
+
+  cursor: pointer;
+  padding: 10px;
+  font-size: 16px;
+  transition: all 0.2s;
+  border: solid 1px var(--c1);
+}
+
+.btnImprimir2:hover {
+  transition: all 0.2s;
+  font-weight: 600;
+}
+
 .btnAgregar {
   transition: all 0.2s;
 }
@@ -138,7 +158,8 @@ select {
 }
 
 .btnImprimir:active,
-.btnAgregar:active {
+.btnAgregar:active,
+.btnImprimir2:active {
   transform: translateY(-3px);
 }
 

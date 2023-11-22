@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import "../componentes/Tabla.css";
 import Select from "react-select";
 import axios from "axios";
-import { AgregarCliente, PopUpExito } from "../componentes/Popup";
+import { AgregarCliente, PopUpError, PopUpExito } from "../componentes/Popup";
 
 interface Producto {
   producto_id: number;
@@ -70,7 +70,7 @@ function NuevoPedido() {
 
   const [tipoComprobantes, setTipoComprobante] = useState("");
 
-  const [popUpExito, setPopUpExito] = useState(false);
+  const [[popUpExito, msj], setPopUpExito] = useState([false, ""]);
 
   const [nomProd, setNomProd] = useState("");
 
@@ -78,7 +78,7 @@ function NuevoPedido() {
 
   const [cuotasSeleccionadas, setCuotasSeleccionadas] = useState(1);
 
-  const [popUpErrorMsj, setPopUpErrorMsj] = useState("");
+  const [[popUpError, msjError], setPopUpError] = useState([false, ""]);
 
   // funciones para manejar el cambio
 
@@ -192,11 +192,14 @@ function NuevoPedido() {
       asociarLineasDeProductos(idPedido);
       console.log(response);
       // Mostrar el popup
-      setPopUpExito(!popUpExito);
+      setPopUpExito([!popUpExito, "¡Pedido creado con exito!"]);
 
       // Primer timeout para ocultar el popup después de 500 milisegundos
       setTimeout(() => {
-        setPopUpExito((prevPopUpExito) => !prevPopUpExito);
+        setPopUpExito((prevPopUpExito) => [
+          !prevPopUpExito,
+          "¡Pedido creado con exito!",
+        ]);
       }, 1100);
 
       // Segundo timeout para recargar la página después de 2000 milisegundos (2 segundos)
@@ -254,8 +257,14 @@ function NuevoPedido() {
       precio: precio,
       subtotal: nuevoSubtotal,
     };
-
-    setLnPedido([...lnPedido, listaProductos]);
+    if (lnPedido.length !== 0) {
+      setLnPedido([...lnPedido, listaProductos]);
+    } else {
+      setPopUpError([!popUpError, "Error: ingrese un producto"]);
+      setTimeout(() => {
+        setPopUpError([false, "Error: ingrese un producto"]);
+      }, 1100);
+    }
 
     setCantidad(1);
   };
@@ -302,10 +311,12 @@ function NuevoPedido() {
   return (
     <div className="App">
       <MLventas seccionActual={seccionActual} />
-      <PopUpExito estado={popUpExito} msj={"¡Pedido guardado con exito!"} />
+      <PopUpError estado={popUpError} msj={msjError} />
+      <PopUpExito estado={popUpExito} msj={msj} />
       <AgregarCliente
         estado={popAgregarCliente}
         cambiarEstado={setPopAgregarCliente}
+        mensajeExito={setPopUpExito}
       />
       <div className="contenedor-principal">
         <Header perfil="Tomas Gúzman" area="Ventas" fotoDe="canelaTriste" />
@@ -483,7 +494,6 @@ function NuevoPedido() {
                             type="number"
                             value={cantidad === 0 ? "" : cantidad}
                             onChange={handleCantidadChange}
-                            required
                           />
                           <button
                             className="bg-[--c5] text-[--c6] h-[40px] w-[40px] justify-center pt-1 rounded-[5px] btnAgregar"

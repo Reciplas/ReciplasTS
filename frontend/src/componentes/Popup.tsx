@@ -1,69 +1,178 @@
 import { useForm } from "react-hook-form";
 import { BtnIcon } from "./Boton";
 import { Label, LabelObligatorio } from "./TextLabel";
+import "./Boton.css";
+import axios from "axios";
+import { useState } from "react";
 
 export function AgregarCliente({
   estado,
   cambiarEstado,
+  mensajeExito,
 }: {
   estado: boolean;
   cambiarEstado: React.Dispatch<React.SetStateAction<boolean>>;
+  mensajeExito: React.Dispatch<React.SetStateAction<[boolean, string]>>;
 }) {
-  const handleClick = () => {
+  const cerrarPopUp = () => {
     cambiarEstado(!estado);
   };
 
-  const { register: register, handleSubmit: handleSubmit } = useForm({
+  const {
+    register: register,
+    handleSubmit: handleSubmit,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
       nombres: "",
       apellidos: "",
       dni: "",
       fec_nac: "",
-      celular: "",
-      celular_alt: "",
+      celular: 0,
+      celular_alt: 0,
       email: "",
       direccion: "",
     },
   });
+
+  const onSubmit = async (data: any) => {
+    try {
+      const response = await axios.post("http://127.0.0.1:8000/api/clientes/", {
+        nombres: data.nombres,
+        apellidos: data.apellidos,
+        dni: data.dni,
+        fec_nac: data.fec_nac,
+        celular: data.celular,
+        celular_alt: data.celular_alt,
+        email: data.email,
+        direccion: data.direccion,
+      });
+
+      console.log(response);
+      cerrarPopUp();
+      mensajeExito([true, "¡Cliente creado con exito!"]);
+      setTimeout(() => {
+        mensajeExito([false, "¡Cliente creado con exito!"]);
+      }, 1100);
+    } catch (error) {
+      // Manejar errores aquí
+      console.error("Error al enviar el formulario:", error);
+    }
+  };
+
   return (
     <>
       {estado && (
         <div className="fixed inset-0 flex items-center justify-center z-50 w-full h-full bg-[#1F1F1F] bg-opacity-50">
-          <div className="z-51 bg-[--c11] p-4 rounded shadow-xl border-solid border-2 border-[--c12] w-[60%] h-[90%]">
+          <div className="z-51 bg-[--c11] shadow-xl border-solid border-2 border-[--c12]   bg-gray-800 r p-6 w-full max-w-md bg-gray-800 rounded-lg flex flex-col gap-[15px]">
             <div className=" divide-[--c12] divide-y-2">
-              <h2 className="text-2xl font-bold mb-4 justify-center items-center flex">
+              <h2 className="text-2xl font-bold text-gray-200 mb-4">
                 Registrar Nuevo Cliente
               </h2>
               <div></div>
             </div>
 
             <form
-              onSubmit={() => {
-                console.log("Nombre: ");
-              }}>
-              <div className="flex flex-wrap w-full overflow-auto">
-                <LabelObligatorio texto={"Nombre"} />
-                <input type="text" {...register("nombres")} required />
-                <LabelObligatorio texto={"Apellido"} />
-                <input type="text" {...register("apellidos")} required />
-                <LabelObligatorio texto={"DNI"} />
-                <input type="number" {...register("dni")} required />
-                <LabelObligatorio texto={"Fecha de nacimiento"} />
-                <input type="date" {...register("fec_nac")} required />
-                <LabelObligatorio texto={"Celular"} />
-                <input type="tel" {...register("celular")} required />
-                <Label texto={"Celular alternativo"} estilo={""} />
-                <input type="tel" {...register("celular_alt")} />
-                <LabelObligatorio texto={"Correo Electrónico"} />
-                <input type="email" {...register("email")} required />
-                <LabelObligatorio texto={"Domicilio"} />
-                <input type="text" {...register("direccion")} required />
+              className="flex flex-col gap-[15px]"
+              onSubmit={handleSubmit(onSubmit)}>
+              <div className="flex flex-col gap-[15px]">
+                <div className="flex space-x-4 ">
+                  <div>
+                    <LabelObligatorio texto={"Nombre"} />
+                    <input
+                      type="text"
+                      {...register("nombres")}
+                      required
+                      className="bg-gray-700 text-gray-200 border-0 rounded-md p-2 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                    />
+                  </div>
+                  <div>
+                    <LabelObligatorio texto={"Apellido"} />
+                    <input
+                      type="text"
+                      {...register("apellidos")}
+                      required
+                      className="bg-gray-700 text-gray-200 border-0 rounded-md p-2  focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <LabelObligatorio texto={"DNI"} />
+                  <input
+                    type="number"
+                    {...register("dni", {
+                      pattern: {
+                        value: /^\d{8}$/,
+                        message: "Número invalido",
+                      },
+                    })}
+                    required
+                    className="bg-gray-700 text-gray-200 border-0 rounded-md p-2 w-full focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                  />
+                </div>
+                <div>
+                  <LabelObligatorio texto={"Fecha de nacimiento"} />
+                  <input
+                    type="date"
+                    {...register("fec_nac")}
+                    required
+                    className="bg-gray-700 text-gray-200 border-0 rounded-md p-2 w-full focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                  />
+                </div>
+                <div>
+                  <LabelObligatorio texto={"Celular"} />
+                  <input
+                    type="tel"
+                    {...register("celular", {
+                      pattern: /^\d{10}$/,
+                    })}
+                    required
+                    className="bg-gray-700 text-gray-200 border-0 rounded-md p-2 w-full focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                  />
+                </div>
+                <div>
+                  <Label texto={"Celular alternativo"} estilo={"mb-2"} />
+                  <input
+                    type="tel"
+                    {...register("celular_alt")}
+                    className="bg-gray-700 text-gray-200 border-0 rounded-md p-2 w-full focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                  />
+                </div>
+                <div>
+                  <LabelObligatorio texto={"Correo Electrónico"} />
+                  <input
+                    type="email"
+                    {...register("email", {
+                      pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/i,
+                    })}
+                    required
+                    className="bg-gray-700 text-gray-200 border-0 rounded-md p-2 w-full focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                  />
+                </div>
+                <div>
+                  <LabelObligatorio texto={"Domicilio"} />
+                  <div className=" divide-[--c12] divide-y-2 flex flex-col gap-[20px]">
+                    <input
+                      type="text"
+                      {...register("direccion")}
+                      required
+                      className="bg-gray-700 text-gray-200 border-0 rounded-md p-2 w-full focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                    />
+                    <div></div>
+                  </div>
+                </div>
               </div>
+
               <div className="flex justify-end items-end">
                 <button
-                  className="mt-4 bg-blue-500 text-white px-4 py-2 rounded "
-                  onClick={handleClick}>
-                  Cerrar Popup
+                  className=" text-white px-4 py-2 rounded btnImprimir2"
+                  onClick={cerrarPopUp}>
+                  cancelar
+                </button>
+                <button
+                  type="submit"
+                  className="text-white px-4 py-2 rounded btnImprimir">
+                  Guardar
                 </button>
               </div>
             </form>
