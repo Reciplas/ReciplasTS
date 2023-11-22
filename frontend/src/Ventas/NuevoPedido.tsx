@@ -178,37 +178,47 @@ function NuevoPedido() {
   // post de la BD
 
   const onSubmit = async (formData: any) => {
-    try {
-      const response = await axios.post("http://127.0.0.1:8000/api/pedidos/", {
-        cliente_id: idCliente,
-        tipo_comprobante: tipoComprobantes,
-        forma_pago: formData.forma_pago,
-        observacion: formData.observacion,
-        cuotas: formData.cuotas,
-        total: total,
-      });
-
-      obtenerPedidos();
-      asociarLineasDeProductos(idPedido);
-      console.log(response);
-      // Mostrar el popup
-      setPopUpExito([!popUpExito, "¡Pedido creado con exito!"]);
-
-      // Primer timeout para ocultar el popup después de 500 milisegundos
+    if (lnPedido.length === 0) {
+      setPopUpError([!popUpError, "Error: ingrese un producto"]);
       setTimeout(() => {
-        setPopUpExito((prevPopUpExito) => [
-          !prevPopUpExito,
-          "¡Pedido creado con exito!",
-        ]);
+        setPopUpError([false, "Error: ingrese un producto"]);
       }, 1100);
+    } else {
+      try {
+        const response = await axios.post(
+          "http://127.0.0.1:8000/api/pedidos/",
+          {
+            cliente_id: idCliente,
+            tipo_comprobante: tipoComprobantes,
+            forma_pago: formData.forma_pago,
+            observacion: formData.observacion,
+            cuotas: formData.cuotas,
+            total: total,
+          }
+        );
 
-      // Segundo timeout para recargar la página después de 2000 milisegundos (2 segundos)
-      setTimeout(() => {
-        window.location.reload();
-      }, 1110);
-    } catch (error) {
-      // Manejar errores aquí
-      console.error("Error al enviar el formulario:", error);
+        obtenerPedidos();
+        asociarLineasDeProductos(idPedido);
+        console.log(response);
+        // Mostrar el popup
+        setPopUpExito([!popUpExito, "¡Pedido creado con exito!"]);
+
+        // Primer timeout para ocultar el popup después de 500 milisegundos
+        setTimeout(() => {
+          setPopUpExito((prevPopUpExito) => [
+            !prevPopUpExito,
+            "¡Pedido creado con exito!",
+          ]);
+        }, 1100);
+
+        // Segundo timeout para recargar la página después de 2000 milisegundos (2 segundos)
+        setTimeout(() => {
+          window.location.reload();
+        }, 1110);
+      } catch (error) {
+        // Manejar errores aquí
+        console.error("Error al enviar el formulario:", error);
+      }
     }
   };
 
@@ -257,7 +267,7 @@ function NuevoPedido() {
       precio: precio,
       subtotal: nuevoSubtotal,
     };
-    if (lnPedido.length !== 0) {
+    if (nomProd !== "") {
       setLnPedido([...lnPedido, listaProductos]);
     } else {
       setPopUpError([!popUpError, "Error: ingrese un producto"]);
