@@ -2,7 +2,7 @@ import { MLventas } from "../componentes/MenuLateral";
 import "../App.css";
 import Header from "../componentes/Header";
 import { Btn } from "../componentes/Boton";
-import { AGTable } from "../componentes/AGTable";
+import { AGPedidos, AGTable } from "../componentes/AGTable";
 import { Link } from "react-router-dom";
 
 function Pedidos() {
@@ -16,7 +16,7 @@ function Pedidos() {
           <h1>Listado de pedidos</h1>
         </div>
 
-        <AGTable endpointPath={"http://127.0.0.1:8000/api/pedidos/"} />
+        <AGPedidos endpointPath={"http://127.0.0.1:8000/api/pedidos/"} />
 
         <div className="flex justify-between">
           <div className="flex gap-[8px]">

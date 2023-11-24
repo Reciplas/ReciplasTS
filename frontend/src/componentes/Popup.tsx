@@ -3,7 +3,101 @@ import { BtnIcon } from "./Boton";
 import { Label, LabelObligatorio } from "./TextLabel";
 import "./Boton.css";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Pedidos from "../Produccion/Pedidos";
+
+export function PopUpDetalle({
+  estado,
+  cambiarEstado,
+  datos,
+  id_pedido,
+  deseleccionar,
+}: {
+  estado: boolean;
+  cambiarEstado: React.Dispatch<React.SetStateAction<boolean>>;
+  datos: Array<any>;
+  id_pedido: number;
+  deseleccionar: any;
+}) {
+  const cerrarPopUp = () => {
+    cambiarEstado(!estado);
+    deseleccionar();
+  };
+  console.log("Datos:", datos);
+
+  interface Pedido {
+    ID: number;
+    nombres: string;
+    apellidos: string;
+    tipo: string;
+    cuotas: string;
+    observación: string;
+    total: number;
+  }
+  const [pedido, setPedido] = useState<Pedido>();
+
+  useEffect(() => {
+    // Realizar la solicitud GET a la API solo si hay un pedido seleccionado
+    if (id_pedido !== null && id_pedido !== undefined) {
+      axios
+        .get<Pedido>(`http://127.0.0.1:8000/api/pedidos/${id_pedido}`)
+        .then((response) => {
+          // Actualizar el estado con los datos obtenidos
+          setPedido(response.data);
+        })
+        .catch((error) => {
+          console.error("Error al obtener datos:", error);
+        });
+    }
+  }, [id_pedido]);
+
+  return (
+    <>
+      {estado && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 w-full h-full bg-[#1F1F1F] bg-opacity-50">
+          <div className="z-51 bg-[--c11] shadow-xl border-solid border-2 border-[--c12]   bg-gray-800 r p-6 w-full max-w-md bg-gray-800 rounded-lg flex flex-col gap-[15px]">
+            <div className=" divide-[--c12] divide-y-2">
+              <h2 className="text-2xl font-bold text-gray-200 mb-4">
+                Detalles del pedido Nro° {id_pedido}
+              </h2>
+              <div></div>
+            </div>
+            <div>
+              <h2 className="text-xl font-bold text-gray-200 mb-4">Cliente</h2>
+              <p>
+                {pedido?.nombres} {pedido?.apellidos}
+              </p>
+              <h2 className="text-xl font-bold text-gray-200 mb-4">
+                Forma de pago
+              </h2>
+              <p>
+                {pedido?.cuotas === "1/1"
+                  ? "Efectivo"
+                  : `Tarjeta - Cuotas ${pedido?.cuotas}`}
+              </p>
+              <h2 className="text-xl font-bold text-gray-200 mb-4">
+                Tipo de comprobante
+              </h2>
+              <p>{pedido?.tipo}</p>
+              <h2 className="text-xl font-bold text-gray-200 mb-4">
+                Observación
+              </h2>
+              <p>{pedido?.observación}</p>
+
+              <h2 className="text-xl font-bold text-gray-200 mb-4">Total</h2>
+              <p>{pedido?.total}</p>
+            </div>
+            <button
+              className=" text-white px-4 py-2 rounded btnImprimir2"
+              onClick={cerrarPopUp}>
+              cancelar
+            </button>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
 
 export function AgregarCliente({
   estado,

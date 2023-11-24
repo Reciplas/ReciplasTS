@@ -162,9 +162,12 @@ function NuevoPedido() {
 
       // Encontrar el ID más grande usando Math.max
       const maxId = Math.max(...listaIds);
-
+      const nuevoId = maxId;
+      console.log("maxID:", nuevoId);
       // Guardar el ID más grande en el estado
-      setIdPedido(maxId);
+
+      return nuevoId;
+      // setIdPedido(nuevoId);
     } catch (error) {
       console.error("Error al obtener los pedidos:", error);
     }
@@ -196,10 +199,10 @@ function NuevoPedido() {
             total: total,
           }
         );
-
-        obtenerPedidos();
-        asociarLineasDeProductos(idPedido);
+        const nuevoID = await obtenerPedidos();
+        asociarLineasDeProductos(nuevoID);
         console.log(response);
+        console.log("idPedido:", nuevoID);
         // Mostrar el popup
         setPopUpExito([!popUpExito, "¡Pedido creado con exito!"]);
 
@@ -300,7 +303,7 @@ function NuevoPedido() {
     },
   });
 
-  const asociarLineasDeProductos = async (pedidoId: number) => {
+  const asociarLineasDeProductos = async (pedidoId: number | undefined) => {
     try {
       // Realizar una solicitud POST para asociar cada línea de producto al pedido
       for (const producto of lnPedido) {
