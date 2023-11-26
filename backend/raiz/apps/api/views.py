@@ -596,13 +596,16 @@ class PedidoView(View):
                     "apellidos": pedido.cliente_id.apellidos,
                     "nombres": pedido.cliente_id.nombres,
                     "tipo": pedido.tipo_comprobante,
-                    "forma de pago": pedido.forma_pago,
+                    "forma_pago": pedido.forma_pago,
                     "cuotas": pedido.cuotas,
                     "observación": pedido.observacion,
                     "total": pedido.total,
                     "estado": pedido.estado,
-                    "fecha creación": pedido.fecha_creacion,
-                    "fecha modificación": pedido.fecha_creacion
+                    "fecha_creacion": pedido.fecha_creacion,
+                    "fecha_modificacion": pedido.fecha_creacion,
+                    "dir_cliente": pedido.cliente_id.direccion,
+                    "tel_cliente": pedido.cliente_id.celular,
+                    "dni_cliente":pedido.cliente_id.dni,
                     }
             except Pedido.DoesNotExist:
                 datos = {"message": "Pedido not found..."}
@@ -617,13 +620,16 @@ class PedidoView(View):
                     "apellidos": pedido.cliente_id.apellidos,
                     "nombres": pedido.cliente_id.nombres,
                     "tipo": pedido.tipo_comprobante,
-                    "forma de pago": pedido.forma_pago,
+                    "forma_pago": pedido.forma_pago,
                     "cuotas": pedido.cuotas,
                     "observación": pedido.observacion,
                     "total": pedido.total,
                     "estado": pedido.estado,
-                    "fecha creación": pedido.fecha_creacion,
-                    "fecha modificación": pedido.fecha_creacion
+                    "fecha_creacion": pedido.fecha_creacion,
+                    "fecha_modificacion": pedido.fecha_creacion,
+                    "dir_cliente": pedido.cliente_id.direccion,
+                    "tel_cliente": pedido.cliente_id.celular,
+                    "dni_cliente":pedido.cliente_id.dni,
                     } for pedido in pedidos]
             else:
                 datos = {"message": "Pedidos no encontrados..."}
@@ -636,13 +642,13 @@ class PedidoView(View):
             cliente_id = data.get("cliente_id", None)
             cliente = Cliente.objects.get(id=cliente_id) if cliente_id else None
 
-            cuotas_cant = data.get("cuotas", "")
+            # cuotas_cant = data.get("cuotas", "")
 
             nueva_pedido = Pedido(
                 cliente_id=cliente,  # Asignar la instancia de Cliente, no el ID
                 tipo_comprobante=data.get("tipo_comprobante", ""),
                 forma_pago=data.get("forma_pago", ""),
-                cuotas="1/" + cuotas_cant, 
+                cuotas= data.get("cuotas", ""), 
                 observacion=data.get("observacion", ""),
                 total=data.get("total", None),
             )

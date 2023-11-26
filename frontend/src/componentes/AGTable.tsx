@@ -193,11 +193,13 @@ export function AGPedidos({ endpointPath }: { endpointPath: string }) {
     { field: "ID", filter: "agNumberColumnFilter", width: 150, sort: "desc" },
 
     {
+      headerName: "Nombre",
       field: "nombres",
       filter: "agTextColumnFilter",
       suppressSizeToFit: true,
     },
     {
+      headerName: "Apellido",
       field: "apellidos",
       filter: "agTextColumnFilter",
       suppressSizeToFit: true,
@@ -208,7 +210,8 @@ export function AGPedidos({ endpointPath }: { endpointPath: string }) {
       suppressSizeToFit: true,
     },
     {
-      field: "forma de pago",
+      field: "forma_pago",
+      headerName: "Forma de pago",
       filter: "agTextColumnFilter",
       suppressSizeToFit: true,
     },
@@ -234,12 +237,14 @@ export function AGPedidos({ endpointPath }: { endpointPath: string }) {
       suppressSizeToFit: true,
     },
     {
-      field: "fecha creación",
+      field: "fecha_creacion",
+      headerName: "Fecha de creación",
       filter: "agTextColumnFilter",
       suppressSizeToFit: true,
     },
     {
-      field: "fecha modificación",
+      field: "fecha_modificacion",
+      headerName: "Fecha de modificación",
       filter: "agTextColumnFilter",
       suppressSizeToFit: true,
     },
