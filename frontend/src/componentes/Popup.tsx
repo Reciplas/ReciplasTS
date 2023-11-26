@@ -13,12 +13,14 @@ export function PopUpDetalle({
   datos,
   id_pedido,
   deseleccionar,
+  mensajeExito,
 }: {
   estado: boolean;
   cambiarEstado: React.Dispatch<React.SetStateAction<boolean>>;
   datos: Array<any>;
   id_pedido: number;
   deseleccionar: any;
+  mensajeExito: React.Dispatch<React.SetStateAction<[boolean, string]>>;
 }) {
   const cerrarPopUp = () => {
     cambiarEstado(!estado);
@@ -40,22 +42,60 @@ export function PopUpDetalle({
     tel_cliente: number;
     dni_cliente: number;
   }
+  interface Producto {
+    producto_id: number;
+    producto_nombre: string;
+    precio: number;
+    cantidad: number;
+    subtotal: number;
+  }
   const [pedido, setPedido] = useState<Pedido>();
+  const [productos, setProductos] = useState<Producto[]>([]);
+  const [estadoSeleccionado, setEstadoSeleccionado] = useState("");
 
   useEffect(() => {
-    // Realizar la solicitud GET a la API solo si hay un pedido seleccionado
+    // Realizar ambas solicitudes usando Axios
     if (id_pedido !== null && id_pedido !== undefined) {
       axios
-        .get<Pedido>(`http://127.0.0.1:8000/api/pedidos/${id_pedido}`)
-        .then((response) => {
-          // Actualizar el estado con los datos obtenidos
-          setPedido(response.data);
-        })
+        .all([
+          axios.get(`http://127.0.0.1:8000/api/pedidos/${id_pedido}`),
+          axios.get(`http://127.0.0.1:8000/api/linea_pedidos/${id_pedido}`),
+        ])
+        .then(
+          axios.spread((pedidoResponse, productosResponse) => {
+            // Actualizar el estado con los datos obtenidos
+            setPedido(pedidoResponse.data);
+            setProductos(productosResponse.data);
+            console.log("Pedido:", pedidoResponse.data);
+            console.log("Líneas de pedido:", productosResponse.data);
+            setEstadoSeleccionado(pedidoResponse.data.estado);
+          })
+        )
         .catch((error) => {
           console.error("Error al obtener datos:", error);
         });
     }
   }, [id_pedido]);
+
+  const guardarCambios = async () => {
+    try {
+      // Realizar la solicitud PUT a la API con el nuevo estado
+      await axios.put(`http://127.0.0.1:8000/api/pedidos/${id_pedido}`, {
+        estado: estadoSeleccionado,
+      });
+
+      cerrarPopUp();
+      mensajeExito([true, "¡Cliente creado con exito!"]);
+      setTimeout(() => {
+        mensajeExito([false, "¡Cliente creado con exito!"]);
+      }, 1100);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1110);
+    } catch (error) {
+      console.error("Error al guardar cambios:", error);
+    }
+  };
 
   return (
     <>
@@ -75,24 +115,73 @@ export function PopUpDetalle({
               <div></div>
             </div>
             <div className="flex flex-col gap-[10px]">
-              <div className="flex gap-[5px]">
-                <div className="flex flex-col gap-[10px]">
-                  <p className="font-[600]">Cliente:</p>
-                  <p className="font-[600]">DNI:</p>
-                  <p className="font-[600]">Teléfono:</p>
-                  <p className="font-[600]">Dirección:</p>
-                  <p className="font-[600]">Tipo:</p>
+              <div className="flex justify-between">
+                <div className="flex gap-[5px]">
+                  <div className="flex flex-col gap-[10px]">
+                    <p className="font-[600]">Cliente:</p>
+                    <p className="font-[600]">DNI:</p>
+                    <p className="font-[600]">Teléfono:</p>
+                    <p className="font-[600]">Dirección:</p>
+                    <p className="font-[600]">Tipo:</p>
+                  </div>
+                  <div className="flex flex-col gap-[10px]">
+                    <p>
+                      {pedido?.nombres} {pedido?.apellidos}
+                    </p>
+                    <p>{pedido?.dni_cliente}</p>
+                    <p>{pedido?.tel_cliente}</p>
+                    <p>{pedido?.dir_cliente}</p>
+                    <p>{pedido?.tipo}</p>
+                  </div>
                 </div>
-                <div className="flex flex-col gap-[10px]">
-                  <p>
-                    {pedido?.nombres} {pedido?.apellidos}
-                  </p>
-                  <p>{pedido?.dni_cliente}</p>
-                  <p>{pedido?.tel_cliente}</p>
-                  <p>{pedido?.dir_cliente}</p>
-                  <p>{pedido?.tipo}</p>
+                <div className="flex flex-col gap-[10px] text-right">
+                  <p className="font-[600]">Estado</p>
+                  <label className="flex gap-[15px] justify-between">
+                    <input
+                      className="accent-[--c5]"
+                      type="radio"
+                      value="Pendiente"
+                      checked={estadoSeleccionado === "Pendiente"}
+                      onChange={() => setEstadoSeleccionado("Pendiente")}
+                    />
+                    Pendiente
+                  </label>
+
+                  <label className="flex gap-[15px] justify-between">
+                    <input
+                      className="accent-[--c5]"
+                      type="radio"
+                      value="Fabricación"
+                      checked={estadoSeleccionado === "Fabricación"}
+                      onChange={() => setEstadoSeleccionado("Fabricación")}
+                    />
+                    Fabricación
+                  </label>
+
+                  <label className="flex gap-[10px] justify-between">
+                    <input
+                      className="accent-[--c5]"
+                      type="radio"
+                      value="Entrega"
+                      checked={estadoSeleccionado === "Entrega"}
+                      onChange={() => setEstadoSeleccionado("Entrega")}
+                    />
+                    Entrega
+                  </label>
+
+                  <label className="flex gap-[10px] justify-between">
+                    <input
+                      className="accent-[--c5]"
+                      type="radio"
+                      value="Finalizado"
+                      checked={estadoSeleccionado === "Finalizado"}
+                      onChange={() => setEstadoSeleccionado("Finalizado")}
+                    />
+                    Finalizado
+                  </label>
                 </div>
               </div>
+
               <div className="flex gap-[20px] flex-col  max-h-[300px] overflow-y-auto border-2 border-[--c9]">
                 <table>
                   <thead className="sticky top-0 ">
@@ -101,122 +190,39 @@ export function PopUpDetalle({
                       <th className="w-[45%]">Producto</th>
                       <th className="w-[15%]">Precio</th>
                       <th className="w-[15%]">Cantidad</th>
-                      <th className="w-[15%]">Subtotal</th>
+                      <th className="w-[20%]">Subtotal</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {/* {lnPedido.map((producto, index) => (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{producto.nombre}</td>
-                    <td>{producto.precio}</td>
-                    <td>{producto.cantidad}</td>
-                    <td>{producto.subtotal}</td>
-                  </tr>
-                  ))} */}
-                    <tr>
-                      <td>12</td>
-                      <td>BOTELLA</td>
-                      <td>1234</td>
-                      <td>2</td>
-                      <td>124124</td>
-                    </tr>
-                    <tr>
-                      <td>12</td>
-                      <td>BOTELLA</td>
-                      <td>1234</td>
-                      <td>2</td>
-                      <td>124124</td>
-                    </tr>
-                    <tr>
-                      <td>12</td>
-                      <td>BOTELLA</td>
-                      <td>1234</td>
-                      <td>2</td>
-                      <td>124124</td>
-                    </tr>
-                    <tr>
-                      <td>12</td>
-                      <td>BOTELLA</td>
-                      <td>1234</td>
-                      <td>2</td>
-                      <td>124124</td>
-                    </tr>
-                    <tr>
-                      <td>12</td>
-                      <td>BOTELLA</td>
-                      <td>1234</td>
-                      <td>2</td>
-                      <td>124124</td>
-                    </tr>
-                    <tr>
-                      <td>12</td>
-                      <td>BOTELLA</td>
-                      <td>1234</td>
-                      <td>2</td>
-                      <td>124124</td>
-                    </tr>
-                    <tr>
-                      <td>12</td>
-                      <td>BOTELLA</td>
-                      <td>1234</td>
-                      <td>2</td>
-                      <td>124124</td>
-                    </tr>
-                    <tr>
-                      <td>12</td>
-                      <td>BOTELLA</td>
-                      <td>1234</td>
-                      <td>2</td>
-                      <td>124124</td>
-                    </tr>
-                    <tr>
-                      <td>12</td>
-                      <td>BOTELLA</td>
-                      <td>1234</td>
-                      <td>2</td>
-                      <td>124124</td>
-                    </tr>
-                    <tr>
-                      <td>12</td>
-                      <td>BOTELLA</td>
-                      <td>1234</td>
-                      <td>2</td>
-                      <td>124124</td>
-                    </tr>
-                    <tr>
-                      <td>12</td>
-                      <td>BOTELLA</td>
-                      <td>1234</td>
-                      <td>2</td>
-                      <td>124124</td>
-                    </tr>
-                    <tr>
-                      <td>12</td>
-                      <td>BOTELLA</td>
-                      <td>1234</td>
-                      <td>2</td>
-                      <td>124124</td>
-                    </tr>
-                    <tr>
-                      <td>12</td>
-                      <td>BOTELLA</td>
-                      <td>1234</td>
-                      <td>2</td>
-                      <td>124124</td>
-                    </tr>
+                    {productos.map((producto, index) => (
+                      <tr key={index}>
+                        <td>{1 + index}</td>
+                        <td>{producto.producto_nombre}</td>
+                        <td>{producto.precio}</td>
+                        <td>{producto.cantidad}</td>
+                        <td>{"$" + producto.subtotal}</td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
+              <div></div>
 
-              <div className="flex gap-[30px]">
-                <div className="flex gap-[5px]">
-                  <p className="font-[600]">Forma de pago:</p>
-                  <p>{pedido?.forma_pago}</p>
+              <div className="flex justify-between">
+                <div className="flex gap-[30px]">
+                  <div className="flex gap-[5px]">
+                    <p className="font-[600]">Forma de pago:</p>
+                    <p>{pedido?.forma_pago}</p>
+                  </div>
+                  <div className="flex gap-[5px]">
+                    <p className="font-[600]">Cuotas:</p>
+                    <p>{pedido?.cuotas}</p>
+                  </div>
                 </div>
-                <div className="flex gap-[5px]">
-                  <p className="font-[600]">Cuotas:</p>
-                  <p>{pedido?.cuotas}</p>
+
+                <div className="flex gap-[5px] mr-[23px]">
+                  <p className="font-[600] uppercase">Total:</p>
+                  <p>{"$" + pedido?.total}</p>
                 </div>
               </div>
               <p className="font-[600]">Observación:</p>
@@ -224,11 +230,18 @@ export function PopUpDetalle({
                 <p>{pedido?.observación}</p>
               </div>
             </div>
-            <button
-              className=" text-white px-4 py-2 rounded btnImprimir2"
-              onClick={cerrarPopUp}>
-              cancelar
-            </button>
+            <div className="flex justify-end items-end gap-[10px]">
+              <button
+                className=" text-white px-4 py-2 rounded btnImprimir2"
+                onClick={cerrarPopUp}>
+                Cerrar
+              </button>
+              <button
+                onClick={guardarCambios}
+                className="text-white px-4 py-2 rounded btnImprimir">
+                Guardar
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -285,6 +298,9 @@ export function AgregarCliente({
       setTimeout(() => {
         mensajeExito([false, "¡Cliente creado con exito!"]);
       }, 1100);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1110);
     } catch (error) {
       // Manejar errores aquí
       console.error("Error al enviar el formulario:", error);
@@ -394,7 +410,7 @@ export function AgregarCliente({
                 </div>
               </div>
 
-              <div className="flex justify-end items-end">
+              <div className="flex justify-end items-end gap-[10px]">
                 <button
                   className=" text-white px-4 py-2 rounded btnImprimir2"
                   onClick={cerrarPopUp}>

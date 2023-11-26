@@ -183,12 +183,19 @@ export function AGProducto({
   );
 }
 
-export function AGPedidos({ endpointPath }: { endpointPath: string }) {
+export function AGPedidos({
+  endpointPath,
+  setPopUpExito,
+}: {
+  endpointPath: string;
+  setPopUpExito: React.Dispatch<React.SetStateAction<[boolean, string]>>;
+}) {
   const gridRef = useRef<AgGridReact | null>(null);
   const [rowData, setRowData] = useState();
   const [filaSelec, setFilaSelect] = useState([]);
   const [id_pedido, setId_Pedido] = useState(0);
   const [detalle, setDetalle] = useState(false);
+
   const [columnDefs, setColumnDefs] = useState<ColDef[]>([
     { field: "ID", filter: "agNumberColumnFilter", width: 150, sort: "desc" },
 
@@ -242,12 +249,12 @@ export function AGPedidos({ endpointPath }: { endpointPath: string }) {
       filter: "agTextColumnFilter",
       suppressSizeToFit: true,
     },
-    {
-      field: "fecha_modificacion",
-      headerName: "Fecha de modificación",
-      filter: "agTextColumnFilter",
-      suppressSizeToFit: true,
-    },
+    // {
+    //   field: "fecha_modificacion",
+    //   headerName: "Fecha de modificación",
+    //   filter: "agTextColumnFilter",
+    //   suppressSizeToFit: true,
+    // },
   ]);
 
   const defaultColDef = useMemo(
@@ -310,6 +317,7 @@ export function AGPedidos({ endpointPath }: { endpointPath: string }) {
         datos={filaSelec}
         id_pedido={id_pedido}
         deseleccionar={deseleccionarFilas}
+        mensajeExito={setPopUpExito}
       />
       <div className="ag-theme-alpine" style={{ height: 650 }}>
         <AgGridReact

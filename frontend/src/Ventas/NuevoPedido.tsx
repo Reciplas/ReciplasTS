@@ -425,6 +425,7 @@ function NuevoPedido() {
                         <div className="flex gap-[10px] ">
                           <div className="flex gap-[10px] ">
                             <input
+                              className="accent-[--c5]"
                               type="radio"
                               id="opcion1"
                               value="Efectivo"
@@ -437,6 +438,7 @@ function NuevoPedido() {
                           <div className="flex flex-col gap-[5px]">
                             <div className="flex gap-[10px]">
                               <input
+                                className="accent-[--c5]"
                                 type="radio"
                                 {...register1("forma_pago")}
                                 id="opcion2"
