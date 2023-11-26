@@ -185,7 +185,7 @@ function NuevoPedido() {
       setPopUpError([!popUpError, "Error: ingrese un producto"]);
       setTimeout(() => {
         setPopUpError([false, "Error: ingrese un producto"]);
-      }, 1100);
+      }, 1150);
     } else {
       try {
         const response = await axios.post(
@@ -212,12 +212,12 @@ function NuevoPedido() {
             !prevPopUpExito,
             "¡Pedido creado con exito!",
           ]);
-        }, 1100);
+        }, 1150);
 
         // Segundo timeout para recargar la página después de 2000 milisegundos (2 segundos)
         setTimeout(() => {
           window.location.reload();
-        }, 1110);
+        }, 1150);
       } catch (error) {
         // Manejar errores aquí
         console.error("Error al enviar el formulario:", error);
@@ -276,7 +276,7 @@ function NuevoPedido() {
       setPopUpError([!popUpError, "Error: ingrese un producto"]);
       setTimeout(() => {
         setPopUpError([false, "Error: ingrese un producto"]);
-      }, 1100);
+      }, 1150);
     }
 
     setCantidad(1);

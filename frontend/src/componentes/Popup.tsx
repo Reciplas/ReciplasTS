@@ -39,6 +39,7 @@ export function PopUpDetalle({
     observación: string;
     total: number;
     dir_cliente: string;
+    email_cliente: string;
     tel_cliente: number;
     dni_cliente: number;
   }
@@ -52,6 +53,7 @@ export function PopUpDetalle({
   const [pedido, setPedido] = useState<Pedido>();
   const [productos, setProductos] = useState<Producto[]>([]);
   const [estadoSeleccionado, setEstadoSeleccionado] = useState("");
+  const [estadoOriginal, setEstadoOriginal] = useState("");
 
   useEffect(() => {
     // Realizar ambas solicitudes usando Axios
@@ -69,6 +71,7 @@ export function PopUpDetalle({
             console.log("Pedido:", pedidoResponse.data);
             console.log("Líneas de pedido:", productosResponse.data);
             setEstadoSeleccionado(pedidoResponse.data.estado);
+            setEstadoOriginal(pedidoResponse.data.estado);
           })
         )
         .catch((error) => {
@@ -78,22 +81,26 @@ export function PopUpDetalle({
   }, [id_pedido]);
 
   const guardarCambios = async () => {
-    try {
-      // Realizar la solicitud PUT a la API con el nuevo estado
-      await axios.put(`http://127.0.0.1:8000/api/pedidos/${id_pedido}`, {
-        estado: estadoSeleccionado,
-      });
+    if (estadoSeleccionado !== estadoOriginal) {
+      try {
+        // Realizar la solicitud PUT a la API con el nuevo estado
+        await axios.put(`http://127.0.0.1:8000/api/pedidos/${id_pedido}`, {
+          estado: estadoSeleccionado,
+        });
 
+        cerrarPopUp();
+        mensajeExito([true, "El estado ha sido modificado"]);
+        setTimeout(() => {
+          mensajeExito([false, "El estado ha sido modificado"]);
+        }, 1150);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1150);
+      } catch (error) {
+        console.error("Error al guardar cambios:", error);
+      }
+    } else {
       cerrarPopUp();
-      mensajeExito([true, "¡Cliente creado con exito!"]);
-      setTimeout(() => {
-        mensajeExito([false, "¡Cliente creado con exito!"]);
-      }, 1100);
-      setTimeout(() => {
-        window.location.reload();
-      }, 1110);
-    } catch (error) {
-      console.error("Error al guardar cambios:", error);
     }
   };
 
@@ -121,6 +128,7 @@ export function PopUpDetalle({
                     <p className="font-[600]">Cliente:</p>
                     <p className="font-[600]">DNI:</p>
                     <p className="font-[600]">Teléfono:</p>
+                    <p className="font-[600]">Correo:</p>
                     <p className="font-[600]">Dirección:</p>
                     <p className="font-[600]">Tipo:</p>
                   </div>
@@ -130,6 +138,7 @@ export function PopUpDetalle({
                     </p>
                     <p>{pedido?.dni_cliente}</p>
                     <p>{pedido?.tel_cliente}</p>
+                    <p>{pedido?.email_cliente}</p>
                     <p>{pedido?.dir_cliente}</p>
                     <p>{pedido?.tipo}</p>
                   </div>
@@ -178,6 +187,16 @@ export function PopUpDetalle({
                       onChange={() => setEstadoSeleccionado("Finalizado")}
                     />
                     Finalizado
+                  </label>
+                  <label className="flex gap-[10px] justify-between">
+                    <input
+                      className="accent-[#FF0000]"
+                      type="radio"
+                      value="Cancelado"
+                      checked={estadoSeleccionado === "Cancelado"}
+                      onChange={() => setEstadoSeleccionado("Cancelado")}
+                    />
+                    Cancelado
                   </label>
                 </div>
               </div>
@@ -297,10 +316,10 @@ export function AgregarCliente({
       mensajeExito([true, "¡Cliente creado con exito!"]);
       setTimeout(() => {
         mensajeExito([false, "¡Cliente creado con exito!"]);
-      }, 1100);
+      }, 1150);
       setTimeout(() => {
         window.location.reload();
-      }, 1110);
+      }, 1150);
     } catch (error) {
       // Manejar errores aquí
       console.error("Error al enviar el formulario:", error);

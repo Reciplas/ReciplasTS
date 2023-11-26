@@ -605,6 +605,7 @@ class PedidoView(View):
                     "fecha_modificacion": pedido.fecha_creacion,
                     "dir_cliente": pedido.cliente_id.direccion,
                     "tel_cliente": pedido.cliente_id.celular,
+                    "email_cliente": pedido.cliente_id.email,
                     "dni_cliente":pedido.cliente_id.dni,
                     }
             except Pedido.DoesNotExist:
@@ -802,6 +803,7 @@ class LineaPedidoView(View):
                         "ID": linea.id,
                         "ID pedido": linea.pedido_id.id,
                         "producto_id": linea.producto_id.id,
+                        "producto_nombre": linea.producto_id.nombre,
                         "cantidad": linea.cantidad,
                         "precio": linea.precio,
                         "subtotal": linea.subtotal,
