@@ -643,13 +643,13 @@ class PedidoView(View):
             cliente_id = data.get("cliente_id", None)
             cliente = Cliente.objects.get(id=cliente_id) if cliente_id else None
 
-            # cuotas_cant = data.get("cuotas", "")
+            cuotas_cant = data.get("cuotas", "")
 
             nueva_pedido = Pedido(
                 cliente_id=cliente,  # Asignar la instancia de Cliente, no el ID
                 tipo_comprobante=data.get("tipo_comprobante", ""),
                 forma_pago=data.get("forma_pago", ""),
-                cuotas= data.get("cuotas", ""), 
+                cuotas= "1/" + cuotas_cant,
                 observacion=data.get("observacion", ""),
                 total=data.get("total", None),
             )

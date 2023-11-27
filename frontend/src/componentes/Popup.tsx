@@ -245,7 +245,7 @@ export function PopUpDetalle({
                 </div>
               </div>
               <p className="font-[600]">Observación:</p>
-              <div className="border-solid border-2 border-[--c12] p-[5px] rounded-md min-h-[30px]">
+              <div className="border-solid border-2 border-[--c12] p-[5px] rounded-md min-h-[30px] max-h-[60px] overflow-auto">
                 <p>{pedido?.observación}</p>
               </div>
             </div>

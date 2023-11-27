@@ -211,21 +211,19 @@ export function AGPedidos({
       filter: "agTextColumnFilter",
       suppressSizeToFit: true,
     },
-    {
-      field: "tipo",
-      filter: "agTextColumnFilter",
-      suppressSizeToFit: true,
-    },
+
     {
       field: "forma_pago",
       headerName: "Forma de pago",
       filter: "agTextColumnFilter",
       suppressSizeToFit: true,
+      width: 150,
     },
     {
       field: "cuotas",
       filter: "agTextColumnFilter",
       suppressSizeToFit: true,
+      width: 150,
     },
     {
       field: "observación",
@@ -242,6 +240,7 @@ export function AGPedidos({
       field: "estado",
       filter: "agTextColumnFilter",
       suppressSizeToFit: true,
+      width: 150,
     },
     {
       field: "fecha_creacion",
