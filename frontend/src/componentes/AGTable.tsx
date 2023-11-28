@@ -26,15 +26,17 @@ export function AGTable({ endpointPath }: { endpointPath: string }) {
     fetch(endpointPath)
       .then((result) => result.json())
       .then((data) => {
-        const colDefs = gridRef.current?.api?.getColumnDefs();
-        if (colDefs) {
-          colDefs.length = 0;
-          const keys = Object.keys(data[0]);
-          keys.forEach((key) => colDefs.push({ field: key }));
-          console.log(data);
+        if (data && data.length > 0) {
+          const colDefs = gridRef.current?.api?.getColumnDefs();
+          if (colDefs) {
+            colDefs.length = 0;
+            const keys = Object.keys(data[0]);
+            keys.forEach((key) => colDefs.push({ field: key }));
+            console.log(data);
+          }
+          setColumnDefs(colDefs);
+          setRowData(data);
         }
-        setColumnDefs(colDefs);
-        setRowData(data);
       });
   }, [endpointPath]);
 
@@ -277,21 +279,20 @@ export function AGPedidos({
     const selectedRows = gridRef.current?.api.getSelectedRows();
     if (selectedRows && selectedRows.length > 0) {
       const selectedRowId = Number(selectedRows[0].ID);
-      console.log("ID de la fila seleccionada:", selectedRowId);
-      // Puedes hacer lo que quieras con el ID aquí
       fetch(`http://127.0.0.1:8000/api/linea_pedidos/${selectedRowId}`, {
         method: "get",
         headers: {
           "Content-Type": "application/json",
-          // Agrega cualquier otra cabecera necesaria, como tokens de autenticación, si es necesario
         },
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
-          setFilaSelect(data);
-          setId_Pedido(selectedRowId);
-          setDetalle(true);
+          if (data && data.length > 0) {
+            console.log(data);
+            setFilaSelect(data);
+            setId_Pedido(selectedRowId);
+            setDetalle(true);
+          }
         })
         .catch((error) => {
           console.error("Error al seleccionar pedido:", error);
